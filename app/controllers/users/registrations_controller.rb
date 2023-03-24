@@ -1,62 +1,64 @@
 # frozen_string_literal: true
 
+# サインアップ(パスワード登録),パスワード編集､等のコントローラー
 class Users::RegistrationsController < Devise::RegistrationsController
-  # before_action :configure_sign_up_params, only: [:create]
-  # before_action :configure_account_update_params, only: [:update]
+  before_action :configure_sign_up_params, only: [:create]
+  before_action :configure_account_update_params, only: [:update]
 
-  # GET /resource/sign_up
-  # def new
-  #   super
-  # end
+  # GET /users/sign_up
+  def new
+    super
+  end
 
-  # POST /resource
-  # def create
-  #   super
-  # end
+  # POST /users
+  def create
+    super
+  end
 
-  # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  # GET /users/edit
+  def edit
+    super
+  end
 
-  # PUT /resource
-  # def update
-  #   super
-  # end
+  # PUT /users
+  def update
+    super
+  end
 
-  # DELETE /resource
-  # def destroy
-  #   super
-  # end
+  # DELETE /users
+  def destroy
+    super
+  end
 
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
+  # GET /users/cancel
+  # 通常はサインイン後に
+  # 期限切れになるセッションデータを強制的に今すぐ期限切れにします。
+  # これは、ユーザーがすべての OAuth セッションデータを削除して、
+  # 途中で oauth サインイン/アップをキャンセルしたい場合に便利です。
+  def cancel
+    super
+  end
 
-  # protected
+  protected
+  # サインアップ時用のメソッド
+  # 許可するための追加のパラメータがある場合は、sanitizer に追加してください
+  def configure_sign_up_params
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+  end
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_sign_up_params
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
-  # end
+  # アカウント編集時用のメソッド
+  # 許可するための追加のパラメータがある場合は、sanitizer に追加してください
+  def configure_account_update_params
+    devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
+  end
 
-  # If you have extra params to permit, append them to the sanitizer.
-  # def configure_account_update_params
-  #   devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
-  # end
+  # サインアップ後に使用する path
+  def after_sign_up_path_for(resource)
+    super(resource)
+  end
 
-  # The path used after sign up.
-  # def after_sign_up_path_for(resource)
-  #   super(resource)
-  # end
-
-  # The path used after sign up for inactive accounts.
-  # def after_inactive_sign_up_path_for(resource)
-  #   super(resource)
-  # end
+  # アクティブでないアカウントのサインアップ後に使用する path
+  def after_inactive_sign_up_path_for(resource)
+    super(resource)
+  end
 end
