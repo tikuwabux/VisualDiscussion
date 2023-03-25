@@ -42,14 +42,16 @@ class Users::RegistrationsController < Devise::RegistrationsController
   protected
   # サインアップ時用のメソッド
   # 許可するための追加のパラメータがある場合は、sanitizer に追加してください
+  # :name(ユーザー名)を追加した
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute, :name])
   end
 
   # アカウント編集時用のメソッド
   # 許可するための追加のパラメータがある場合は、sanitizer に追加してください
+  # :name(ユーザー名)を追加した
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:attribute])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:attribute, :name])
   end
 
   # サインアップ後に使用する path
