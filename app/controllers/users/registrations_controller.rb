@@ -40,6 +40,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   protected
+
   # サインアップ時用のメソッド
   # 許可するための追加のパラメータがある場合は、sanitizer に追加してください
   # :name(ユーザー名)を追加した
