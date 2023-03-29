@@ -3,10 +3,6 @@ require 'rails_helper'
 RSpec.describe "Home", type: :system do
   let(:annie) { create(:user, name: "annie") }
 
-  before do
-    driven_by(:rack_test)
-  end
-
   describe "ホームページにアクセス後" do
     before do
       visit root_path
