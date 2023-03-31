@@ -1,0 +1,2 @@
+class AgendaBoard < ApplicationRecord
+end
