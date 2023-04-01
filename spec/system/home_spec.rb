@@ -52,6 +52,11 @@ RSpec.describe "Home", type: :system do
           expect(page).not_to have_content annie.email
         end
       end
+
+      scenario "｢新規議題ボード作成ページへ｣リンクを押すと､新規議題ボード作成ページに遷移すること" do
+        click_on "新規議題ボード作成ページへ"
+        expect(page).to have_current_path new_agenda_board_path
+      end
     end
   end
 end
