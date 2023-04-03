@@ -5,13 +5,16 @@ RSpec.describe "AgendaBoards", type: :system do
   let!(:about_early_bird) { create(:agenda_board, user_id: annie.id, agenda: "早起きは健康によいのか?", category: "自然科学") }
   let!(:about_chatbot) { create(:agenda_board, user_id: annie.id, agenda: "チャットボットは教育に悪影響を与えるのか?", category: "社会科学") }
 
+  before do
+    visit root_path
+    click_on "ログイン"
+    fill_in "メールアドレス", with: annie.email
+    fill_in "パスワード", with: annie.password
+    click_button "Log in"
+  end
+
   describe "新規議題ボード作成ページアクセス後" do
     before do
-      visit root_path
-      click_on "ログイン"
-      fill_in "メールアドレス", with: annie.email
-      fill_in "パスワード", with: annie.password
-      click_button "Log in"
       click_on "新規議題ボード作成ページへ"
     end
 
@@ -34,16 +37,10 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "ログインユーザーが作成した議題ボード一覧ページにアクセス後" do
     before do
-      visit root_path
-      click_on "ログイン"
-      fill_in "メールアドレス", with: annie.email
-      fill_in "パスワード", with: annie.password
-      click_button "Log in"
       click_on "#{annie.name}さんが作成した議題ボード"
     end
 
     scenario "議題ボードの議題名の一覧を動的に確認できる" do
-      save_and_open_page
       annie.agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.agenda }
     end
 
