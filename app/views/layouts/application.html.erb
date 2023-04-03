@@ -15,6 +15,7 @@
           <%= link_to 'プロフィール変更', edit_user_registration_path %>
           <%= link_to 'ログアウト', sign_out_path %>
           <%= link_to '新規議題ボード作成ページへ', new_agenda_board_path %>
+          <%= link_to "#{current_user.name}さんが作成した議題ボード", agenda_boards_path %>
         <% else %>
           <%= link_to 'サインアップ', sign_up_path %>
           <%= link_to 'ログイン', sign_in_path %>
