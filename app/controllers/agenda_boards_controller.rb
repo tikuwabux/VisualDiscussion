@@ -18,6 +18,10 @@ class AgendaBoardsController < ApplicationController
     @agenda_board = AgendaBoard.find(params[:id])
   end
 
+  def index
+    @user_created_agenda_boards = AgendaBoard.where(user_id: current_user.id).order(created_at: :desc)
+  end
+
   private
 
   def agenda_board_params
