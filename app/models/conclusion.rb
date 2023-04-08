@@ -1,0 +1,2 @@
+class Conclusion < ApplicationRecord
+end
