@@ -1,3 +1,3 @@
 class Evidence < ApplicationRecord
-  belong_to :reason
+  belongs_to :reason
 end
