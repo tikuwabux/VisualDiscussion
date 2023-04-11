@@ -1,0 +1,23 @@
+<h1><%= @agenda_board_agenda %></h1>
+<%= form_with model: @conclusion, url: arguments_path do |f| %>
+  <%= f.hidden_field :agenda_board_id, value: @agenda_board_id %>
+  <%= f.label :conclusion_summary, "結論概要" %>
+  <%= f.text_field :conclusion_summary %>
+  <%= f.label :conclusion_detail, "結論詳細" %>
+  <%= f.text_area :conclusion_detail %>
+
+  <%= f.fields_for :reasons do |reason| %>
+    <%= reason.label :reason_summary, "理由概要" %>
+    <%= reason.text_field :reason_summary %>
+    <%= reason.label :reason_detail, "理由詳細" %>
+    <%= reason.text_area :reason_detail %>
+
+    <%= reason.fields_for :evidences do |evidence| %>
+      <%= evidence.label :evidence_summary, "証拠概要" %>
+      <%= evidence.text_field :evidence_summary %>
+      <%= evidence.label :evidence_detail, "証拠詳細" %>
+      <%= evidence.text_area :evidence_detail %>
+    <% end %>
+  <% end %>
+  <%= f.submit "新規主張を作成する" %>
+<% end %>

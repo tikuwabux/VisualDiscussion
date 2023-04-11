@@ -1,3 +1,4 @@
 <div class="agenda">
   <%= @agenda_board.agenda %>
+  <%= button_to "新規主張作成", new_argument_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda} %>
 </div>
