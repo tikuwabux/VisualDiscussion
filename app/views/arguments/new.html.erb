@@ -2,7 +2,7 @@
 <h2>新規主張</h2>
 <%= form_with model: @conclusion, url: arguments_path, local: true do |f| %>
   <%= f.hidden_field :agenda_board_id, value: @agenda_board_id %>
-  <%= f.label :conclusion_summary, "結論概要" %>
+  <%= f.label :conclusion_summary, "結論" %>
   <%= f.text_field :conclusion_summary %>
   <%= f.label :conclusion_detail, "結論詳細" %>
   <%= f.text_area :conclusion_detail %>
