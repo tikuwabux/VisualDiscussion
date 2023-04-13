@@ -10,12 +10,10 @@ class ArgumentsController < ApplicationController
 
   def create
     argument = Conclusion.new(argument_params)
-
-    binding.pry
-
     if argument.valid?
       flash[:notice] = "新規主張の作成に成功しました"
       argument.save!
+      redirect_to agenda_board_path(argument.agenda_board_id)
     else
       flash[:notice] = "新規主張の作成に失敗しました｡"
       render :new
