@@ -53,4 +53,16 @@ RSpec.describe "AgendaBoards", type: :system do
       expect(page).to have_current_path agenda_board_path(about_early_bird.id)
     end
   end
+
+  describe "議題ボード詳細ページアクセス後" do
+    before do
+      click_on "#{annie.name}さんが作成した議題ボード"
+      click_on about_early_bird.agenda
+    end
+
+    scenario "｢新規主張作成｣ボタンをクリックすると､新規主張作成ページに遷移すること" do
+      click_button "新規主張作成"
+      expect(page).to have_current_path new_argument_path, ignore_query: true
+    end
+  end
 end
