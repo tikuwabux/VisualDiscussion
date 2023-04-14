@@ -1,0 +1,17 @@
+<div class="nested-fields">
+    <%= f.label :reason_summary, "理由" %>
+    <%= f.text_field :reason_summary %>
+    <%= f.label :reason_detail, "理由詳細" %>
+    <%= f.text_area :reason_detail %>
+    <%= link_to_remove_association "理由を削除", f %>
+
+    <%= f.fields_for :evidences do |evidence| %>
+        <%= render "evidence_fields", f: evidence %>
+    <% end %>
+
+    <%= link_to_add_association "証拠を追加", f, :evidences,
+        data: {
+            association_insertion_method: 'after'
+        }
+    %>
+</div>

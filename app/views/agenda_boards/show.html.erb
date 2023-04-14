@@ -1,3 +1,45 @@
 <div class="agenda">
-  <%= @agenda_board.agenda %>
+  <h1><%= @agenda_board.agenda %></h1>
+  <% @conclusions.each do |conclusion| %>
+    <table>
+      <tr>
+        <th><%= current_user.name %>さんの主張</th>
+      </tr>
+      <tr>
+        <th>結論</th>
+        <td><%= conclusion.conclusion_summary %></td>
+      </tr>
+      <tr>
+        <th>結論詳細</th>
+        <td><%= conclusion.conclusion_detail %></td>
+      </tr>
+    </table>
+
+    <% conclusion.reasons.each do |reason| %>
+      <table>
+        <tr>
+          <th>理由</th>
+          <td><%= reason.reason_summary %></td>
+        </tr>
+        <tr>
+          <th>理由詳細</th>
+          <td><%= reason.reason_detail %></td>
+        </tr>
+      </table>
+
+      <% reason.evidences.each do |evidence| %>
+        <table>
+          <tr>
+            <th>証拠</th>
+            <td><%= evidence.evidence_summary %></td>
+          </tr>
+          <tr>
+            <th>証拠詳細</th>
+            <td><%= evidence.evidence_detail %></td>
+          </tr>
+        </table>
+      <% end %>
+    <% end %>
+  <% end %>
+  <%= button_to "新規主張作成", new_argument_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda} %>
 </div>

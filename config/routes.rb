@@ -12,5 +12,5 @@ Rails.application.routes.draw do
     get 'sign_out', :to => 'users/sessions#destroy'
   end
 
-  resources :agenda_boards
+  resources :agenda_boards, :arguments
 end
