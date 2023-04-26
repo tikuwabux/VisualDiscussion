@@ -1,3 +1,61 @@
-// Place all the styles related to the AgendaBoards controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.claimant_name {
+  background: #0094D6;
+  color: #FFF;
+  margin: 0;
+  display:inline-block;
+  padding: .3em .5em;
+  border-radius: 10px 10px 0 0;
+}
+
+.argument {
+  border: 2px solid #0094D6;
+  padding: 10px;
+  width: fit-content;
+}
+
+.conclusion {
+  margin: 0 auto;
+}
+
+.endpoint {
+  background-color: aquamarine;
+  width: 20px;
+  height: 20px;
+  margin: 40px auto;
+}
+
+.bases {
+  display: flex;
+}
+
+.reason {
+  margin: 0 auto;
+}
+
+.evidences {
+  display: flex;
+}
+
+.evidence {
+  margin: 0 5px;
+}
+
+.box .inner {
+  padding: .5em;
+}
+
+.box {
+  border: 2px solid #0094D6;
+  width: 200px;
+}
+
+.box h3 {
+  background: #0094D6;
+  color: #FFF;
+  text-align: center;
+  margin: 0;
+}
+
+.inner {
+  word-break: break-all;
+}
