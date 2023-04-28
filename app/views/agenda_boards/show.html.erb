@@ -1,6 +1,6 @@
 <div class="agenda">
   <h1><%= @agenda_board.agenda %></h1>
-    <% @conclusions.each do |conclusion| %>
+    <% @conclusions.each_with_index do |conclusion, conclusion_i| %>
       <h3 class="claimant_name"><%= current_user.name %>さんの主張</h3>
       <div class="argument">
         <div class="conclusion box">
@@ -15,10 +15,10 @@
         </div>
 
         <div class="bases">
-          <% conclusion.reasons.each do |reason| %>
+          <% conclusion.reasons.each_with_index do |reason, reason_i| %>
             <div class="basis">
-              <div class="endpoint"></div>
-              <div class="reason box">
+              <div class="endpoint endpoint_between_conclusion<%= conclusion_i %>_and_reason"></div>
+              <div class="reason box reason_of_conclusion<%= conclusion_i %>">
                 <h3>理由</h3>
                 <div class="inner">
                   <%= reason.reason_summary %>
@@ -30,10 +30,10 @@
               </div>
 
               <div class="evidences">
-                <% reason.evidences.each do |evidence| %>
+                <% reason.evidences.each_with_index do |evidence| %>
                   <div class="evidence">
-                    <div class="endpoint"></div>
-                    <div class="evidence box">
+                    <div class="endpoint endpoint_between_reason<%= reason_i %>_of_conclusion<%= conclusion_i %>_and_evidence"></div>
+                    <div class="evidence box evidence_of_reason<%= reason_i %>_of_conclusion<%= conclusion_i %>">
                       <h3>証拠</h3>
                       <div class="inner">
                         <%= evidence.evidence_summary %>
@@ -53,3 +53,5 @@
     <% end %>
   <%= button_to "新規主張作成", new_argument_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda} %>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/leader-line@1.0.1/leader-line.min.js"></script>
+<%= javascript_pack_tag 'argument' %>
