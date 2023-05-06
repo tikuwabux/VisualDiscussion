@@ -294,4 +294,23 @@ jsPlumb.ready(function() {
       });
     });
   });
+
+  // 接続線が右クリックされたとき､｢削除ボタン｣を表示する
+  jsPlumb.bind("contextmenu", function (component, event) {
+    if (component.hasClass("jtk-connector")) {
+      event.preventDefault();
+      window.selectedConnection = component;
+      $("<div class='custom-menu'><button class='delete-connection'>Delete connection</button></div>")
+        .appendTo("body")
+        .css({top: event.pageY + "px", left: event.pageX + "px"});
+    }
+  });
+  // 削除ボタンが左クリックされたとき､接続線を削除する
+  $("body").on("click", ".delete-connection", function(event) {
+    jsPlumb.deleteConnection(window.selectedConnection);
+  });
+  // 削除ボタンが左クリックされたとき､｢削除ボタン｣を削除する
+  $(document).on("click", function(event) {
+    $("div.custom-menu").remove();
+  });
 });
