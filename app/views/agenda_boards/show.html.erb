@@ -3,7 +3,7 @@
     <div id="exchange_of_opinions">
     <% @conclusions.each_with_index do |conclusion, c_i| %>
       <div class="argument" id="argument<%= c_i %>">
-        <h3 class="claimant_name"><%= current_user.name %>さんの主張</h3>
+        <h3 class="type_of_opinion">主張</h3>
         <div class="tree_structure">
           <div class="conclusion box" id="conclusion<%= c_i %>">
             <h3>結論</h3>
@@ -55,7 +55,7 @@
       </div>
     <% end %>
       <div class="refutation" id="refutation0">
-        <h3 class="claimant_name">反論0</h3>
+        <h3 class="type_of_opinion">反論</h3>
         <div class="tree_structure">
           <div class="ref_conclusion box" id="ref_conclusion0">
             <h3>反論</h3>
@@ -103,7 +103,7 @@
       </div>
 
       <div class="refutation" id="refutation1">
-        <h3 class="claimant_name">反論1</h3>
+        <h3 class="type_of_opinion">反論</h3>
         <div class="tree_structure">
           <div class="ref_conclusion box" id="ref_conclusion1">
             <h3>反論</h3>
