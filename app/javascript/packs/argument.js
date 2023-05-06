@@ -308,9 +308,76 @@ jsPlumb.ready(function() {
   // 削除ボタンが左クリックされたとき､接続線を削除する
   $("body").on("click", ".delete-connection", function(event) {
     jsPlumb.deleteConnection(window.selectedConnection);
+    saveConnections();
   });
   // 削除ボタンが左クリックされたとき､｢削除ボタン｣を削除する
   $(document).on("click", function(event) {
     $("div.custom-menu").remove();
   });
+
+  // 接続が追加/削除された時に接続情報をローカルストレージに保存する
+  jsPlumb.bind("connection", function(info) {
+    saveConnections();
+  });
+  jsPlumb.bind("connectionDetached", function(info) {
+    if (!info.connection.endpoints[0].isTemporarySourceEndpoint && !info.connection.endpoints[1].isTemporaryTargetEndpoint) {
+      removeConnection(info.connection);
+      if (info.connection && !info.connection.isDetached()) {
+        saveConnections();
+      }
+    }
+  });
+
+  // ページリロード前に接続があった場合､ページリロード後に接続を復元する
+  // (ソースエンドポイントが反論である赤色の接続線のみを復元の対象とし､主張内･反論内の黒色の接続線は対象外とする)
+  var connections = JSON.parse(localStorage.getItem("connections"));
+  if (connections) {
+    jsPlumb.batch(function() {
+      connections.forEach(function(conn) {
+        if (conn.sourceId.match(/refutation/)) {
+          jsPlumb.connect({
+            source: conn.sourceId,
+            target: conn.targetId,
+            endpoint: "Dot",
+            anchors: ["TopLeft", ["RightMiddle", "LeftMiddle"]],
+            paintStyle: {stroke: "red", strokeWidth: 5},
+            hoverPaintStyle: {stroke: "red", strokeWidth: 10},
+            uuids: [conn.sourceEndpointId, conn.targetEndpointId],
+            overlays:[
+              ["Arrow", {width: 20, length: 20}]
+            ]
+          });
+        }
+      });
+    });
+  }
+
+  // 接続情報をローカルストレージに保存する関数
+  function saveConnections() {
+    var connections = [];
+    jsPlumb.getAllConnections().forEach(function(conn) {
+      if (!conn.isDetached) {
+        connections.push({
+          sourceId: conn.sourceId,
+          targetId: conn.targetId,
+          sourceEndpointId: conn.endpoints[0].getUuid(),
+          targetEndpointId: conn.endpoints[1].getUuid()
+        });
+      }
+    });
+    localStorage.setItem("connections", JSON.stringify(connections));
+  }
+
+  // 接続情報をローカルストレージから削除する関数
+  function removeConnection(connection) {
+    var connections = JSON.parse(localStorage.getItem("connections"));
+    if (connections) {
+      connections = connections.filter(function(conn) {
+        return conn.sourceId !== connection.sourceId || conn.targetId !== connection.targetId;
+      });
+      if (!connection.isDetached()) {
+        localStorage.setItem("connections", JSON.stringify(connections));
+      }
+    }
+  }
 });
