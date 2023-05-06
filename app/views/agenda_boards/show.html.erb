@@ -1,56 +1,155 @@
 <div class="agenda">
   <h1><%= @agenda_board.agenda %></h1>
+    <div id="exchange_of_opinions">
     <% @conclusions.each_with_index do |conclusion, c_i| %>
-      <h3 class="claimant_name"><%= current_user.name %>さんの主張</h3>
-      <div class="argument">
-        <div class="conclusion box" id="conclusion<%= c_i %>">
-          <h3>結論</h3>
-          <div class="inner">
-            <%= conclusion.conclusion_summary %>
+      <div class="argument" id="argument<%= c_i %>">
+        <h3 class="claimant_name"><%= current_user.name %>さんの主張</h3>
+        <div class="tree_structure">
+          <div class="conclusion box" id="conclusion<%= c_i %>">
+            <h3>結論</h3>
+            <div class="inner">
+              <%= conclusion.conclusion_summary %>
+            </div>
+            <h3>結論詳細</h3>
+            <div class="inner">
+              <%= conclusion.conclusion_detail %>
+            </div>
           </div>
-          <h3>結論詳細</h3>
-          <div class="inner">
-            <%= conclusion.conclusion_detail %>
+
+          <div class="bases">
+            <% conclusion.reasons.each_with_index do |reason, r_i| %>
+              <div class="basis">
+                <div class="endpoint endpoint_between_conclusion<%= c_i %>_and_reason" id="endpoint_between_conclusion<%= c_i %>_and_reason<%= r_i %>_of_conclusion<%= c_i %>"></div>
+                <div class="reason box reason_of_conclusion<%= c_i %>" id="reason<%= r_i %>_of_conclusion<%= c_i %>">
+                  <h3>理由</h3>
+                  <div class="inner">
+                    <%= reason.reason_summary %>
+                  </div>
+                  <h3>理由詳細</h3>
+                  <div class="inner">
+                    <%= reason.reason_detail %>
+                  </div>
+                </div>
+
+                <div class="evidences">
+                  <% reason.evidences.each_with_index do |evidence, e_i| %>
+                    <div class="evidence">
+                      <div class="endpoint endpoint_between_reason<%= r_i %>_of_conclusion<%= c_i %>_and_evidence" id="endpoint_between_reason<%= r_i %>_of_conclusion<%= c_i %>_and_evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= c_i %>"></div>
+                      <div class="evidence box evidence_of_reason<%= r_i %>_of_conclusion<%= c_i %>" id="evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= c_i %>">
+                        <h3>証拠</h3>
+                        <div class="inner">
+                          <%= evidence.evidence_summary %>
+                        </div>
+                        <h3>証拠詳細</h3>
+                        <div class="inner">
+                          <%= evidence.evidence_detail %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
+      </div>
+    <% end %>
+      <div class="refutation" id="refutation0">
+        <h3 class="claimant_name">反論0</h3>
+        <div class="tree_structure">
+          <div class="ref_conclusion box" id="ref_conclusion0">
+            <h3>反論</h3>
+            <div class="inner">
+              結論と理由の繋がりが薄い
+            </div>
+            <h3>反論詳細</h3>
+            <div class="inner">
+              体内時計と噛み合っていないことは､健康に悪いことの十分条件ではない
+            </div>
+          </div>
 
-        <div class="bases">
-          <% conclusion.reasons.each_with_index do |reason, r_i| %>
+          <div class="bases">
             <div class="basis">
-              <div class="endpoint endpoint_between_conclusion<%= c_i %>_and_reason" id="endpoint_between_conclusion<%= c_i %>_and_reason<%= r_i %>_of_conclusion<%= c_i %>"></div>
-              <div class="reason box reason_of_conclusion<%= c_i %>" id="reason<%= r_i %>_of_conclusion<%= c_i %>">
+              <div class="endpoint endpoint_between_ref_conclusion0_and_ref_reason" id="endpoint_between_ref_conclusion0_and_ref_reason0_of_ref_conclusion0"></div>
+              <div class="ref_reason box ref_reason_of_ref_conclusion0" id="ref_reason0_of_ref_conclusion0">
                 <h3>理由</h3>
                 <div class="inner">
-                  <%= reason.reason_summary %>
+                  体内時計が噛み合っていなくても､健康なヒトはたくさんいる
                 </div>
                 <h3>理由詳細</h3>
                 <div class="inner">
-                  <%= reason.reason_detail %>
+                  夜職のバイト先の店長とかめっちゃ元気
                 </div>
               </div>
 
               <div class="evidences">
-                <% reason.evidences.each_with_index do |evidence, e_i| %>
-                  <div class="evidence">
-                    <div class="endpoint endpoint_between_reason<%= r_i %>_of_conclusion<%= c_i %>_and_evidence" id="endpoint_between_reason<%= r_i %>_of_conclusion<%= c_i %>_and_evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= c_i %>"></div>
-                    <div class="evidence box evidence_of_reason<%= r_i %>_of_conclusion<%= c_i %>" id="evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= c_i %>">
-                      <h3>証拠</h3>
-                      <div class="inner">
-                        <%= evidence.evidence_summary %>
-                      </div>
-                      <h3>証拠詳細</h3>
-                      <div class="inner">
-                        <%= evidence.evidence_detail %>
-                      </div>
+                <div class="ref_evidence">
+                  <div class="endpoint endpoint_between_ref_reason0_of_ref_conclusion0_and_ref_evidence" id="endpoint_between_ref_reason0_of_ref_conclusion0_and_ref_evidence0_of_ref_reason0_of_ref_conclusion0"></div>
+                  <div class="ref_evidence box ref_evidence_of_ref_reason0_of_ref_conclusion0" id="ref_evidence0_of_ref_reason0_of_ref_conclusion0">
+                    <h3>証拠</h3>
+                    <div class="inner">
+                      俺のバイト先
+                    </div>
+                    <h3>証拠詳細</h3>
+                    <div class="inner">
+                      bar ホワイトゴース
                     </div>
                   </div>
-                <% end %>
+                </div>
               </div>
             </div>
-          <% end %>
+          </div>
         </div>
       </div>
-    <% end %>
+
+      <div class="refutation" id="refutation1">
+        <h3 class="claimant_name">反論1</h3>
+        <div class="tree_structure">
+          <div class="ref_conclusion box" id="ref_conclusion1">
+            <h3>反論</h3>
+            <div class="inner">
+              証拠が主観的で不確かである
+            </div>
+            <h3>反論詳細</h3>
+            <div class="inner">
+              個人1人の健康状態は証拠として弱すぎる
+            </div>
+          </div>
+
+          <div class="bases">
+            <div class="basis">
+              <div class="endpoint endpoint_between_ref_conclusion1_and_ref_reason" id="endpoint_between_ref_conclusion1_and_ref_reason0_of_ref_conclusion1"></div>
+              <div class="ref_reason box ref_reason_of_ref_conclusion1" id="ref_reason0_of_ref_conclusion1">
+                <h3>理由</h3>
+                <div class="inner">
+                  その店長が元気 → 体内時計が噛み合って居ないヒトはみんな健康 とはならない
+                </div>
+                <h3>理由詳細</h3>
+                <div class="inner">
+                  特になし
+                </div>
+              </div>
+
+              <div class="evidences">
+                <div class="ref_evidence">
+                  <div class="endpoint endpoint_between_ref_reason0_of_ref_conclusion1_and_ref_evidence" id="endpoint_between_ref_reason0_of_ref_conclusion1_and_ref_evidence0_of_ref_reason0_of_ref_conclusion1"></div>
+                  <div class="ref_evidence box ref_evidence_of_ref_reason0_of_ref_conclusion1" id="ref_evidence0_of_ref_reason0_of_ref_conclusion1">
+                    <h3>証拠</h3>
+                    <div class="inner">
+                      論理性の話であるため､必要なし
+                    </div>
+                    <h3>証拠詳細</h3>
+                    <div class="inner">
+                      特になし
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   <%= button_to "新規主張作成", new_argument_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda} %>
 </div>
 <script
