@@ -65,3 +65,10 @@
 .argument, .refutation {
   position: absolute;
 }
+
+// 接続線がエンドポイントの下にくるようにする
+// https://docs.jsplumbtoolkit.com/community/lib/styling-via-css
+.window { z-index:20; }
+.jtk-connector { z-index:4; }
+.jtk-endpoint { z-index:5; }
+.jtk-overlay { z-index:6; }

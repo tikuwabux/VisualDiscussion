@@ -24,7 +24,14 @@ jsPlumb.ready(function() {
     }
   });
 
-  // 反論をドラッグ可能にし､リロード後も反論の位置が再現されるようにする
+  // 反論をドラッグ可能にし､リロード後も反論の位置が再現されるようにする + 反論の左上にソースエンドポイントを設置する
+  jsPlumb.registerConnectionTypes({
+    "red-connection": {
+      paintStyle: {stroke: "red", strokeWidth: 5},
+      hoverPaintStyle: {stroke: "red", strokeWidth: 10}
+    }
+  });
+
   const all_refutations = document.querySelectorAll(".refutation");
   all_refutations.forEach( function( refutation ) {
     const refutation_id = refutation.getAttribute("id");
@@ -43,17 +50,17 @@ jsPlumb.ready(function() {
     if (refutation_position) {
       $(`#${refutation_id}`).css({left: refutation_position.left + "px", top: refutation_position.top + "px"});
     }
-  });
 
+    // 反論の左上にソースエンドポイントを設置する
+    jsPlumb.addEndpoint(`${refutation_id}`, {
+      endpoint: "Dot",
+      anchor: "TopLeft",
+      isSource: true,
+      connectionType: "red-connection"
+    })
+  });
 
   // 主張の表示がツリー型になるよう接続線を引く + 主張内にターゲットエンドポイントを設置する
-  jsPlumb.registerConnectionTypes({
-    "red-connection": {
-      paintStyle: {stroke: "red", strokeWidth: 5},
-      hoverPaintStyle: {stroke: "red", strokeWidth: 10}
-    }
-  });
-
   const conclusions = document.querySelectorAll(".conclusion");
   conclusions.forEach( function( conclusion ) {
     const conclusion_id = conclusion.getAttribute("id");
