@@ -60,3 +60,8 @@
 .inner {
   word-break: break-all;
 }
+
+// 主張と反論をドラッグ可能にする
+.argument, .refutation {
+  position: absolute;
+}

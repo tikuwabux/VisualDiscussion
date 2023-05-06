@@ -1,4 +1,50 @@
 jsPlumb.ready(function() {
+  jsPlumb.setContainer("exchange_of_opinions");
+  // 主張をドラッグ可能にし､リロード後も主張の位置が再現されるようにする
+  const all_arguments = document.querySelectorAll(".argument");
+
+  all_arguments.forEach( function( argument ) {
+    const argument_id = argument.getAttribute("id");
+    // 主張をドラッグ可能にする
+    jsPlumb.draggable(`${argument_id}`, {
+      stop: function(event) {
+        savePositions();
+      }
+    });
+    // 主張のドラッグ終了後の位置をローカルストレージに保存する関数
+    function savePositions() {
+      localStorage.setItem(`${argument_id}_position`, JSON.stringify($(`#${argument_id}`).position()));
+    }
+    // ローカルストレージに保存された主張の位置を復元する
+    const argument_position = JSON.parse(localStorage.getItem(`${argument_id}_position`));
+    if (argument_position) {
+      $(`#${argument_id}`).css({left: argument_position.left + "px", top: argument_position.top + "px"});
+    }
+  });
+
+  // 反論をドラッグ可能にし､リロード後も反論の位置が再現されるようにする
+  const all_refutations = document.querySelectorAll(".refutation");
+
+  all_refutations.forEach( function( refutation ) {
+    const refutation_id = refutation.getAttribute("id");
+
+    jsPlumb.draggable(`${refutation_id}`, {
+      stop: function(event) {
+        savePositions();
+      }
+    });
+
+    function savePositions() {
+      localStorage.setItem(`${refutation_id}_position`, JSON.stringify($(`#${refutation_id}`).position()));
+    }
+
+    const refutation_position = JSON.parse(localStorage.getItem(`${refutation_id}_position`));
+    if (refutation_position) {
+      $(`#${refutation_id}`).css({left: refutation_position.left + "px", top: refutation_position.top + "px"});
+    }
+  });
+
+
   // 主張の表示がツリー型になるよう接続線を引く
   const conclusions = document.querySelectorAll(".conclusion");
 
