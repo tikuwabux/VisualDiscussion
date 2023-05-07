@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_08_044932) do
+ActiveRecord::Schema.define(version: 2023_05_07_082934) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 2023_04_08_044932) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "ref_conclusions", force: :cascade do |t|
+    t.bigint "agenda_board_id", null: false
+    t.string "ref_conclusion_summary"
+    t.text "ref_conclusion_detail"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["agenda_board_id"], name: "index_ref_conclusions_on_agenda_board_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", default: "", null: false
@@ -60,4 +69,5 @@ ActiveRecord::Schema.define(version: 2023_04_08_044932) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "ref_conclusions", "agenda_boards"
 end
