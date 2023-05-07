@@ -1,3 +1,84 @@
-// Place all the styles related to the AgendaBoards controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+// 主張と反論のレイアウト
+.type_of_opinion {
+  background: #0094D6;
+  color: #FFF;
+  margin: 0;
+  display:inline-block;
+  padding: .3em .5em;
+  border-radius: 10px 10px 0 0;
+}
+
+.tree_structure {
+  border: 2px solid #0094D6;
+  padding: 10px;
+  width: fit-content;
+}
+
+.conclusion, .ref_conclusion {
+  margin: 0 auto;
+}
+
+.endpoint {
+  background-color: aquamarine;
+  width: 20px;
+  height: 20px;
+  margin: 40px auto;
+}
+
+.bases {
+  display: flex;
+}
+
+.reason {
+  margin: 0 auto;
+}
+
+.evidences {
+  display: flex;
+}
+
+.evidence {
+  margin: 0 10px;
+}
+
+.box .inner {
+  padding: .5em;
+}
+
+.box {
+  border: 2px solid #0094D6;
+  width: 200px;
+}
+
+.box h3 {
+  background: #0094D6;
+  color: #FFF;
+  text-align: center;
+  margin: 0;
+}
+
+.inner {
+  word-break: break-all;
+}
+
+// 主張と反論をドラッグ可能にする
+.argument, .refutation {
+  position: absolute;
+}
+
+// 接続線がエンドポイントの下にくるようにする
+// https://docs.jsplumbtoolkit.com/community/lib/styling-via-css
+.window { z-index:20; }
+.jtk-connector { z-index:4; }
+.jtk-endpoint { z-index:5; }
+.jtk-overlay { z-index:6; }
+
+// 接続線を右クリックしたときに､表示される｢削除ボタン｣のレイアウト
+// https://stackoverflow.com/a/4502207
+.custom-menu {
+  z-index: 1000;
+  position: absolute;
+  background-color: #C0C0C0;
+  border: 1px solid black;
+  padding: 2px;
+}
