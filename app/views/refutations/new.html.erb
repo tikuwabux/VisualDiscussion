@@ -63,29 +63,7 @@
 
       <div class="nested_ref_bases_forms">
         <%= ref_conclusion_form.fields_for :ref_reasons do |nested_ref_reason_form| %>
-          <div class="nested-fields">
-            <%= nested_ref_reason_form.label :ref_reason_summary, "理由" %>
-            <%= nested_ref_reason_form.text_field :ref_reason_summary %>
-            <%= nested_ref_reason_form.label :ref_reason_detail, "理由詳細" %>
-            <%= nested_ref_reason_form.text_area :ref_reason_detail %>
-            <%= link_to_remove_association "理由を削除", nested_ref_reason_form %>
-
-            <div class="nested_ref_evidences_forms">
-              <%= nested_ref_reason_form.fields_for :ref_evidences do |nested_ref_evidence_form| %>
-                <div class="nested-fields">
-                  <%= nested_ref_evidence_form.label :ref_evidence_summary, "証拠" %>
-                  <%= nested_ref_evidence_form.text_field :ref_evidence_summary %>
-                  <%= nested_ref_evidence_form.label :ref_evidence_detail, "証拠詳細" %>
-                  <%= nested_ref_evidence_form.text_area :ref_evidence_detail %>
-                  <%= link_to_remove_association "証拠を削除", nested_ref_evidence_form %>
-                </div>
-              <% end %>
-            </div>
-
-            <div class="add_nested_ref_evidence_form">
-              <%= link_to_add_association "証拠を追加", nested_ref_reason_form, :ref_evidences, data: { association_insertion_method: 'after' } %>
-            </div>
-          </div>
+          <%= render "ref_reason_fields", f: nested_ref_reason_form %>
         <% end %>
 
         <div class="add_nested_ref_reason_form">
