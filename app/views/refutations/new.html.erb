@@ -54,33 +54,43 @@
 
   <div class="create_new_refutation_form">
     <h2>新規反論</h2>
-    <%= form_with model: @ref_conclusion, url: refutations_path do |ref_conclusion_form| %>
+    <%= form_with model: @ref_conclusion, url: refutations_path, local: true do |ref_conclusion_form| %>
       <%= ref_conclusion_form.hidden_field :agenda_board_id, value: @agenda_board_id %>
       <%= ref_conclusion_form.label :ref_conclusion_summary, "結論" %>
       <%= ref_conclusion_form.text_field :ref_conclusion_summary %>
       <%= ref_conclusion_form.label :ref_conclusion_detail, "結論詳細" %>
       <%= ref_conclusion_form.text_area :ref_conclusion_detail %>
 
-      <div class="ref_basis">
-        <%= ref_conclusion_form.fields_for :ref_reasons do |ref_reason_form| %>
-          <div class="nested_field">
-            <%= ref_reason_form.label :ref_reason_summary, "理由" %>
-            <%= ref_reason_form.text_field :ref_reason_summary %>
-            <%= ref_reason_form.label :ref_reason_detail, "理由詳細" %>
-            <%= ref_reason_form.text_area :ref_reason_detail %>
+      <div class="nested_ref_bases_forms">
+        <%= ref_conclusion_form.fields_for :ref_reasons do |nested_ref_reason_form| %>
+          <div class="nested-fields">
+            <%= nested_ref_reason_form.label :ref_reason_summary, "理由" %>
+            <%= nested_ref_reason_form.text_field :ref_reason_summary %>
+            <%= nested_ref_reason_form.label :ref_reason_detail, "理由詳細" %>
+            <%= nested_ref_reason_form.text_area :ref_reason_detail %>
+            <%= link_to_remove_association "理由を削除", nested_ref_reason_form %>
 
-            <div class="ref_evidence">
-              <%= ref_reason_form.fields_for :ref_evidences do |ref_evidence_form| %>
-                <div class="nested_field">
-                  <%= ref_evidence_form.label :ref_evidence_summary, "証拠" %>
-                  <%= ref_evidence_form.text_field :ref_evidence_summary %>
-                  <%= ref_evidence_form.label :ref_evidence_detail, "証拠詳細" %>
-                  <%= ref_evidence_form.text_area :ref_evidence_detail %>
+            <div class="nested_ref_evidences_forms">
+              <%= nested_ref_reason_form.fields_for :ref_evidences do |nested_ref_evidence_form| %>
+                <div class="nested-fields">
+                  <%= nested_ref_evidence_form.label :ref_evidence_summary, "証拠" %>
+                  <%= nested_ref_evidence_form.text_field :ref_evidence_summary %>
+                  <%= nested_ref_evidence_form.label :ref_evidence_detail, "証拠詳細" %>
+                  <%= nested_ref_evidence_form.text_area :ref_evidence_detail %>
+                  <%= link_to_remove_association "証拠を削除", nested_ref_evidence_form %>
                 </div>
               <% end %>
             </div>
+
+            <div class="add_nested_ref_evidence_form">
+              <%= link_to_add_association "証拠を追加", nested_ref_reason_form, :ref_evidences, data: { association_insertion_method: 'after' } %>
+            </div>
           </div>
         <% end %>
+
+        <div class="add_nested_ref_reason_form">
+          <%= link_to_add_association "理由を追加", ref_conclusion_form, :ref_reasons %>
+        </div>
       </div>
       <div>
         <%= ref_conclusion_form.submit "新規反論を作成する" %>

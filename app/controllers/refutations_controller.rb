@@ -26,8 +26,8 @@ class RefutationsController < ApplicationController
 
   def refutation_params
     params.require(:ref_conclusion).permit(:agenda_board_id, :ref_conclusion_summary, :ref_conclusion_detail,
-      ref_reasons_attributes: [:ref_reason_summary, :ref_reason_detail,
-        ref_evidences_attributes: [:ref_evidence_summary, :ref_evidence_detail]
+      ref_reasons_attributes: [:id, :ref_reason_summary, :ref_reason_detail, :_destroy,
+        ref_evidences_attributes: [:id, :ref_evidence_summary, :ref_evidence_detail, :_destroy]
       ]
     )
   end
