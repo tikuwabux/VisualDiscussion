@@ -12,7 +12,7 @@ class RefutationsController < ApplicationController
   end
 
 
-  end  def create
+  def create
     refutation = RefConclusion.new(refutation_params)
     if refutation.valid?
       flash[:notice] = "新規反論の作成に成功しました"
@@ -22,6 +22,7 @@ class RefutationsController < ApplicationController
       flash[:notice] = "新規反論の作成に失敗しました｡"
       render :new
     end
+  end
 
   private
 
