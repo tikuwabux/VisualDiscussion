@@ -1,5 +1,14 @@
 // 主張と反論のレイアウト
-.type_of_opinion {
+.argument_title {
+  background: #CC99CC;
+  color: #FFF;
+  margin: 0;
+  display:inline-block;
+  padding: .3em .5em;
+  border-radius: 10px 10px 0 0;
+}
+
+.refutation_title {
   background: #0094D6;
   color: #FFF;
   margin: 0;
@@ -9,6 +18,12 @@
 }
 
 .tree_structure {
+  border: 2px solid #CC99CC;
+  padding: 10px;
+  width: fit-content;
+}
+
+.ref_tree_structure {
   border: 2px solid #0094D6;
   padding: 10px;
   width: fit-content;
@@ -19,7 +34,7 @@
 }
 
 .endpoint {
-  background-color: aquamarine;
+  // background-color: aquamarine;
   width: 20px;
   height: 20px;
   margin: 40px auto;
@@ -45,12 +60,28 @@
   padding: .5em;
 }
 
+.ref_box .inner {
+  padding: .5em;
+}
+
 .box {
+  border: 2px solid #CC99CC;
+  width: 200px;
+}
+
+.ref_box {
   border: 2px solid #0094D6;
   width: 200px;
 }
 
 .box h3 {
+  background: #CC99CC;
+  color: #FFF;
+  text-align: center;
+  margin: 0;
+}
+
+.ref_box h3 {
   background: #0094D6;
   color: #FFF;
   text-align: center;
