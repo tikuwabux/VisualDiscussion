@@ -55,101 +55,59 @@
         <%= button_to "新規反論作成", new_refutation_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda, rebuttal_target_conclusion_id: conclusion.id, rebuttal_target_conclusion_index: "#{c_i}" } %>
       </div>
     <% end %>
-      <div class="refutation" id="refutation0">
+    <% @ref_conclusions.each_with_index do |ref_conclusion, r_c_i| %>
+      <div class="refutation" id="refutation<%= r_c_i %>">
         <h3 class="type_of_opinion">反論</h3>
         <div class="tree_structure">
-          <div class="ref_conclusion box" id="ref_conclusion0">
-            <h3>反論</h3>
+          <div class="ref_conclusion box" id="ref_conclusion<%= r_c_i %>">
+            <h3>結論</h3>
             <div class="inner">
-              理由詳細の部分に誤りがある｡
+              <%= ref_conclusion.ref_conclusion_summary %>
             </div>
-            <h3>反論詳細</h3>
+            <h3>結論詳細</h3>
             <div class="inner">
-              提示された､｢体内時計的に最適な起床時間｣は誤りである｡
+              <%= ref_conclusion.ref_conclusion_detail %>
             </div>
           </div>
 
           <div class="bases">
-            <div class="basis">
-              <div class="endpoint endpoint_between_ref_conclusion0_and_ref_reason" id="endpoint_between_ref_conclusion0_and_ref_reason0_of_ref_conclusion0"></div>
-              <div class="ref_reason box ref_reason_of_ref_conclusion0" id="ref_reason0_of_ref_conclusion0">
-                <h3>理由</h3>
-                <div class="inner">
-                  体内時計は同年齢間においても個人差があり､一律ではないから
-                </div>
-                <h3>理由詳細</h3>
-                <div class="inner">
-                  0時過ぎに寝て8時頃に起きるのが自然のリズムである人が最も多く、一方で、1:30以降に寝て9:30以降に起きるような夜型の人や、逆に22:30頃前に寝て6:30以前に自然に起きるような朝型の人もいる｡
-                </div>
-              </div>
-
-              <div class="evidences">
-                <div class="ref_evidence">
-                  <div class="endpoint endpoint_between_ref_reason0_of_ref_conclusion0_and_ref_evidence" id="endpoint_between_ref_reason0_of_ref_conclusion0_and_ref_evidence0_of_ref_reason0_of_ref_conclusion0"></div>
-                  <div class="ref_evidence box ref_evidence_of_ref_reason0_of_ref_conclusion0" id="ref_evidence0_of_ref_reason0_of_ref_conclusion0">
-                    <h3>証拠</h3>
-                    <div class="inner">
-                      8155名のMSFsc(睡眠負債がない状態において、自然に眠り自然に起きる時の、睡眠時間帯の中間時刻)調査結果
-                    </div>
-                    <h3>証拠詳細</h3>
-                    <div class="inner">
-                      https://team.tokyo-med.ac.jp/omh/news/202203_chronotype/
-                    </div>
+            <% ref_conclusion.ref_reasons.each_with_index do |ref_reason, r_r_i| %>
+              <div class="basis">
+                <div class="endpoint endpoint_between_ref_conclusion<%= r_c_i %>_and_ref_reason" id="endpoint_between_ref_conclusion<%= r_c_i %>_and_ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>"></div>
+                <div class="ref_reason box ref_reason_of_ref_conclusion<%= r_c_i %>" id="ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>">
+                  <h3>理由</h3>
+                  <div class="inner">
+                    <%= ref_reason.ref_reason_summary %>
+                  </div>
+                  <h3>理由詳細</h3>
+                  <div class="inner">
+                    <%= ref_reason.ref_reason_detail %>
                   </div>
                 </div>
+
+                <div class="evidences">
+                  <% ref_reason.ref_evidences.each_with_index do |ref_evidence, e_i| %>
+                    <div class="ref_evidence">
+                      <div class="endpoint endpoint_between_ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>_and_ref_evidence" id="endpoint_between_ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>_and_ref_evidence<%= e_i %>_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>"></div>
+                      <div class="ref_evidence box ref_evidence_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>" id="ref_evidence<%= e_i %>_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>">
+                        <h3>証拠</h3>
+                        <div class="inner">
+                          <%= ref_evidence.ref_evidence_summary %>
+                        </div>
+                        <h3>証拠詳細</h3>
+                        <div class="inner">
+                          <%= ref_evidence.ref_evidence_detail %>
+                        </div>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
               </div>
-            </div>
+            <% end %>
           </div>
         </div>
       </div>
-
-      <div class="refutation" id="refutation1">
-        <h3 class="type_of_opinion">反論</h3>
-        <div class="tree_structure">
-          <div class="ref_conclusion box" id="ref_conclusion1">
-            <h3>反論</h3>
-            <div class="inner">
-              証拠が理由に適するものではない
-            </div>
-            <h3>反論詳細</h3>
-            <div class="inner">
-              特になし
-            </div>
-          </div>
-
-          <div class="bases">
-            <div class="basis">
-              <div class="endpoint endpoint_between_ref_conclusion1_and_ref_reason" id="endpoint_between_ref_conclusion1_and_ref_reason0_of_ref_conclusion1"></div>
-              <div class="ref_reason box ref_reason_of_ref_conclusion1" id="ref_reason0_of_ref_conclusion1">
-                <h3>理由</h3>
-                <div class="inner">
-                  証拠にあげている調査は､同年齢を対象としたものではないから｡
-                </div>
-                <h3>理由詳細</h3>
-                <div class="inner">
-                  提示された調査は､様々な年齢の人々(平均年齢は36.7歳)を対象にしたものなので､｢体内時計は同年齢間においても個人差がある｣ということの証拠として適当ではない
-                </div>
-              </div>
-
-              <div class="evidences">
-                <div class="ref_evidence">
-                  <div class="endpoint endpoint_between_ref_reason0_of_ref_conclusion1_and_ref_evidence" id="endpoint_between_ref_reason0_of_ref_conclusion1_and_ref_evidence0_of_ref_reason0_of_ref_conclusion1"></div>
-                  <div class="ref_evidence box ref_evidence_of_ref_reason0_of_ref_conclusion1" id="ref_evidence0_of_ref_reason0_of_ref_conclusion1">
-                    <h3>証拠</h3>
-                    <div class="inner">
-                      論理性の話であるため､必要なし
-                    </div>
-                    <h3>証拠詳細</h3>
-                    <div class="inner">
-                      特になし
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    <% end %>
     </div>
   <%= button_to "新規主張作成", new_argument_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda} %>
 </div>

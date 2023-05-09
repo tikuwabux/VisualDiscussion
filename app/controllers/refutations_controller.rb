@@ -11,16 +11,17 @@ class RefutationsController < ApplicationController
     ref_reasons.ref_evidences.build
   end
 
-  def create
+
+  end  def create
     refutation = RefConclusion.new(refutation_params)
     if refutation.valid?
       flash[:notice] = "新規反論の作成に成功しました"
       refutation.save!
+      redirect_to agenda_board_path(refutation.agenda_board_id)
     else
       flash[:notice] = "新規反論の作成に失敗しました｡"
       render :new
     end
-  end
 
   private
 
