@@ -2,14 +2,23 @@ require 'rails_helper'
 
 RSpec.describe "AgendaBoards", type: :system do
   let(:annie) { create(:user, name: "annie") }
+
   let(:about_early_bird) { create(:agenda_board, user_id: annie.id, agenda: "早起きは健康によいのか?", category: "自然科学") }
   let!(:about_chatbot) { create(:agenda_board, user_id: annie.id, agenda: "チャットボットは教育に悪影響を与えるのか?", category: "社会科学") }
+
   let(:bad_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, conclusion_summary: "健康に悪い") }
   let!(:good_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, conclusion_summary: "健康に良い") }
   let(:misalignment_with_body_clock) { create(:reason, conclusion_id: bad_for_health.id, reason_summary: "人間の体内時計と噛み合っていないから") }
   let!(:lack_of_sleep) { create(:reason, conclusion_id: bad_for_health.id, reason_summary: "睡眠不足になりやすいから") }
   let!(:sleep_data) { create(:evidence, reason_id: misalignment_with_body_clock.id, evidence_summary: "世界中のあらゆる人々の睡眠データ") }
   let!(:research_of_dr_kelly) { create(:evidence, reason_id: misalignment_with_body_clock.id, evidence_summary: "ケリー博士の研究") }
+
+  let(:problematic_reason) { create(:ref_conclusion, agenda_board_id: about_early_bird.id, ref_conclusion_summary: "理由部分に誤りがある") }
+  let!(:problematic_reason_and_evidence_connection) { create(:ref_conclusion, agenda_board_id: about_early_bird.id, ref_conclusion_summary: "証拠が理由に適するものではない") }
+  let(:individual_differences_in_body_clock) { create(:ref_reason, ref_conclusion_id: problematic_reason.id, ref_reason_summary: "体内時計は､同年齢間においても個人差があり､一律ではないから") }
+  let!(:resetting_the_body_clock) { create(:ref_reason, ref_conclusion_id: problematic_reason.id, ref_reason_summary: "体内時計は､日の光を浴びることでリセットされるから") }
+  let!(:results_of_sleep_time_survey) { create(:ref_evidence, ref_reason_id: individual_differences_in_body_clock.id, ref_evidence_summary: "8155名のMSFsc調査結果") }
+  let!(:research_on_the_body_clock) { create(:ref_evidence, ref_reason_id: individual_differences_in_body_clock.id, ref_evidence_summary: "体内時計に関する研究") }
 
   before do
     visit root_path
@@ -88,6 +97,23 @@ RSpec.describe "AgendaBoards", type: :system do
           reason.evidences.all? do |evidence|
             expect(page).to have_content evidence.evidence_summary
             expect(page).to have_content evidence.evidence_detail
+          end
+        end
+      end
+    end
+
+    scenario "すべての反論(結論+理由+証拠)を動的に確認できること" do
+      about_early_bird.ref_conclusions.all? do |ref_conclusion|
+        expect(page).to have_content ref_conclusion.ref_conclusion_summary
+        expect(page).to have_content ref_conclusion.ref_conclusion_detail
+
+        ref_conclusion.ref_reasons.all? do |ref_reason|
+          expect(page).to have_content ref_reason.ref_reason_summary
+          expect(page).to have_content ref_reason.ref_reason_summary
+
+          ref_reason.ref_evidences.all? do |ref_evidence|
+            expect(page).to have_content ref_evidence.ref_evidence_summary
+            expect(page).to have_content ref_evidence.ref_evidence_detail
           end
         end
       end
