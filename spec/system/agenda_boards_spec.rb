@@ -71,6 +71,11 @@ RSpec.describe "AgendaBoards", type: :system do
       expect(page).to have_current_path new_argument_path, ignore_query: true
     end
 
+    scenario "｢新規反論作成｣ボタンをクリックすると､新規反論作成ページに遷移すること" do
+      click_button "新規反論作成", match: :first
+      expect(page).to have_current_path new_refutation_path, ignore_query: true
+    end
+
     scenario "すべての主張(結論+理由+証拠)を動的に確認できること" do
       about_early_bird.conclusions.all? do |conclusion|
         expect(page).to have_content conclusion.conclusion_summary
