@@ -17,7 +17,6 @@ class RefutationsController < ApplicationController
     ref_reasons.ref_evidences.build
   end
 
-
   def create
     refutation = RefConclusion.new(refutation_params)
     if refutation.valid?
@@ -34,9 +33,9 @@ class RefutationsController < ApplicationController
 
   def refutation_params
     params.require(:ref_conclusion).permit(:agenda_board_id, :ref_conclusion_summary, :ref_conclusion_detail,
-      ref_reasons_attributes: [:id, :ref_reason_summary, :ref_reason_detail, :_destroy,
-        ref_evidences_attributes: [:id, :ref_evidence_summary, :ref_evidence_detail, :_destroy]
-      ]
-    )
+      ref_reasons_attributes: [
+        :id, :ref_reason_summary, :ref_reason_detail, :_destroy,
+        ref_evidences_attributes: [:id, :ref_evidence_summary, :ref_evidence_detail, :_destroy],
+      ])
   end
 end

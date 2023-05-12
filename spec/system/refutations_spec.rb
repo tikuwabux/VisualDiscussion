@@ -11,10 +11,18 @@ RSpec.describe "Refutations", type: :system do
   let!(:research_of_dr_kelly) { create(:evidence, reason_id: misalignment_with_body_clock.id, evidence_summary: "ケリー博士の研究") }
 
   let(:problematic_reason) { create(:ref_conclusion, agenda_board_id: about_early_bird.id, ref_conclusion_summary: "理由部分に誤りがある") }
-  let(:individual_differences_in_body_clock) { create(:ref_reason, ref_conclusion_id: problematic_reason.id, ref_reason_summary: "体内時計は､同年齢間においても個人差があり､一律ではないから") }
-  let!(:resetting_the_body_clock) { create(:ref_reason, ref_conclusion_id: problematic_reason.id, ref_reason_summary: "体内時計は､日の光を浴びることでリセットされるから") }
-  let!(:results_of_sleep_time_survey) { create(:ref_evidence, ref_reason_id: individual_differences_in_body_clock.id, ref_evidence_summary: "8155名のMSFsc調査結果") }
-  let!(:research_on_the_body_clock) { create(:ref_evidence, ref_reason_id: individual_differences_in_body_clock.id, ref_evidence_summary: "体内時計に関する研究") }
+  let(:individual_differences_in_body_clock) do
+    create(:ref_reason, ref_conclusion_id: problematic_reason.id, ref_reason_summary: "体内時計は､同年齢間においても個人差があり､一律ではないから")
+  end
+  let!(:resetting_the_body_clock) do
+    create(:ref_reason, ref_conclusion_id: problematic_reason.id, ref_reason_summary: "体内時計は､日の光を浴びることでリセットされるから")
+  end
+  let!(:results_of_sleep_time_survey) do
+    create(:ref_evidence, ref_reason_id: individual_differences_in_body_clock.id, ref_evidence_summary: "8155名のMSFsc調査結果")
+  end
+  let!(:research_on_the_body_clock) do
+    create(:ref_evidence, ref_reason_id: individual_differences_in_body_clock.id, ref_evidence_summary: "体内時計に関する研究")
+  end
 
   before do
     visit root_path
