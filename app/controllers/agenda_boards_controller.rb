@@ -17,6 +17,7 @@ class AgendaBoardsController < ApplicationController
   def show
     @agenda_board = AgendaBoard.find(params[:id])
     @conclusions = @agenda_board.conclusions
+    @ref_conclusions = @agenda_board.ref_conclusions
   end
 
   def index
