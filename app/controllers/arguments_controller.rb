@@ -23,7 +23,7 @@ class ArgumentsController < ApplicationController
   private
 
   def argument_params
-    params.require(:conclusion).permit(:agenda_board_id, :conclusion_summary, :conclusion_detail,
+    params.require(:conclusion).permit(:agenda_board_id, :user_id, :conclusion_summary, :conclusion_detail,
       reasons_attributes: [
         :id, :reason_summary, :reason_detail, :_destroy,
         evidences_attributes: [:id, :evidence_summary, :evidence_detail, :_destroy],
