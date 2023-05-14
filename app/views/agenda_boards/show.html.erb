@@ -3,7 +3,7 @@
     <div id="exchange_of_opinions">
     <% @conclusions.each_with_index do |conclusion, c_i| %>
       <div class="argument" id="argument<%= c_i %>">
-        <h3 class="argument_title">主張</h3>
+        <h3 class="argument_title"><%= speaker_name(conclusion) %>さんの主張</h3>
         <div class="tree_structure">
           <div class="conclusion box" id="conclusion<%= c_i %>">
             <h3>結論</h3>
