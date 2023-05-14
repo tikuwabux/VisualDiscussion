@@ -110,6 +110,7 @@
     <h2>新規反論</h2>
     <%= form_with model: @ref_conclusion, url: refutations_path, local: true do |ref_conclusion_form| %>
       <%= ref_conclusion_form.hidden_field :agenda_board_id, value: @agenda_board_id %>
+      <%= ref_conclusion_form.hidden_field :user_id, value: current_user.id %>
       <%= ref_conclusion_form.label :ref_conclusion_summary, "結論" %>
       <%= ref_conclusion_form.text_field :ref_conclusion_summary %>
       <%= ref_conclusion_form.label :ref_conclusion_detail, "結論詳細" %>
