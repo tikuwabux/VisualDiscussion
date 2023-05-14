@@ -1,5 +1,6 @@
 class RefConclusion < ApplicationRecord
   belongs_to :agenda_board
+  belongs_to :user
   has_many :ref_reasons, dependent: :destroy
   accepts_nested_attributes_for :ref_reasons, allow_destroy: true
 

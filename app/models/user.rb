@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :agenda_boards
   has_many :conclusions
+  has_many :ref_conclusions
 end
