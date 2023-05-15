@@ -1,0 +1,22 @@
+// 新規主張作成フォームをツリー型にする
+.nested_bases_forms {
+  position: relative;
+}
+
+.add_nested_reason_form {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.nested_evidences_forms {
+  position: relative;
+}
+
+.add_nested_evidence_form {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+}

@@ -1,24 +1,34 @@
+<h1><%= @agenda_board_agenda %></h1>
 <div class="create_new_argument_form">
-  <h2>新規主張</h2>
+  <h3 class="argument_title">新規主張</h3>
   <%= form_with model: @conclusion, url: arguments_path, local: true do |conclusion_form| %>
     <%= conclusion_form.hidden_field :agenda_board_id, value: @agenda_board_id %>
     <%= conclusion_form.hidden_field :user_id, value: current_user.id %>
-    <%= conclusion_form.label :conclusion_summary, "結論" %>
-    <%= conclusion_form.text_field :conclusion_summary %>
-    <%= conclusion_form.label :conclusion_detail, "結論詳細" %>
-    <%= conclusion_form.text_area :conclusion_detail %>
-
-    <div class="nested_bases_forms">
-      <%= conclusion_form.fields_for :reasons do |nested_reason_form| %>
-        <%= render "reason_fields", f: nested_reason_form %>
-      <% end %>
-
-      <div class="add_nested_reason_form">
-        <%= link_to_add_association "理由を追加", conclusion_form, :reasons %>
+    <div class="tree_structure">
+      <div class="conclusion box">
+        <h3>結論</h3>
+        <div class="inner">
+          <%= conclusion_form.text_field :conclusion_summary %>
+        </div>
+        <h3>結論詳細</h3>
+        <div class="inner">
+          <%= conclusion_form.text_area :conclusion_detail %>
+        </div>
       </div>
-    </div>
-    <div>
-      <%= conclusion_form.submit "新規主張を作成する" %>
+
+      <div class="bases nested_bases_forms">
+        <%= conclusion_form.fields_for :reasons do |nested_reason_form| %>
+          <%= render "reason_fields", f: nested_reason_form %>
+        <% end %>
+
+        <div class="add_nested_reason_form">
+          <%= link_to_add_association "理由を追加", conclusion_form, :reasons %>
+        </div>
+      </div>
+
+      <div>
+        <%= conclusion_form.submit "新規主張を作成する" %>
+      </div>
     </div>
   <% end %>
 </div>
