@@ -34,7 +34,6 @@
 }
 
 .endpoint {
-  // background-color: aquamarine;
   width: 20px;
   height: 20px;
   margin: 40px auto;
@@ -42,6 +41,8 @@
 
 .bases {
   display: flex;
+  justify-content: space-around;
+  gap: 50px;
 }
 
 .reason, .ref_reason {
@@ -50,10 +51,8 @@
 
 .evidences {
   display: flex;
-}
-
-.evidence, .ref_evidence {
-  margin: 0 10px;
+  justify-content: space-around;
+  gap: 50px;
 }
 
 .box .inner {
@@ -66,12 +65,16 @@
 
 .box {
   border: 2px solid #CC99CC;
-  width: 200px;
+  width: fit-content;
+  min-width: 100px;
+  white-space: nowrap;
 }
 
 .ref_box {
   border: 2px solid #0094D6;
-  width: 200px;
+  width: fit-content;
+  min-width: 100px;
+  white-space: nowrap;
 }
 
 .box h3 {
