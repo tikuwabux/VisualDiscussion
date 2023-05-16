@@ -11,9 +11,7 @@
               <%= conclusion.conclusion_summary %>
             </div>
             <h3>結論詳細</h3>
-            <div class="inner">
-              <%= conclusion.conclusion_detail %>
-            </div>
+            <pre class="inner"><%= conclusion.conclusion_detail %></pre>
           </div>
 
           <div class="bases">
@@ -26,9 +24,7 @@
                     <%= reason.reason_summary %>
                   </div>
                   <h3>理由詳細</h3>
-                  <div class="inner">
-                    <%= reason.reason_detail %>
-                  </div>
+                  <pre class="inner"><%= reason.reason_detail %></pre>
                 </div>
 
                 <div class="evidences">
@@ -41,9 +37,7 @@
                           <%= evidence.evidence_summary %>
                         </div>
                         <h3>証拠詳細</h3>
-                        <div class="inner">
-                          <%= evidence.evidence_detail %>
-                        </div>
+                        <pre class="inner"><%= evidence.evidence_detail %></pre>
                       </div>
                     </div>
                   <% end %>
@@ -65,9 +59,7 @@
               <%= ref_conclusion.ref_conclusion_summary %>
             </div>
             <h3>結論詳細</h3>
-            <div class="inner">
-              <%= ref_conclusion.ref_conclusion_detail %>
-            </div>
+            <pre class="inner"><%= ref_conclusion.ref_conclusion_detail %></pre>
           </div>
 
           <div class="bases">
@@ -80,9 +72,7 @@
                     <%= ref_reason.ref_reason_summary %>
                   </div>
                   <h3>理由詳細</h3>
-                  <div class="inner">
-                    <%= ref_reason.ref_reason_detail %>
-                  </div>
+                  <pre class="inner"><%= ref_reason.ref_reason_detail %></pre>
                 </div>
 
                 <div class="evidences">
@@ -95,9 +85,7 @@
                           <%= ref_evidence.ref_evidence_summary %>
                         </div>
                         <h3>証拠詳細</h3>
-                        <div class="inner">
-                          <%= ref_evidence.ref_evidence_detail %>
-                        </div>
+                        <pre class="inner"><%= ref_evidence.ref_evidence_detail %></pre>
                       </div>
                     </div>
                   <% end %>
