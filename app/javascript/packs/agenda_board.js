@@ -1,3 +1,4 @@
+// 議題ボード詳細ページに表示されている主張と反論の見た目と挙動
 jsPlumb.ready(function() {
   jsPlumb.setContainer("exchange_of_opinions");
   // 主張をドラッグ可能にし､リロード後も主張の位置が再現されるようにする
