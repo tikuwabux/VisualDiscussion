@@ -4,11 +4,11 @@
     <div class="reason box">
       <h3>理由</h3>
       <div class="inner">
-        <%= f.text_field :reason_summary, oninput: "adjustWidth(this)" %>
+        <%= f.text_field :reason_summary, class: 'adjust-entered-text-width' %>
       </div>
       <h3>理由詳細</h3>
       <div class="inner">
-        <%= f.text_area :reason_detail, oninput: "adjustWidth(this)" %>
+        <%= f.text_area :reason_detail, class: 'adjust-entered-text-width' %>
       </div>
       <%= link_to_remove_association "理由を削除", f %>
     </div>

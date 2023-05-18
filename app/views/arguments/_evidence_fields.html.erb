@@ -4,11 +4,11 @@
     <div class="evidence box">
       <h3>証拠</h3>
       <div class="inner">
-        <%= f.text_field :evidence_summary, oninput: "adjustWidth(this)" %>
+        <%= f.text_field :evidence_summary, class: 'adjust-entered-text-width' %>
       </div>
       <h3>証拠詳細</h3>
       <div class="inner">
-        <%= f.text_area :evidence_detail, oninput: "adjustWidth(this)" %>
+        <%= f.text_area :evidence_detail, class: 'adjust-entered-text-width' %>
       </div>
       <%= link_to_remove_association "証拠を削除", f %>
     </div>
