@@ -8,7 +8,7 @@
       </div>
       <h3>理由詳細</h3>
       <div class="inner">
-        <%= f.text_area :reason_detail, class: 'adjust-max-line-width' %>
+        <%= f.text_area :reason_detail, class: 'adjust-entered-text-size' %>
       </div>
       <%= link_to_remove_association "理由を削除", f %>
     </div>
@@ -19,7 +19,7 @@
       <% end %>
 
       <div class="add_nested_evidence_form">
-        <%= link_to_add_association "証拠を追加", f, :evidences, data: { association_insertion_method: 'after' } %>
+        <%= link_to_add_association "証拠を追加", f, :evidences, class: 'add-evidence-link' %>
       </div>
     </div>
   </div>

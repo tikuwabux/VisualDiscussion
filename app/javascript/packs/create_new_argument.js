@@ -15,9 +15,9 @@ document.addEventListener('input', function(event) {
     element.style.width = adjusted_entered_text_width + 'px';
   }
 
-  // 改行可能なフォームの場合､その幅を､最大幅の文字列を含む行の幅､に合わせて伸縮させる
+  // 改行可能なフォームの場合､その幅を､最大幅の文字列を含む行の幅に､その高さを全行の高さに合わせて伸縮させる｡
   // (3行目以降､最終行に謎の空行が出現する不具合あり)
-  if (element.matches('.adjust-max-line-width')) {
+  if (element.matches('.adjust-entered-text-size')) {
     const lines = entered_text.split('\n');
     let max_line_width = 0;
     lines.forEach(function(line) {
@@ -29,5 +29,7 @@ document.addEventListener('input', function(event) {
     const element_side_padding = parseInt(computed_element_style.getPropertyValue('padding-left')) + parseInt(computed_element_style.getPropertyValue('padding-right'));
     const adjusted_entered_text_width = max_line_width + element_side_padding;
     element.style.width = adjusted_entered_text_width + 'px';
+    element.style.height = "auto"; // この一行が無いと､文字を入力するたびに､入力があったtextareaの高さが不要に伸びる
+    element.style.height = `${element.scrollHeight}px`;
   }
 });

@@ -12,7 +12,7 @@
         </div>
         <h3>結論詳細</h3>
         <div class="inner">
-          <%= conclusion_form.text_area :conclusion_detail, class: 'adjust-max-line-width' %>
+          <%= conclusion_form.text_area :conclusion_detail, class: 'adjust-entered-text-size' %>
         </div>
       </div>
 
@@ -22,7 +22,7 @@
         <% end %>
 
         <div class="add_nested_reason_form">
-          <%= link_to_add_association "理由を追加", conclusion_form, :reasons %>
+          <%= link_to_add_association "理由を追加", conclusion_form, :reasons, class: 'add-reason-link' %>
         </div>
       </div>
 
