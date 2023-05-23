@@ -1,7 +1,16 @@
 <div class="nested-fields">
-  <%= f.label :ref_evidence_summary, "証拠" %>
-  <%= f.text_field :ref_evidence_summary %>
-  <%= f.label :ref_evidence_detail, "証拠詳細" %>
-  <%= f.text_area :ref_evidence_detail %>
-  <%= link_to_remove_association "証拠を削除", f %>
+  <div class="ref_evidence">
+    <div class="endpoint"></div>
+    <div class="ref_evidence ref_box">
+      <h3>証拠</h3>
+      <div class="inner">
+        <%= f.text_field :ref_evidence_summary, class: 'adjust-entered-text-width' %>
+      </div>
+      <h3>証拠詳細</h3>
+      <div class="inner">
+        <%= f.text_area :ref_evidence_detail, class: 'adjust-entered-text-size' %>
+      </div>
+      <%= link_to_remove_association "証拠を削除", f %>
+    </div>
+  </div>
 </div>

@@ -5,3 +5,30 @@
 .create_new_refutation_form {
   margin-left: 30px;
 }
+
+// 新規反論作成フォームをツリー型にする
+.nested_ref_bases_forms {
+  position: relative;
+}
+
+.add_nested_ref_reason_form {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.nested_ref_evidences_forms {
+  position: relative;
+}
+
+.add_nested_ref_evidence_form {
+  position: absolute;
+  top: 20px;
+  width: 100%;
+  text-align: center;
+}
+
+textarea {
+  resize: none;
+}
