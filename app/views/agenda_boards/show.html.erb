@@ -15,7 +15,7 @@
           </div>
 
           <div class="bases">
-            <% conclusion.reasons.each_with_index do |reason, r_i| %>
+            <% conclusion.reasons.order(:created_at).each_with_index do |reason, r_i| %>
               <div class="basis">
                 <div class="endpoint endpoint_between_conclusion<%= c_i %>_and_reason" id="endpoint_between_conclusion<%= c_i %>_and_reason<%= r_i %>_of_conclusion<%= c_i %>"></div>
                 <div class="reason box reason_of_conclusion<%= c_i %>" id="reason<%= r_i %>_of_conclusion<%= c_i %>">
@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="evidences">
-                  <% reason.evidences.each_with_index do |evidence, e_i| %>
+                  <% reason.evidences.order(:created_at).each_with_index do |evidence, e_i| %>
                     <div class="evidence">
                       <div class="endpoint endpoint_between_reason<%= r_i %>_of_conclusion<%= c_i %>_and_evidence" id="endpoint_between_reason<%= r_i %>_of_conclusion<%= c_i %>_and_evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= c_i %>"></div>
                       <div class="evidence box evidence_of_reason<%= r_i %>_of_conclusion<%= c_i %>" id="evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= c_i %>">

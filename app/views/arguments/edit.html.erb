@@ -15,7 +15,7 @@
       </div>
 
       <div class="bases nested_bases_forms">
-        <%= conclusion_form.fields_for :reasons do |nested_reason_form| %>
+        <%= conclusion_form.fields_for :reasons, conclusion_form.object.reasons.order(:created_at) do |nested_reason_form| %>
           <%= render "reason_fields", f: nested_reason_form %>
         <% end %>
 
