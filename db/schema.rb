@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_25_090452) do
+ActiveRecord::Schema.define(version: 2023_05_25_133819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,8 +57,10 @@ ActiveRecord::Schema.define(version: 2023_05_25_090452) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.bigint "conclusion_id"
+    t.bigint "parent_ref_conclusion_id"
     t.index ["agenda_board_id"], name: "index_ref_conclusions_on_agenda_board_id"
     t.index ["conclusion_id"], name: "index_ref_conclusions_on_conclusion_id"
+    t.index ["parent_ref_conclusion_id"], name: "index_ref_conclusions_on_parent_ref_conclusion_id"
     t.index ["user_id"], name: "index_ref_conclusions_on_user_id"
   end
 
@@ -96,6 +98,7 @@ ActiveRecord::Schema.define(version: 2023_05_25_090452) do
   add_foreign_key "conclusions", "users"
   add_foreign_key "ref_conclusions", "agenda_boards"
   add_foreign_key "ref_conclusions", "conclusions"
+  add_foreign_key "ref_conclusions", "ref_conclusions", column: "parent_ref_conclusion_id"
   add_foreign_key "ref_conclusions", "users"
   add_foreign_key "ref_evidences", "ref_reasons"
   add_foreign_key "ref_reasons", "ref_conclusions"
