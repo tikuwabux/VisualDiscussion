@@ -14,8 +14,14 @@
     </div>
 
     <div class="evidences nested_evidences_forms">
-      <%= f.fields_for :evidences, f.object.evidences.order(:created_at) do |nested_evidence_form| %>
-        <%= render "evidence_fields", f: nested_evidence_form %>
+      <% if f.object.id == nil %>
+        <%= f.fields_for :evidences do |nested_evidence_form| %>
+          <%= render "evidence_fields", f: nested_evidence_form %>
+        <% end %>
+      <% else %>
+        <%= f.fields_for :evidences, f.object.evidences.order(:created_at) do |nested_evidence_form| %>
+          <%= render "evidence_fields", f: nested_evidence_form %>
+        <% end %>
       <% end %>
 
       <div class="add_nested_evidence_form">
