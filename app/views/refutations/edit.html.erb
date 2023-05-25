@@ -110,7 +110,7 @@
         </div>
 
         <div class="bases nested_bases_forms">
-          <%= ref_conclusion_form.fields_for :ref_reasons do |nested_reason_form| %>
+          <%= ref_conclusion_form.fields_for :ref_reasons, ref_conclusion_form.object.ref_reasons.order(:created_at) do |nested_reason_form| %>
             <%= render "ref_reason_fields", f: nested_reason_form %>
           <% end %>
 

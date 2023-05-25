@@ -66,7 +66,7 @@
           </div>
 
           <div class="bases">
-            <% ref_conclusion.ref_reasons.each_with_index do |ref_reason, r_r_i| %>
+            <% ref_conclusion.ref_reasons.order(:created_at).each_with_index do |ref_reason, r_r_i| %>
               <div class="basis">
                 <div class="endpoint endpoint_between_ref_conclusion<%= r_c_i %>_and_ref_reason" id="endpoint_between_ref_conclusion<%= r_c_i %>_and_ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>"></div>
                 <div class="ref_reason ref_box ref_reason_of_ref_conclusion<%= r_c_i %>" id="ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>">
@@ -79,7 +79,7 @@
                 </div>
 
                 <div class="evidences">
-                  <% ref_reason.ref_evidences.each_with_index do |ref_evidence, r_e_i| %>
+                  <% ref_reason.ref_evidences.order(:created_at).each_with_index do |ref_evidence, r_e_i| %>
                     <div class="ref_evidence">
                       <div class="endpoint endpoint_between_ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>_and_ref_evidence" id="endpoint_between_ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>_and_ref_evidence<%= r_e_i %>_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>"></div>
                       <div class="ref_evidence ref_box ref_evidence_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>" id="ref_evidence<%= r_e_i %>_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= r_c_i %>">
