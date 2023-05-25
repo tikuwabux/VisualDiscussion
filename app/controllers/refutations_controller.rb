@@ -32,7 +32,7 @@ class RefutationsController < ApplicationController
   private
 
   def refutation_params
-    params.require(:ref_conclusion).permit(:agenda_board_id, :user_id, :conclusion_id, :ref_conclusion_summary, :ref_conclusion_detail,
+    params.require(:ref_conclusion).permit(:agenda_board_id, :user_id, :conclusion_id, :parent_ref_conclusion_id, :ref_conclusion_summary, :ref_conclusion_detail,
       ref_reasons_attributes: [
         :id, :ref_reason_summary, :ref_reason_detail, :_destroy,
         ref_evidences_attributes: [:id, :ref_evidence_summary, :ref_evidence_detail, :_destroy],
