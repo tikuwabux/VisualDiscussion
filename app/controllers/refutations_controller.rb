@@ -29,6 +29,30 @@ class RefutationsController < ApplicationController
     end
   end
 
+  def edit
+    @agenda_board_agenda = params[:agenda_board_agenda]
+    ref_conclusion_id = params[:edit_target_ref_conclusion_id].to_i
+    @ref_conclusion = RefConclusion.find(ref_conclusion_id)
+
+    if @ref_conclusion.conclusion_id
+      @rebuttal_target_conclusion = Conclusion.find(@ref_conclusion.conclusion_id)
+    else
+      @rebuttal_target_ref_conclusion = RefConclusion.find(@ref_conclusion.parent_ref_conclusion_id)
+    end
+  end
+
+  def update
+    refutation_id = params[:edit_target_ref_conclusion_id].to_i
+    refutation = RefConclusion.find(refutation_id)
+    if refutation.update(refutation_params)
+      flash[:notice] = "反論の編集に成功しました"
+      redirect_to agenda_board_path(refutation.agenda_board_id)
+    else
+      flash[:notice] = "反論の編集に失敗しました"
+      render "edit"
+    end
+  end
+
   private
 
   def refutation_params
