@@ -99,6 +99,7 @@
     <%= form_with model: @ref_conclusion, url:refutations_path, local: true do |ref_conclusion_form| %>
       <%= ref_conclusion_form.hidden_field :agenda_board_id, value: @agenda_board_id %>
       <%= ref_conclusion_form.hidden_field :user_id, value: current_user.id %>
+      <%= ref_conclusion_form.hidden_field :conclusion_id, value: @rebuttal_target_conclusion.id %>
       <div class="ref_tree_structure">
         <div class="ref_conclusion ref_box">
           <h3>結論</h3>
