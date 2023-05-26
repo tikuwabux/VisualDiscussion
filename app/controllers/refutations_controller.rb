@@ -53,6 +53,14 @@ class RefutationsController < ApplicationController
     end
   end
 
+  def destroy
+    refutation_id = params[:delete_target_ref_conclusion_id].to_i
+    refutation = RefConclusion.find(refutation_id)
+    refutation.destroy
+    flash[:notice] = "反論の削除に成功しました"
+    redirect_to agenda_board_path(refutation.agenda_board_id)
+  end
+
   private
 
   def refutation_params
