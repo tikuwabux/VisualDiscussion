@@ -2,15 +2,16 @@ require 'rails_helper'
 
 RSpec.describe "Refutations", type: :system do
   let(:annie) { create(:user, name: "annie") }
+  let(:brian) { create(:user, name: "brian")}
   let!(:about_early_bird) { create(:agenda_board, user_id: annie.id, agenda: "早起きは健康によいのか?", category: "自然科学") }
 
-  let(:bad_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, conclusion_summary: "健康に悪い") }
+  let(:bad_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "健康に悪い") }
   let(:misalignment_with_body_clock) { create(:reason, conclusion_id: bad_for_health.id, reason_summary: "人間の体内時計と噛み合っていないから") }
   let!(:lack_of_sleep) { create(:reason, conclusion_id: bad_for_health.id, reason_summary: "睡眠不足になりやすいから") }
   let!(:sleep_data) { create(:evidence, reason_id: misalignment_with_body_clock.id, evidence_summary: "世界中のあらゆる人々の睡眠データ") }
   let!(:research_of_dr_kelly) { create(:evidence, reason_id: misalignment_with_body_clock.id, evidence_summary: "ケリー博士の研究") }
 
-  let(:problematic_reason) { create(:ref_conclusion, agenda_board_id: about_early_bird.id, ref_conclusion_summary: "理由部分に誤りがある") }
+  let(:problematic_reason) { create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: brian.id, ref_conclusion_summary: "理由部分に誤りがある") }
   let(:individual_differences_in_body_clock) do
     create(:ref_reason, ref_conclusion_id: problematic_reason.id, ref_reason_summary: "体内時計は､同年齢間においても個人差があり､一律ではないから")
   end
