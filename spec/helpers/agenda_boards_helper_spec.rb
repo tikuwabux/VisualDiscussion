@@ -1,15 +1,13 @@
 require 'rails_helper'
 
-# Specs in this file have access to a helper object that includes
-# the AgendaBoardsHelper. For example:
-#
-# describe AgendaBoardsHelper do
-#   describe "string concat" do
-#     it "concats two strings with spaces" do
-#       expect(helper.concat_strings("this","that")).to eq("this that")
-#     end
-#   end
-# end
 RSpec.describe AgendaBoardsHelper, type: :helper do
-  pending "add some examples to (or delete) #{__FILE__}"
+  let(:annie) { create(:user, name: "annie") }
+  let(:about_early_bird) { create(:agenda_board, user_id: annie.id, agenda: "早起きは健康によいのか?", category: "自然科学") }
+  let!(:good_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "健康に良い") }
+
+  describe "#speaker_name(opinion)" do
+    it "引数に意見(主張or反論)が渡されたとき､その発言者の名前を返すこと" do
+      expect(speaker_name(good_for_health)).to eq "annie"
+    end
+  end
 end
