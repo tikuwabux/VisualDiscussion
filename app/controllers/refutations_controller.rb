@@ -5,11 +5,9 @@ class RefutationsController < ApplicationController
     if params[:type_of_opinion] == "argument"
       rebuttal_target_conclusion_id = params[:rebuttal_target_conclusion_id].to_i
       @rebuttal_target_conclusion = Conclusion.find(rebuttal_target_conclusion_id)
-      @rebuttal_target_conclusion_index = params[:rebuttal_target_conclusion_index]
     else
       rebuttal_target_ref_conclusion_id = params[:rebuttal_target_ref_conclusion_id].to_i
       @rebuttal_target_ref_conclusion = RefConclusion.find(rebuttal_target_ref_conclusion_id)
-      @rebuttal_target_ref_conclusion_index = params[:rebuttal_target_ref_conclusion_index]
     end
 
     @ref_conclusion = RefConclusion.new

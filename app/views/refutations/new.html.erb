@@ -1,10 +1,10 @@
 <h1><%= @agenda_board_agenda %></h1>
 <div class="create_new_refutation">
   <% if @rebuttal_target_conclusion %>
-    <div class="rebuttal_target_argument" id="argument<%= @rebuttal_target_conclusion_index %>">
+    <div class="rebuttal_target_argument" id="argument<%= @rebuttal_target_conclusion.id %>">
       <h3 class="argument_title">反論対象の主張</h3>
       <div class="tree_structure">
-        <div class="conclusion box" id="conclusion<%= @rebuttal_target_conclusion_index %>">
+        <div class="conclusion box" id="conclusion<%= @rebuttal_target_conclusion.id %>">
           <h3>結論</h3>
           <div class="inner">
             <%= @rebuttal_target_conclusion.conclusion_summary %>
@@ -16,8 +16,8 @@
         <div class="bases">
           <% @rebuttal_target_conclusion.reasons.each_with_index do |reason, r_i| %>
             <div class="basis">
-              <div class="endpoint endpoint_between_conclusion<%= @rebuttal_target_conclusion_index %>_and_reason" id="endpoint_between_conclusion<%= @rebuttal_target_conclusion_index %>_and_reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion_index %>"></div>
-              <div class="reason box reason_of_conclusion<%= @rebuttal_target_conclusion_index %>" id="reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion_index %>">
+              <div class="endpoint endpoint_between_conclusion<%= @rebuttal_target_conclusion.id %>_and_reason" id="endpoint_between_conclusion<%= @rebuttal_target_conclusion.id %>_and_reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion.id %>"></div>
+              <div class="reason box reason_of_conclusion<%= @rebuttal_target_conclusion.id %>" id="reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion.id %>">
                 <h3>理由</h3>
                 <div class="inner">
                   <%= reason.reason_summary %>
@@ -29,8 +29,8 @@
               <div class="evidences">
                 <% reason.evidences.each_with_index do |evidence, e_i| %>
                   <div class="evidence">
-                    <div class="endpoint endpoint_between_reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion_index %>_and_evidence" id="endpoint_between_reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion_index %>_and_evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion_index %>"></div>
-                    <div class="evidence box evidence_of_reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion_index %>" id="evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion_index %>">
+                    <div class="endpoint endpoint_between_reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion.id %>_and_evidence" id="endpoint_between_reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion.id %>_and_evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion.id %>"></div>
+                    <div class="evidence box evidence_of_reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion.id %>" id="evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= @rebuttal_target_conclusion.id %>">
                       <h3>証拠</h3>
                       <div class="inner">
                         <%= evidence.evidence_summary %>
@@ -47,10 +47,10 @@
       </div>
     </div>
   <% else %>
-    <div class="rebuttal_target_refutation" id="refutation<%= @rebuttal_target_ref_conclusion_index %>">
+    <div class="rebuttal_target_refutation" id="refutation<%= @rebuttal_target_ref_conclusion.id %>">
       <h3 class="refutation_title">反論対象の反論</h3>
       <div class="ref_tree_structure">
-        <div class="ref_conclusion ref_box" id="ref_conclusion<%= @rebuttal_target_ref_conclusion_index %>">
+        <div class="ref_conclusion ref_box" id="ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>">
           <h3>結論</h3>
           <div class="inner">
             <%= @rebuttal_target_ref_conclusion.ref_conclusion_summary %>
@@ -62,8 +62,8 @@
         <div class="bases">
           <% @rebuttal_target_ref_conclusion.ref_reasons.each_with_index do |ref_reason, r_r_i| %>
             <div class="basis">
-              <div class="endpoint endpoint_between_ref_conclusion<%= @rebuttal_target_ref_conclusion_index %>_and_ref_reason" id="endpoint_between_ref_conclusion<%= @rebuttal_target_ref_conclusion_index %>_and_ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion_index %>"></div>
-              <div class="ref_reason ref_box ref_reason_of_ref_conclusion<%= @rebuttal_target_ref_conclusion_index %>" id="ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion_index %>">
+              <div class="endpoint endpoint_between_ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>_and_ref_reason" id="endpoint_between_ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>_and_ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>"></div>
+              <div class="ref_reason ref_box ref_reason_of_ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>" id="ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>">
                 <h3>理由</h3>
                 <div class="inner">
                   <%= ref_reason.ref_reason_summary %>
@@ -75,8 +75,8 @@
               <div class="evidences">
                 <% ref_reason.ref_evidences.each_with_index do |ref_evidence, r_e_i| %>
                   <div class="ref_evidence">
-                    <div class="endpoint endpoint_between_ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion_index %>_and_ref_evidence" id="endpoint_between_ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion_index %>_and_ref_evidence<%= r_e_i %>_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion_index %>"></div>
-                    <div class="ref_evidence ref_box ref_evidence_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion_index %>" id="ref_evidence<%= r_e_i %>_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion_index %>">
+                    <div class="endpoint endpoint_between_ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>_and_ref_evidence" id="endpoint_between_ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>_and_ref_evidence<%= r_e_i %>_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>"></div>
+                    <div class="ref_evidence ref_box ref_evidence_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>" id="ref_evidence<%= r_e_i %>_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>">
                       <h3>証拠</h3>
                       <div class="inner">
                         <%= ref_evidence.ref_evidence_summary %>
