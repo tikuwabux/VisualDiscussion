@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Arguments", type: :system do
+RSpec.describe "Arguments", type: :system, js: true do
   let(:annie) { create(:user, name: "annie") }
   let!(:about_early_bird) { create(:agenda_board, user_id: annie.id, agenda: "早起きは健康によいのか?", category: "自然科学") }
 

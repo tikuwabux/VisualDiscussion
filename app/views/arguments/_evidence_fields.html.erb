@@ -2,11 +2,11 @@
   <div class="evidence">
     <div class="endpoint"></div>
     <div class="evidence box">
-      <h3>証拠</h3>
+      <h3><%= f.label :evidence_summary, "証拠" %></h3>
       <div class="inner">
         <%= f.text_field :evidence_summary, class: 'adjust-entered-text-width' %>
       </div>
-      <h3>証拠詳細</h3>
+      <h3><%= f.label :evidence_detail, "証拠詳細" %></h3>
       <div class="inner">
         <%= f.text_area :evidence_detail, class: 'adjust-entered-text-size' %>
       </div>
