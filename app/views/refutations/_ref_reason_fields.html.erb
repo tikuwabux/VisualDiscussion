@@ -2,11 +2,11 @@
   <div class="basis">
     <div class="endpoint"></div>
     <div class="ref_reason ref_box">
-      <h3>理由</h3>
+      <h3><%= f.label :ref_reason_summary, "理由" %></h3>
       <div class="inner">
         <%= f.text_field :ref_reason_summary, class: 'adjust-entered-text-width' %>
       </div>
-      <h3>理由詳細</h3>
+      <h3><%= f.label :ref_reason_detail, "理由詳細" %></h3>
       <div class="inner">
         <%= f.text_area :ref_reason_detail, class: 'adjust-entered-text-size' %>
       </div>

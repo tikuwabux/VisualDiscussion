@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Refutations", type: :system do
+RSpec.describe "Refutations", type: :system, js: true do
   let(:annie) { create(:user, name: "annie") }
   let(:brian) { create(:user, name: "brian")}
   let!(:about_early_bird) { create(:agenda_board, user_id: annie.id, agenda: "早起きは健康によいのか?", category: "自然科学") }
@@ -33,11 +33,17 @@ RSpec.describe "Refutations", type: :system do
     click_button "Log in"
     click_on "#{annie.name}さんが作成した議題ボード"
     click_on about_early_bird.agenda
+
+    # id="refutation#{problematic_reason.id}" の要素を右に200px移動させる
+    # (移動させないと､id="argument#{bad_for_health.id}"の要素中の､新規反論作成ボタンの上に覆いかぶさり､ボタンが押せない)
+    element_to_be_moved = find("#refutation#{problematic_reason.id}")
+    code_to_perform_the_move = "arguments[0].style.transform = 'translateX(200px)';"
+    page.execute_script(code_to_perform_the_move, element_to_be_moved)
   end
 
   context "主張下の｢新規反論作成｣ボタンをクリックして､新規反論作成ページにアクセスした時" do
     before do
-      within ".argument" do
+      within "#argument#{bad_for_health.id}" do
         click_button "新規反論作成"
       end
     end
@@ -80,7 +86,7 @@ RSpec.describe "Refutations", type: :system do
 
   context "反論下の｢新規反論作成｣ボタンをクリックして､新規反論作成ページにアクセスした時" do
     before do
-      within ".refutation" do
+      within "#refutation#{problematic_reason.id}" do
         click_button "新規反論作成"
       end
     end
