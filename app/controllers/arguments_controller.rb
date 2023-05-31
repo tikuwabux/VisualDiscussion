@@ -21,14 +21,12 @@ class ArgumentsController < ApplicationController
   end
 
   def edit
-    @agenda_board_agenda = params[:agenda_board_agenda]
-    conclusion_id = params[:edit_target_conclusion_id].to_i
-    @conclusion = Conclusion.find(conclusion_id)
+    @conclusion = Conclusion.find(params[:id])
+    @agenda_board_agenda = AgendaBoard.find(@conclusion.agenda_board_id).agenda
   end
 
   def update
-    argument_id = params[:edit_target_conclusion_id].to_i
-    argument = Conclusion.find(argument_id)
+    argument = Conclusion.find(params[:id])
     if argument.update(argument_params)
       flash[:notice] = "主張の編集に成功しました"
       redirect_to agenda_board_path(argument.agenda_board_id)

@@ -1,7 +1,7 @@
 <h1><%= @agenda_board_agenda %></h1>
 <div class="create_new_argument_form">
   <h3 class="argument_title">編集対象の主張</h3>
-  <%= form_with model: @conclusion, url: argument_path, local: true, params: {edit_target_conclusion_id: @conclusion.id} do |conclusion_form| %>
+  <%= form_with model: @conclusion, url: argument_path, local: true do |conclusion_form| %>
     <div class="tree_structure">
       <div class="conclusion box">
         <h3>結論</h3>
@@ -26,7 +26,6 @@
 
       <div>
         <%= conclusion_form.button "主張を編集", type: 'button', onclick: 'submit();' %>
-        <%= hidden_field_tag :edit_target_conclusion_id, @conclusion.id %>
       </div>
     </div>
   <% end %>
