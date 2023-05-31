@@ -49,7 +49,7 @@
         <%= button_to "新規反論作成", new_refutation_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda, rebuttal_target_conclusion_id: conclusion.id, type_of_opinion: "argument" } %>
         <% if current_user.id == conclusion.user_id && conclusion.ref_conclusions == [] %>
           <%= button_to "主張を編集する", edit_argument_path(conclusion.id), method: :get %>
-          <%= button_to "主張を削除する", argument_path, method: :delete, params: { delete_target_conclusion_id: conclusion.id } %>
+          <%= button_to "主張を削除する", argument_path(conclusion.id), method: :delete %>
         <% end %>
       </div>
     <% end %>

@@ -37,8 +37,7 @@ class ArgumentsController < ApplicationController
   end
 
   def destroy
-    argument_id = params[:delete_target_conclusion_id].to_i
-    argument = Conclusion.find(argument_id)
+    argument = Conclusion.find(params[:id])
     argument.destroy
     flash[:notice] = "主張の削除に成功しました"
     redirect_to agenda_board_path(argument.agenda_board_id)
