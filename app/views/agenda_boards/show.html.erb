@@ -101,7 +101,7 @@
         <%= button_to "新規反論作成", new_refutation_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda, rebuttal_target_ref_conclusion_id: ref_conclusion.id } %>
         <% if current_user.id == ref_conclusion.user_id && ref_conclusion.child_ref_conclusions == [] %>
           <%= button_to "反論を編集する", edit_refutation_path(ref_conclusion.id), method: :get %>
-          <%= button_to "反論を削除する", refutation_path, method: :delete, params: { delete_target_ref_conclusion_id: ref_conclusion.id } %>
+          <%= button_to "反論を削除する", refutation_path(ref_conclusion.id), method: :delete %>
         <% end %>
       </div>
     <% end %>
