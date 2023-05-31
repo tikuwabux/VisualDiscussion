@@ -9,16 +9,16 @@ RSpec.describe "AgendaBoards", type: :system do
   let!(:about_chatbot) { create(:agenda_board, user_id: annie.id, agenda: "チャットボットは教育に悪影響を与えるのか?", category: "社会科学") }
 
   let(:bad_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "健康に悪い") }
-  let!(:good_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, user_id: brian.id, conclusion_summary: "健康に良い") }
   let(:misalignment_with_body_clock) { create(:reason, conclusion_id: bad_for_health.id, reason_summary: "人間の体内時計と噛み合っていないから") }
   let!(:lack_of_sleep) { create(:reason, conclusion_id: bad_for_health.id, reason_summary: "睡眠不足になりやすいから") }
   let!(:sleep_data) { create(:evidence, reason_id: misalignment_with_body_clock.id, evidence_summary: "世界中のあらゆる人々の睡眠データ") }
   let!(:research_of_dr_kelly) { create(:evidence, reason_id: misalignment_with_body_clock.id, evidence_summary: "ケリー博士の研究") }
 
-  let(:problematic_reason) { create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: brian.id, ref_conclusion_summary: "理由部分に誤りがある") }
-  let!(:problematic_reason_and_evidence_connection) do
-    create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: catherine.id, ref_conclusion_summary: "証拠が理由に適するものではない")
-  end
+  let(:very_bad_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "かなり健康に悪く拷問に等しい") }
+  let(:increased_risk_of_various_diseases) { create(:reason, conclusion_id: very_bad_for_health.id, reason_summary: "早起きは様々な病気のリスクを上げることが明らかになっているから") }
+  let!(:research_data) { create(:evidence, reason_id: increased_risk_of_various_diseases.id, evidence_summary: "早起きが､糖尿病､高血圧などの病気のリスクを上げていることを示す研究データ") }
+
+  let(:problematic_reason) { create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: brian.id, conclusion_id: bad_for_health.id, ref_conclusion_summary: "理由部分に誤りがある") }
   let(:individual_differences_in_body_clock) do
     create(:ref_reason, ref_conclusion_id: problematic_reason.id, ref_reason_summary: "体内時計は､同年齢間においても個人差があり､一律ではないから")
   end
@@ -106,6 +106,34 @@ RSpec.describe "AgendaBoards", type: :system do
             expect(page).to have_content evidence.evidence_detail
           end
         end
+      end
+    end
+
+    context "主張の作成者が現在ログイン中のユーザーであることに加え､その主張への反論が作成されていないとき" do
+      scenario "｢主張を編集する｣ボタンの表示を確認できること" do
+        within "#argument#{very_bad_for_health.id}" do
+          expect(page).to have_button "主張を編集する"
+        end
+      end
+
+      scenario "｢主張を編集する｣ボタンをクリックすると､主張編集ページに遷移すること" do
+        within "#argument#{very_bad_for_health.id}" do
+          click_button "主張を編集する"
+        end
+        expect(page).to have_current_path edit_argument_path(very_bad_for_health), ignore_query: true
+      end
+
+      scenario "｢主張を削除する｣ボタンの表示を確認できること" do
+        within "#argument#{very_bad_for_health.id}" do
+          expect(page).to have_button "主張を削除する"
+        end
+      end
+
+      scenario "｢主張を削除する｣ボタンをクリックすると､その主張が削除されること" do
+        within "#argument#{very_bad_for_health.id}" do
+          click_button "主張を削除する"
+        end
+        expect(page).not_to have_selector "#argument#{very_bad_for_health.id}"
       end
     end
 
