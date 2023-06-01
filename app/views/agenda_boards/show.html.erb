@@ -106,7 +106,7 @@
       </div>
     <% end %>
     </div>
-  <%= button_to "新規主張作成", new_argument_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda} %>
+  <%= button_to "新規主張作成", new_argument_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda}, class: "create_new_argument_button" %>
 </div>
 <script
 src="https://code.jquery.com/jquery-3.5.1.min.js"
