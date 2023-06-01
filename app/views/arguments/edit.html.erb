@@ -4,11 +4,11 @@
   <%= form_with model: @conclusion, url: argument_path, local: true do |conclusion_form| %>
     <div class="tree_structure">
       <div class="conclusion box">
-        <h3>結論</h3>
+        <h3><%= conclusion_form.label :conclusion_summary, "結論" %></h3>
         <div class="inner">
           <%= conclusion_form.text_field :conclusion_summary, class: 'adjust-entered-text-width' %>
         </div>
-        <h3>結論詳細</h3>
+        <h3><%= conclusion_form.label :conclusion_detail, "結論詳細" %></h3>
         <div class="inner">
           <%= conclusion_form.text_area :conclusion_detail, class: 'adjust-entered-text-size' %>
         </div>
