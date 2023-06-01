@@ -3,7 +3,6 @@ require 'rails_helper'
 RSpec.describe "AgendaBoards", type: :system do
   let(:annie) { create(:user, name: "annie") }
   let(:brian) { create(:user, name: "brian")}
-  let(:catherine) { create(:user, name: "catherine") }
 
   let(:about_early_bird) { create(:agenda_board, user_id: annie.id, agenda: "早起きは健康によいのか?", category: "自然科学") }
   let!(:about_chatbot) { create(:agenda_board, user_id: annie.id, agenda: "チャットボットは教育に悪影響を与えるのか?", category: "社会科学") }
@@ -30,6 +29,16 @@ RSpec.describe "AgendaBoards", type: :system do
   end
   let!(:research_on_the_body_clock) do
     create(:ref_evidence, ref_reason_id: individual_differences_in_body_clock.id, ref_evidence_summary: "体内時計に関する研究")
+  end
+
+  let(:problematic_reason_and_evidence_connection) do
+    create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, parent_ref_conclusion_id: problematic_reason.id, ref_conclusion_summary: "証拠が理由に適するものではない")
+  end
+  let(:not_survey_between_same_age_groups) do
+    create(:ref_reason, ref_conclusion_id: problematic_reason_and_evidence_connection.id, ref_reason_summary: "証拠にあげている調査は､同年齢を対象としたものではないから")
+  end
+  let!(:not_necessary) do
+    create(:ref_evidence, ref_reason_id: not_survey_between_same_age_groups.id, ref_evidence_summary: "論理性の話であるため必要なし")
   end
 
   before do
@@ -156,6 +165,34 @@ RSpec.describe "AgendaBoards", type: :system do
             expect(page).to have_content ref_evidence.ref_evidence_detail
           end
         end
+      end
+    end
+
+    context "反論の作成者が現在ログイン中のユーザーであることに加え､その反論への反論が作成されていないとき" do
+      scenario "｢反論を編集する｣ボタンの表示を確認できること" do
+        within "#refutation#{problematic_reason_and_evidence_connection.id}" do
+          expect(page).to have_button "反論を編集する"
+        end
+      end
+
+      scenario "｢反論を編集する｣ボタンをクリックすると､反論編集ページに遷移すること" do
+        within "#refutation#{problematic_reason_and_evidence_connection.id}" do
+          click_button "反論を編集する"
+        end
+        expect(page).to have_current_path edit_refutation_path(problematic_reason_and_evidence_connection), ignore_query: true
+      end
+
+      scenario "｢反論を削除する｣ボタンの表示を確認できること" do
+        within "#refutation#{problematic_reason_and_evidence_connection.id}" do
+          expect(page).to have_button "反論を削除する"
+        end
+      end
+
+      scenario "｢反論を削除する｣ボタンをクリックすると､その反論が削除されること" do
+        within "#refutation#{problematic_reason_and_evidence_connection.id}" do
+          click_button "反論を削除する"
+        end
+        expect(page).not_to have_selector "#refutation#{problematic_reason_and_evidence_connection.id}"
       end
     end
   end
