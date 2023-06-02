@@ -6,7 +6,7 @@ class RefConclusion < ApplicationRecord
 
   belongs_to :conclusion, optional: true
 
-  belongs_to :parent_ref_conclusion, class_name: 'RefConclusion', optional: true, foreign_key: 'parent_ref_conclusion_id'
+  belongs_to :parent_ref_conclusion, class_name: 'RefConclusion', optional: true
   has_many :child_ref_conclusions, class_name: 'RefConclusion', foreign_key: 'parent_ref_conclusion_id'
 
   validates :agenda_board_id, presence: true

@@ -4,9 +4,15 @@ RSpec.describe "Arguments", type: :system, js: true do
   let(:annie) { create(:user, name: "annie") }
   let!(:about_early_bird) { create(:agenda_board, user_id: annie.id, agenda: "早起きは健康によいのか?", category: "自然科学") }
 
-  let(:very_bad_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "かなり健康に悪く拷問に等しい") }
-  let(:increased_risk_of_various_diseases) { create(:reason, conclusion_id: very_bad_for_health.id, reason_summary: "早起きは様々な病気のリスクを上げることが明らかになっているから") }
-  let!(:research_data) { create(:evidence, reason_id: increased_risk_of_various_diseases.id, evidence_summary: "早起きが､糖尿病､高血圧などの病気のリスクを上げていることを示す研究データ") }
+  let(:very_bad_for_health) do
+    create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "かなり健康に悪く拷問に等しい")
+  end
+  let(:increased_risk_of_various_diseases) do
+    create(:reason, conclusion_id: very_bad_for_health.id, reason_summary: "早起きは様々な病気のリスクを上げることが明らかになっているから")
+  end
+  let!(:research_data) do
+    create(:evidence, reason_id: increased_risk_of_various_diseases.id, evidence_summary: "早起きが､糖尿病､高血圧などの病気のリスクを上げていることを示す研究データ")
+  end
 
   before do
     visit root_path

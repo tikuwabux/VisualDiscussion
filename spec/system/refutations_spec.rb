@@ -2,21 +2,29 @@ require 'rails_helper'
 
 RSpec.describe "Refutations", type: :system, js: true do
   let(:annie) { create(:user, name: "annie") }
-  let(:brian) { create(:user, name: "brian")}
+  let(:brian) { create(:user, name: "brian") }
 
   let!(:about_early_bird) { create(:agenda_board, user_id: annie.id, agenda: "早起きは健康によいのか?", category: "自然科学") }
 
-  let(:bad_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "健康に悪い") }
+  let(:bad_for_health) do
+    create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "健康に悪い")
+  end
   let(:misalignment_with_body_clock) { create(:reason, conclusion_id: bad_for_health.id, reason_summary: "人間の体内時計と噛み合っていないから") }
   let!(:lack_of_sleep) { create(:reason, conclusion_id: bad_for_health.id, reason_summary: "睡眠不足になりやすいから") }
   let!(:sleep_data) { create(:evidence, reason_id: misalignment_with_body_clock.id, evidence_summary: "世界中のあらゆる人々の睡眠データ") }
   let!(:research_of_dr_kelly) { create(:evidence, reason_id: misalignment_with_body_clock.id, evidence_summary: "ケリー博士の研究") }
 
-  let(:good_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, user_id: brian.id, conclusion_summary: "健康に良い") }
-  let(:the_early_bird_cateches_the_worm) { create(:reason, conclusion_id: good_for_health.id, reason_summary: "｢早起きは三文の得｣と昔から言うから") }
+  let(:good_for_health) do
+    create(:conclusion, agenda_board_id: about_early_bird.id, user_id: brian.id, conclusion_summary: "健康に良い")
+  end
+  let(:the_early_bird_cateches_the_worm) do
+    create(:reason, conclusion_id: good_for_health.id, reason_summary: "｢早起きは三文の得｣と昔から言うから")
+  end
   let!(:fun_proverb_book) { create(:evidence, reason_id: the_early_bird_cateches_the_worm.id, evidence_summary: "楽しいことわざ本") }
 
-  let(:problematic_reason) { create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: brian.id, ref_conclusion_summary: "理由部分に誤りがある") }
+  let(:problematic_reason) do
+    create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: brian.id, ref_conclusion_summary: "理由部分に誤りがある")
+  end
   let(:individual_differences_in_body_clock) do
     create(:ref_reason, ref_conclusion_id: problematic_reason.id, ref_reason_summary: "体内時計は､同年齢間においても個人差があり､一律ではないから")
   end
@@ -31,20 +39,25 @@ RSpec.describe "Refutations", type: :system, js: true do
   end
 
   let(:probalematic_conclusion_and_reason_connection) do
-    create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_id: good_for_health.id, ref_conclusion_summary: "理由が結論に適するものではない")
+    create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_id: good_for_health.id,
+                            ref_conclusion_summary: "理由が結論に適するものではない")
   end
   let(:proverbs_are_didactic) do
-    create(:ref_reason, ref_conclusion_id: probalematic_conclusion_and_reason_connection.id, ref_reason_summary: "ことわざは例え話のようなもので事実性が低く､根拠として不適当だから")
+    create(:ref_reason, ref_conclusion_id: probalematic_conclusion_and_reason_connection.id,
+                        ref_reason_summary: "ことわざは例え話のようなもので事実性が低く､根拠として不適当だから")
   end
   let!(:make_haste_slowly) do
-    create(:ref_evidence, ref_reason_id: proverbs_are_didactic.id, ref_evidence_summary: "｢急がば回れ｣と言うが､待ち合わせに遅刻しそうなときは､googleマップを使って最短経路を進んだほうが良いと思う")
+    create(:ref_evidence, ref_reason_id: proverbs_are_didactic.id,
+                          ref_evidence_summary: "｢急がば回れ｣と言うが､待ち合わせに遅刻しそうなときは､googleマップを使って最短経路を進んだほうが良いと思う")
   end
 
   let(:problematic_reason_and_evidence_connection) do
-    create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, parent_ref_conclusion_id: problematic_reason.id, ref_conclusion_summary: "証拠が理由に適するものではない")
+    create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id,
+                            parent_ref_conclusion_id: problematic_reason.id, ref_conclusion_summary: "証拠が理由に適するものではない")
   end
   let(:not_survey_between_same_age_groups) do
-    create(:ref_reason, ref_conclusion_id: problematic_reason_and_evidence_connection.id, ref_reason_summary: "証拠にあげている調査は､同年齢を対象としたものではないから")
+    create(:ref_reason, ref_conclusion_id: problematic_reason_and_evidence_connection.id,
+                        ref_reason_summary: "証拠にあげている調査は､同年齢を対象としたものではないから")
   end
   let!(:not_necessary) do
     create(:ref_evidence, ref_reason_id: not_survey_between_same_age_groups.id, ref_evidence_summary: "論理性の話であるため必要なし")
@@ -60,7 +73,7 @@ RSpec.describe "Refutations", type: :system, js: true do
     click_on about_early_bird.agenda
 
     # 主張･反論の要素を移動させ､重なりを防ぐことで､主張・反論下の各々のボタンが押せるようにする
-    good_for_health_element  = find("#argument#{good_for_health.id}")
+    good_for_health_element = find("#argument#{good_for_health.id}")
     move_200px_to_the_right = "arguments[0].style.transform = 'translateX(200px)';"
     page.execute_script(move_200px_to_the_right, good_for_health_element)
 

@@ -2,22 +2,33 @@ require 'rails_helper'
 
 RSpec.describe "AgendaBoards", type: :system do
   let(:annie) { create(:user, name: "annie") }
-  let(:brian) { create(:user, name: "brian")}
+  let(:brian) { create(:user, name: "brian") }
 
   let(:about_early_bird) { create(:agenda_board, user_id: annie.id, agenda: "早起きは健康によいのか?", category: "自然科学") }
   let!(:about_chatbot) { create(:agenda_board, user_id: annie.id, agenda: "チャットボットは教育に悪影響を与えるのか?", category: "社会科学") }
 
-  let(:bad_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "健康に悪い") }
+  let(:bad_for_health) do
+    create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "健康に悪い")
+  end
   let(:misalignment_with_body_clock) { create(:reason, conclusion_id: bad_for_health.id, reason_summary: "人間の体内時計と噛み合っていないから") }
   let!(:lack_of_sleep) { create(:reason, conclusion_id: bad_for_health.id, reason_summary: "睡眠不足になりやすいから") }
   let!(:sleep_data) { create(:evidence, reason_id: misalignment_with_body_clock.id, evidence_summary: "世界中のあらゆる人々の睡眠データ") }
   let!(:research_of_dr_kelly) { create(:evidence, reason_id: misalignment_with_body_clock.id, evidence_summary: "ケリー博士の研究") }
 
-  let(:very_bad_for_health) { create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "かなり健康に悪く拷問に等しい") }
-  let(:increased_risk_of_various_diseases) { create(:reason, conclusion_id: very_bad_for_health.id, reason_summary: "早起きは様々な病気のリスクを上げることが明らかになっているから") }
-  let!(:research_data) { create(:evidence, reason_id: increased_risk_of_various_diseases.id, evidence_summary: "早起きが､糖尿病､高血圧などの病気のリスクを上げていることを示す研究データ") }
+  let(:very_bad_for_health) do
+    create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "かなり健康に悪く拷問に等しい")
+  end
+  let(:increased_risk_of_various_diseases) do
+    create(:reason, conclusion_id: very_bad_for_health.id, reason_summary: "早起きは様々な病気のリスクを上げることが明らかになっているから")
+  end
+  let!(:research_data) do
+    create(:evidence, reason_id: increased_risk_of_various_diseases.id, evidence_summary: "早起きが､糖尿病､高血圧などの病気のリスクを上げていることを示す研究データ")
+  end
 
-  let(:problematic_reason) { create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: brian.id, conclusion_id: bad_for_health.id, ref_conclusion_summary: "理由部分に誤りがある") }
+  let(:problematic_reason) do
+    create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: brian.id, conclusion_id: bad_for_health.id,
+                            ref_conclusion_summary: "理由部分に誤りがある")
+  end
   let(:individual_differences_in_body_clock) do
     create(:ref_reason, ref_conclusion_id: problematic_reason.id, ref_reason_summary: "体内時計は､同年齢間においても個人差があり､一律ではないから")
   end
@@ -32,10 +43,12 @@ RSpec.describe "AgendaBoards", type: :system do
   end
 
   let(:problematic_reason_and_evidence_connection) do
-    create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, parent_ref_conclusion_id: problematic_reason.id, ref_conclusion_summary: "証拠が理由に適するものではない")
+    create(:ref_conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id,
+                            parent_ref_conclusion_id: problematic_reason.id, ref_conclusion_summary: "証拠が理由に適するものではない")
   end
   let(:not_survey_between_same_age_groups) do
-    create(:ref_reason, ref_conclusion_id: problematic_reason_and_evidence_connection.id, ref_reason_summary: "証拠にあげている調査は､同年齢を対象としたものではないから")
+    create(:ref_reason, ref_conclusion_id: problematic_reason_and_evidence_connection.id,
+                        ref_reason_summary: "証拠にあげている調査は､同年齢を対象としたものではないから")
   end
   let!(:not_necessary) do
     create(:ref_evidence, ref_reason_id: not_survey_between_same_age_groups.id, ref_evidence_summary: "論理性の話であるため必要なし")
