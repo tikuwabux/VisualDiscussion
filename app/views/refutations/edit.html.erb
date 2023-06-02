@@ -99,11 +99,11 @@
     <%= form_with model: @ref_conclusion, url: refutation_path, local: true do |ref_conclusion_form| %>
       <div class="ref_tree_structure">
         <div class="ref_conclusion ref_box">
-          <h3>結論</h3>
+          <h3><%= ref_conclusion_form.label :ref_conclusion_summary, "結論" %></h3>
           <div class="inner">
             <%= ref_conclusion_form.text_field :ref_conclusion_summary, class: 'adjust-entered-text-width' %>
           </div>
-          <h3>結論詳細</h3>
+          <h3><%= ref_conclusion_form.label :ref_conclusion_detail, "結論詳細" %></h3>
           <div class="inner">
             <%= ref_conclusion_form.text_area :ref_conclusion_detail, class: 'adjust-entered-text-size' %>
           </div>
