@@ -1,4 +1,5 @@
 require 'rails_helper'
+include AgendaBoardsHelper
 
 RSpec.describe "AgendaBoards", type: :system do
   let(:annie) { create(:user, name: "annie") }
@@ -131,6 +132,14 @@ RSpec.describe "AgendaBoards", type: :system do
       end
     end
 
+    scenario "すべての主張のタイトルで､作成者の名前を動的に確認できること" do
+      about_early_bird.conclusions.all? do |conclusion|
+        within "#argument#{conclusion.id} .argument_title" do
+          expect(page).to have_content speaker_name(conclusion)
+        end
+      end
+    end
+
     context "主張の作成者が現在ログイン中のユーザーであることに加え､その主張への反論が作成されていないとき" do
       scenario "｢主張を編集する｣ボタンの表示を確認できること" do
         within "#argument#{very_bad_for_health.id}" do
@@ -177,6 +186,14 @@ RSpec.describe "AgendaBoards", type: :system do
             expect(page).to have_content ref_evidence.ref_evidence_summary
             expect(page).to have_content ref_evidence.ref_evidence_detail
           end
+        end
+      end
+    end
+
+    scenario "すべての反論のタイトルで､作成者の名前を動的に確認できること" do
+      about_early_bird.ref_conclusions.all? do |ref_conclusion|
+        within "#refutation#{ref_conclusion.id} .refutation_title" do
+          expect(page).to have_content speaker_name(ref_conclusion)
         end
       end
     end
