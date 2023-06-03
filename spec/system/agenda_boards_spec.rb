@@ -1,5 +1,4 @@
 require 'rails_helper'
-include AgendaBoardsHelper
 
 RSpec.describe "AgendaBoards", type: :system do
   let(:annie) { create(:user, name: "annie") }
