@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_05_07_105304) do
+ActiveRecord::Schema.define(version: 2023_05_25_133819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2023_05_07_105304) do
     t.text "conclusion_detail"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_conclusions_on_user_id"
   end
 
   create_table "evidences", force: :cascade do |t|
@@ -53,7 +55,13 @@ ActiveRecord::Schema.define(version: 2023_05_07_105304) do
     t.text "ref_conclusion_detail"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id"
+    t.bigint "conclusion_id"
+    t.bigint "parent_ref_conclusion_id"
     t.index ["agenda_board_id"], name: "index_ref_conclusions_on_agenda_board_id"
+    t.index ["conclusion_id"], name: "index_ref_conclusions_on_conclusion_id"
+    t.index ["parent_ref_conclusion_id"], name: "index_ref_conclusions_on_parent_ref_conclusion_id"
+    t.index ["user_id"], name: "index_ref_conclusions_on_user_id"
   end
 
   create_table "ref_evidences", force: :cascade do |t|
@@ -87,7 +95,11 @@ ActiveRecord::Schema.define(version: 2023_05_07_105304) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "conclusions", "users"
   add_foreign_key "ref_conclusions", "agenda_boards"
+  add_foreign_key "ref_conclusions", "conclusions"
+  add_foreign_key "ref_conclusions", "ref_conclusions", column: "parent_ref_conclusion_id"
+  add_foreign_key "ref_conclusions", "users"
   add_foreign_key "ref_evidences", "ref_reasons"
   add_foreign_key "ref_reasons", "ref_conclusions"
 end

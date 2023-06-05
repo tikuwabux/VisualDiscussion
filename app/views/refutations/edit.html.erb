@@ -95,15 +95,8 @@
   <% end %>
 
   <div class="create_new_refutation_form">
-    <h3 class="refutation_title">新規反論</h3>
-    <%= form_with model: @ref_conclusion, url:refutations_path, local: true do |ref_conclusion_form| %>
-      <%= ref_conclusion_form.hidden_field :agenda_board_id, value: @agenda_board_id %>
-      <%= ref_conclusion_form.hidden_field :user_id, value: current_user.id %>
-      <% if @rebuttal_target_conclusion %>
-        <%= ref_conclusion_form.hidden_field :conclusion_id, value: @rebuttal_target_conclusion.id %>
-      <% else %>
-        <%= ref_conclusion_form.hidden_field :parent_ref_conclusion_id, value: @rebuttal_target_ref_conclusion.id %>
-      <% end %>
+    <h3 class="refutation_title">編集対象の反論</h3>
+    <%= form_with model: @ref_conclusion, url: refutation_path, local: true do |ref_conclusion_form| %>
       <div class="ref_tree_structure">
         <div class="ref_conclusion ref_box">
           <h3><%= ref_conclusion_form.label :ref_conclusion_summary, "結論" %></h3>
@@ -116,18 +109,18 @@
           </div>
         </div>
 
-        <div class="bases nested_ref_bases_forms">
-          <%= ref_conclusion_form.fields_for :ref_reasons do |nested_ref_reason_form| %>
-            <%= render "ref_reason_fields", f: nested_ref_reason_form %>
+        <div class="bases nested_bases_forms">
+          <%= ref_conclusion_form.fields_for :ref_reasons, ref_conclusion_form.object.ref_reasons.order(:created_at) do |nested_reason_form| %>
+            <%= render "ref_reason_fields", f: nested_reason_form %>
           <% end %>
 
-          <div class="add_nested_ref_reason_form">
+          <div class="add_nested_reason_form">
             <%= link_to_add_association "理由を追加", ref_conclusion_form, :ref_reasons, class: 'add-reason-link' %>
           </div>
         </div>
 
         <div>
-          <%= ref_conclusion_form.button "新規反論を作成する", type: 'button', onclick: 'submit();' %>
+          <%= ref_conclusion_form.button "反論を編集", type: 'button', onclick: 'submit();' %>
         </div>
       </div>
     <% end %>
@@ -139,4 +132,4 @@ integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
 crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.14.3/js/jsplumb.min.js"></script>
 <%= javascript_pack_tag 'rebuttal_target_opinion' %>
-<%= javascript_pack_tag 'create_new_opinion' %>
+<%= javascript_pack_tag 'edit_opinion' %>

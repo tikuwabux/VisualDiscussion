@@ -1,9 +1,7 @@
 <h1><%= @agenda_board_agenda %></h1>
 <div class="create_new_argument_form">
-  <h3 class="argument_title">新規主張</h3>
-  <%= form_with model: @conclusion, url: arguments_path, local: true do |conclusion_form| %>
-    <%= conclusion_form.hidden_field :agenda_board_id, value: @agenda_board_id %>
-    <%= conclusion_form.hidden_field :user_id, value: current_user.id %>
+  <h3 class="argument_title">編集対象の主張</h3>
+  <%= form_with model: @conclusion, url: argument_path, local: true do |conclusion_form| %>
     <div class="tree_structure">
       <div class="conclusion box">
         <h3><%= conclusion_form.label :conclusion_summary, "結論" %></h3>
@@ -17,7 +15,7 @@
       </div>
 
       <div class="bases nested_bases_forms">
-        <%= conclusion_form.fields_for :reasons do |nested_reason_form| %>
+        <%= conclusion_form.fields_for :reasons, conclusion_form.object.reasons.order(:created_at) do |nested_reason_form| %>
           <%= render "reason_fields", f: nested_reason_form %>
         <% end %>
 
@@ -27,9 +25,9 @@
       </div>
 
       <div>
-        <%= conclusion_form.button "新規主張を作成する", type: 'button', onclick: 'submit();' %>
+        <%= conclusion_form.button "主張を編集", type: 'button', onclick: 'submit();' %>
       </div>
     </div>
   <% end %>
 </div>
-<%= javascript_pack_tag 'create_new_opinion' %>
+<%= javascript_pack_tag 'edit_opinion' %>

@@ -1,17 +1,32 @@
 <div class="nested-fields">
-  <%= f.label :ref_reason_summary, "理由" %>
-  <%= f.text_field :ref_reason_summary %>
-  <%= f.label :ref_reason_detail, "理由詳細" %>
-  <%= f.text_area :ref_reason_detail %>
-  <%= link_to_remove_association "理由を削除", f %>
+  <div class="basis">
+    <div class="endpoint"></div>
+    <div class="ref_reason ref_box">
+      <h3><%= f.label :ref_reason_summary, "理由" %></h3>
+      <div class="inner">
+        <%= f.text_field :ref_reason_summary, class: 'adjust-entered-text-width' %>
+      </div>
+      <h3><%= f.label :ref_reason_detail, "理由詳細" %></h3>
+      <div class="inner">
+        <%= f.text_area :ref_reason_detail, class: 'adjust-entered-text-size' %>
+      </div>
+      <%= link_to_remove_association "理由を削除", f %>
+    </div>
 
-  <div class="nested_ref_evidences_forms">
-    <%= f.fields_for :ref_evidences do |nested_ref_evidence_form| %>
-      <%= render "ref_evidence_fields", f: nested_ref_evidence_form %>
-    <% end %>
-  </div>
+    <div class="evidences nested_ref_evidences_forms">
+      <% if f.object.id == nil %>
+        <%= f.fields_for :ref_evidences do |nested_ref_evidence_form| %>
+          <%= render "ref_evidence_fields", f: nested_ref_evidence_form %>
+        <% end %>
+      <% else %>
+        <%= f.fields_for :ref_evidences, f.object.ref_evidences.order(:created_at) do |nested_ref_evidence_form| %>
+          <%= render "ref_evidence_fields", f: nested_ref_evidence_form %>
+        <% end %>
+      <% end %>
 
-  <div class="add_nested_ref_evidence_form">
-    <%= link_to_add_association "証拠を追加", f, :ref_evidences, data: { association_insertion_method: 'after' } %>
+      <div class="add_nested_ref_evidence_form">
+        <%= link_to_add_association "証拠を追加", f, :ref_evidences, class: 'add-evidence-link' %>
+      </div>
+    </div>
   </div>
 </div>
