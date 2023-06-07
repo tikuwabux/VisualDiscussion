@@ -39,6 +39,13 @@ class AgendaBoardsController < ApplicationController
     end
   end
 
+  def destroy
+    agenda_board = AgendaBoard.find(params[:id])
+    agenda_board.destroy
+    flash[:notice] = "議題ボードの削除に成功しました"
+    redirect_to agenda_boards_path
+  end
+
   private
 
   def agenda_board_params
