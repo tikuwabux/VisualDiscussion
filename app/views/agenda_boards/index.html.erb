@@ -11,7 +11,7 @@
   </thead>
   <tbody>
     <% @user_created_agenda_boards.each do |user_created_agenda_board| %>
-    <tr>
+    <tr id="agenda_board<%= user_created_agenda_board.id %>">
       <td><%= link_to user_created_agenda_board.agenda, agenda_board_path(user_created_agenda_board.id) %></td>
       <td><%= user_created_agenda_board.category %></td>
       <td><%= user_created_agenda_board.created_at %></td>
