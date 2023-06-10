@@ -7,6 +7,7 @@
       <th>作成日</th>
       <th>編集</th>
       <th>削除</th>
+      <th>意見数</th>
     </tr>
   </thead>
   <tbody>
@@ -28,6 +29,9 @@
         <% else %>
           削除不可
         <% end %>
+      </td>
+      <td>
+        <%= user_created_agenda_board.conclusions.count + user_created_agenda_board.ref_conclusions.count %>
       </td>
     </tr>
     <% end %>
