@@ -97,6 +97,12 @@ RSpec.describe "AgendaBoards", type: :system do
       annie.agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.category }
     end
 
+    scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do
+      annie.agenda_boards.all? do |agenda_board|
+        expect(page).to have_content agenda_board.conclusions.count + agenda_board.ref_conclusions.count
+      end
+    end
+
     scenario "議題名をクリックすると､その議題ボードの詳細ページに遷移すること" do
       click_on about_early_bird.agenda
       expect(page).to have_current_path agenda_board_path(about_early_bird.id)
