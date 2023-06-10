@@ -115,6 +115,19 @@ RSpec.describe "AgendaBoards", type: :system do
           expect(page).to have_current_path edit_agenda_board_path(about_chatbot.id)
         end
       end
+
+      scenario "｢削除｣リンクの表示を確認できること" do
+        within "#agenda_board#{about_chatbot.id}" do
+          expect(page).to have_link "削除"
+        end
+      end
+
+      scenario "｢削除｣リンクをクリックすると､議題ボードが削除されること" do
+        within "#agenda_board#{about_chatbot.id}" do
+          click_on "削除"
+        end
+        expect(page).to have_content "議題ボードの削除に成功しました"
+      end
     end
   end
 
