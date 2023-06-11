@@ -24,6 +24,28 @@ class AgendaBoardsController < ApplicationController
     @user_created_agenda_boards = AgendaBoard.where(user_id: current_user.id).order(created_at: :desc)
   end
 
+  def edit
+    @agenda_board = AgendaBoard.find(params[:id])
+  end
+
+  def update
+    agenda_board = AgendaBoard.find(params[:id])
+    if agenda_board.update(agenda_board_params)
+      flash[:notice] = "議題ボードの編集に成功しました"
+      redirect_to agenda_boards_path
+    else
+      flash[:notice] = "議題ボードの編集に失敗しました"
+      render "edit"
+    end
+  end
+
+  def destroy
+    agenda_board = AgendaBoard.find(params[:id])
+    agenda_board.destroy
+    flash[:notice] = "議題ボードの削除に成功しました"
+    redirect_to agenda_boards_path
+  end
+
   private
 
   def agenda_board_params

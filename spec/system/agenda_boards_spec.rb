@@ -97,9 +97,43 @@ RSpec.describe "AgendaBoards", type: :system do
       annie.agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.category }
     end
 
+    scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do
+      annie.agenda_boards.all? do |agenda_board|
+        expect(page).to have_content agenda_board.conclusions.count + agenda_board.ref_conclusions.count
+      end
+    end
+
     scenario "議題名をクリックすると､その議題ボードの詳細ページに遷移すること" do
       click_on about_early_bird.agenda
       expect(page).to have_current_path agenda_board_path(about_early_bird.id)
+    end
+
+    context "議題ボードの作成者が現在ログイン中のユーザーであることに加え､その議題ボード中で意見が1つも作成されていないとき" do
+      scenario "｢編集｣リンクの表示を確認できること" do
+        within "#agenda_board#{about_chatbot.id}" do
+          expect(page).to have_link "編集"
+        end
+      end
+
+      scenario "｢編集｣リンクをクリックすると､議題ボード編集ページに遷移すること" do
+        within "#agenda_board#{about_chatbot.id}" do
+          click_on "編集"
+          expect(page).to have_current_path edit_agenda_board_path(about_chatbot.id)
+        end
+      end
+
+      scenario "｢削除｣リンクの表示を確認できること" do
+        within "#agenda_board#{about_chatbot.id}" do
+          expect(page).to have_link "削除"
+        end
+      end
+
+      scenario "｢削除｣リンクをクリックすると､議題ボードが削除されること" do
+        within "#agenda_board#{about_chatbot.id}" do
+          click_on "削除"
+        end
+        expect(page).to have_content "議題ボードの削除に成功しました"
+      end
     end
   end
 
@@ -223,6 +257,26 @@ RSpec.describe "AgendaBoards", type: :system do
         end
         expect(page).not_to have_selector "#refutation#{problematic_reason_and_evidence_connection.id}"
       end
+    end
+  end
+
+  describe "議題ボード編集ページアクセス後､必要事項を入力して､｢編集する｣ボタンを押すと" do
+    before do
+      click_on "#{annie.name}さんが作成した議題ボード"
+      within "#agenda_board#{about_chatbot.id}" do
+        click_on "編集"
+      end
+      fill_in "議題", with: "チャットボットは今後のビジネスにどのような影響を与えるか?"
+      select "ビジネス", from: "agenda_board_category"
+      click_button "編集する"
+    end
+
+    scenario "議題ボードが編集されること" do
+      expect(page).to have_content "議題ボードの編集に成功しました"
+    end
+
+    scenario "ログインユーザーが作成した議題ボード一覧ページに遷移すること" do
+      expect(page).to have_current_path agenda_boards_path
     end
   end
 end
