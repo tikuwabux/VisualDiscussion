@@ -6,6 +6,8 @@ class Conclusion < ApplicationRecord
 
   has_many :ref_conclusions
 
+  has_one :opinion_position, foreign_key: 'argument_id'
+
   validates :agenda_board_id, presence: true
   validates :conclusion_summary, presence: true
 end
