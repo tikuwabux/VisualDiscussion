@@ -1,27 +1,184 @@
 // 議題ボード詳細ページに表示されている主張と反論の見た目と挙動
 jsPlumb.ready(function() {
   jsPlumb.setContainer("exchange_of_opinions");
-  // 主張をドラッグ可能にし､リロード後も主張の位置が再現されるようにする
+  // 主張をドラッグ可能にし､リロード後も主張の位置が再現されるようにする + 主張のレイアウトを整える
   const all_arguments = document.querySelectorAll(".argument");
   all_arguments.forEach( function( argument ) {
     const argument_id = argument.getAttribute("id");
 
-    // 主張をドラッグ可能にする
+    // 主張をドラッグ可能にし､ドラッグ終了後の主張の位置をopinion_positionsテーブルに保存する
     jsPlumb.draggable(`${argument_id}`, {
       stop: function(event) {
-        savePositions();
+        savePosition(argument_id, $(`#${argument_id}`).position());
       }
     });
 
-    // 主張のドラッグ終了後の位置をローカルストレージに保存する関数
-    function savePositions() {
-      localStorage.setItem(`${argument_id}_position`, JSON.stringify($(`#${argument_id}`).position()));
+    // opinion_positionsテーブルのデータを使用して､ページ読み込み時に主張の位置を復元する + 主張のレイアウトを整える
+    $.ajax({
+      url: '/opinion_positions',
+      method: 'GET',
+      success: function(response) {
+        const argument_positions = response.argument_positions;
+
+        argument_positions.forEach(function(position) {
+          const argument_id_num = parseInt(argument_id.replace("argument", ""));
+          if (position.argument_id === argument_id_num) {
+            $(`#${argument_id}`).css({left: position.left + "px", top: position.top + "px"});
+          }
+        });
+        // 遅延させないと理由証拠間のレイアウトが乱れる
+        setTimeout(arrangeArgumentLayout, 10);
+      },
+      error: function(xhr, status, error) {
+        console.error('Error retrieving argument positions:', error);
+      }
+    });
+
+    // 主張のドラッグ終了後の位置をopinion_positionsテーブルに保存する関数
+    function savePosition(argument_id, position) {
+      const argument_id_num = parseInt(argument_id.replace("argument", ""));
+
+      $.ajax({
+        url: '/opinion_positions',
+        method: 'POST',
+        data: {
+          argument_position: {
+            argument_id: argument_id_num,
+            refutation_id: null,
+            left: position.left,
+            top: position.top
+          }
+        },
+        success: function(response) {
+          console.log(response.message)
+        },
+        error: function(xhr, status, error) {
+          console.error('Error saving argument position:', error);
+        }
+      });
     }
 
-    // ローカルストレージに保存された主張の位置を復元する
-    const argument_position = JSON.parse(localStorage.getItem(`${argument_id}_position`));
-    if (argument_position) {
-      $(`#${argument_id}`).css({left: argument_position.left + "px", top: argument_position.top + "px"});
+    // 主張の表示がツリー型になるよう接続線を引く + 主張内にターゲットエンドポイントを設置する関数
+    function arrangeArgumentLayout() {
+      const conclusions = document.querySelectorAll(".conclusion");
+      conclusions.forEach( function( conclusion ) {
+        const conclusion_id = conclusion.getAttribute("id");
+
+        // 結論の左右中央にターゲットエンドポイントを設置する
+        jsPlumb.addEndpoint(`${conclusion_id}`, {
+          endpoint: "Dot",
+          anchor: "RightMiddle",
+          isTarget: true,
+          connectionType: "red-connection"
+        })
+        jsPlumb.addEndpoint(`${conclusion_id}`, {
+          endpoint: "Dot",
+          anchor: "LeftMiddle",
+          isTarget: true,
+          connectionType: "red-connection"
+        })
+
+        const reasons_of_conclusion = document.querySelectorAll(`.reason_of_${conclusion_id}`);
+        reasons_of_conclusion.forEach( function( reason ) {
+          const reason_id = reason.getAttribute("id");
+
+          // 結論 → endpoint 間に接続線を引く
+          jsPlumb.connect({
+            source: `${conclusion_id}`,
+            target: `endpoint_between_${conclusion_id}_and_${reason_id}`,
+            anchors: ["Bottom", "Top"],
+            connector: "Straight",
+            endpoint:"Blank",
+            overlays:[
+              ["Arrow", {width: 10, length: 10}]
+            ]
+          });
+
+          // endpointの真ん中にターゲットエンドポイントを設置する
+          jsPlumb.addEndpoint(`endpoint_between_${conclusion_id}_and_${reason_id}`, {
+            endpoint: "Dot",
+            anchor: "Center",
+            isTarget: true,
+            connectionType: "red-connection"
+          })
+
+          // endpoint → 理由 間に接続線を引く
+          jsPlumb.connect({
+            source: `endpoint_between_${conclusion_id}_and_${reason_id}`,
+            target: `${reason_id}`,
+            anchors: ["Bottom", "Top"],
+            connector: "Straight",
+            endpoint:"Blank",
+            overlays:[
+              ["Arrow", {width: 10, length: 10}]
+            ]
+          });
+
+          // 理由の左右中央にターゲットエンドポイントを設置する
+          jsPlumb.addEndpoint(`${reason_id}`, {
+            endpoint: "Dot",
+            anchor: "RightMiddle",
+            isTarget: true,
+            connectionType: "red-connection"
+          })
+          jsPlumb.addEndpoint(`${reason_id}`, {
+            endpoint: "Dot",
+            anchor: "LeftMiddle",
+            isTarget: true,
+            connectionType: "red-connection"
+          })
+
+          const evidences_of_reason = document.querySelectorAll(`.evidence_of_${reason_id}`);
+          evidences_of_reason.forEach( function( evidence ) {
+            const evidence_id = evidence.getAttribute("id");
+            // 理由 → endpoint 間に接続線を引く
+            jsPlumb.connect({
+              source: `${reason_id}`,
+              target: `endpoint_between_${reason_id}_and_${evidence_id}`,
+              anchors: ["Bottom", "Top"],
+              connector: "Straight",
+              endpoint:"Blank",
+              overlays:[
+                ["Arrow", {width: 10, length: 10}]
+              ]
+            });
+
+            // endpointの真ん中にターゲットエンドポイントを設置する
+            jsPlumb.addEndpoint(`endpoint_between_${reason_id}_and_${evidence_id}`, {
+              endpoint: "Dot",
+              anchor: "Center",
+              isTarget: true,
+              connectionType: "red-connection"
+            })
+
+            // endpoint → 証拠 間に接続線を引く
+            jsPlumb.connect({
+              source: `endpoint_between_${reason_id}_and_${evidence_id}`,
+              target: `${evidence_id}`,
+              anchors: ["Bottom", "Top"],
+              connector: "Straight",
+              endpoint:"Blank",
+              overlays:[
+                ["Arrow", {width: 10, length: 10}]
+              ]
+            });
+
+            // 証拠の左右中央にターゲットエンドポイントを設置する
+            jsPlumb.addEndpoint(`${evidence_id}`, {
+              endpoint: "Dot",
+              anchor: "RightMiddle",
+              isTarget: true,
+              connectionType: "red-connection"
+            })
+            jsPlumb.addEndpoint(`${evidence_id}`, {
+              endpoint: "Dot",
+              anchor: "LeftMiddle",
+              isTarget: true,
+              connectionType: "red-connection"
+            })
+          });
+        });
+      });
     }
   });
 
@@ -59,127 +216,6 @@ jsPlumb.ready(function() {
       isSource: true,
       connectionType: "red-connection"
     })
-  });
-
-  // 主張の表示がツリー型になるよう接続線を引く + 主張内にターゲットエンドポイントを設置する
-  const conclusions = document.querySelectorAll(".conclusion");
-  conclusions.forEach( function( conclusion ) {
-    const conclusion_id = conclusion.getAttribute("id");
-
-    // 結論の左右中央にターゲットエンドポイントを設置する
-    jsPlumb.addEndpoint(`${conclusion_id}`, {
-      endpoint: "Dot",
-      anchor: "RightMiddle",
-      isTarget: true,
-      connectionType: "red-connection"
-    })
-    jsPlumb.addEndpoint(`${conclusion_id}`, {
-      endpoint: "Dot",
-      anchor: "LeftMiddle",
-      isTarget: true,
-      connectionType: "red-connection"
-    })
-
-    const reasons_of_conclusion = document.querySelectorAll(`.reason_of_${conclusion_id}`);
-    reasons_of_conclusion.forEach( function( reason ) {
-      const reason_id = reason.getAttribute("id");
-
-      // 結論 → endpoint 間に接続線を引く
-      jsPlumb.connect({
-        source: `${conclusion_id}`,
-        target: `endpoint_between_${conclusion_id}_and_${reason_id}`,
-        anchors: ["Bottom", "Top"],
-        connector: "Straight",
-        endpoint:"Blank",
-        overlays:[
-          ["Arrow", {width: 10, length: 10}]
-        ]
-      });
-
-      // endpointの真ん中にターゲットエンドポイントを設置する
-      jsPlumb.addEndpoint(`endpoint_between_${conclusion_id}_and_${reason_id}`, {
-        endpoint: "Dot",
-        anchor: "Center",
-        isTarget: true,
-        connectionType: "red-connection"
-      })
-
-      // endpoint → 理由 間に接続線を引く
-      jsPlumb.connect({
-        source: `endpoint_between_${conclusion_id}_and_${reason_id}`,
-        target: `${reason_id}`,
-        anchors: ["Bottom", "Top"],
-        connector: "Straight",
-        endpoint:"Blank",
-        overlays:[
-          ["Arrow", {width: 10, length: 10}]
-        ]
-      });
-
-      // 理由の左右中央にターゲットエンドポイントを設置する
-      jsPlumb.addEndpoint(`${reason_id}`, {
-        endpoint: "Dot",
-        anchor: "RightMiddle",
-        isTarget: true,
-        connectionType: "red-connection"
-      })
-      jsPlumb.addEndpoint(`${reason_id}`, {
-        endpoint: "Dot",
-        anchor: "LeftMiddle",
-        isTarget: true,
-        connectionType: "red-connection"
-      })
-
-      const evidences_of_reason = document.querySelectorAll(`.evidence_of_${reason_id}`);
-      evidences_of_reason.forEach( function( evidence ) {
-        const evidence_id = evidence.getAttribute("id");
-        // 理由 → endpoint 間に接続線を引く
-        jsPlumb.connect({
-          source: `${reason_id}`,
-          target: `endpoint_between_${reason_id}_and_${evidence_id}`,
-          anchors: ["Bottom", "Top"],
-          connector: "Straight",
-          endpoint:"Blank",
-          overlays:[
-            ["Arrow", {width: 10, length: 10}]
-          ]
-        });
-
-        // endpointの真ん中にターゲットエンドポイントを設置する
-        jsPlumb.addEndpoint(`endpoint_between_${reason_id}_and_${evidence_id}`, {
-          endpoint: "Dot",
-          anchor: "Center",
-          isTarget: true,
-          connectionType: "red-connection"
-        })
-
-        // endpoint → 証拠 間に接続線を引く
-        jsPlumb.connect({
-          source: `endpoint_between_${reason_id}_and_${evidence_id}`,
-          target: `${evidence_id}`,
-          anchors: ["Bottom", "Top"],
-          connector: "Straight",
-          endpoint:"Blank",
-          overlays:[
-            ["Arrow", {width: 10, length: 10}]
-          ]
-        });
-
-        // 証拠の左右中央にターゲットエンドポイントを設置する
-        jsPlumb.addEndpoint(`${evidence_id}`, {
-          endpoint: "Dot",
-          anchor: "RightMiddle",
-          isTarget: true,
-          connectionType: "red-connection"
-        })
-        jsPlumb.addEndpoint(`${evidence_id}`, {
-          endpoint: "Dot",
-          anchor: "LeftMiddle",
-          isTarget: true,
-          connectionType: "red-connection"
-        })
-      });
-    });
   });
 
   // 反論(サンプル)の表示がツリー型になるよう接続線を引く + 反論内にターゲットエンドポイントを設置する
