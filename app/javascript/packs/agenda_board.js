@@ -18,9 +18,9 @@ jsPlumb.ready(function() {
       url: '/opinion_positions',
       method: 'GET',
       success: function(response) {
-        const argument_positions = response.argument_positions;
+        const opinion_positions = response.opinion_positions;
 
-        argument_positions.forEach(function(position) {
+        opinion_positions.forEach(function(position) {
           const argument_id_num = parseInt(argument_id.replace("argument", ""));
           if (position.argument_id === argument_id_num) {
             $(`#${argument_id}`).css({left: position.left + "px", top: position.top + "px"});
@@ -42,7 +42,7 @@ jsPlumb.ready(function() {
         url: '/opinion_positions',
         method: 'POST',
         data: {
-          argument_position: {
+          opinion_position: {
             argument_id: argument_id_num,
             refutation_id: null,
             left: position.left,
@@ -182,7 +182,7 @@ jsPlumb.ready(function() {
     }
   });
 
-  // 反論をドラッグ可能にし､リロード後も反論の位置が再現されるようにする + 反論の左上にソースエンドポイントを設置する
+  // 反論をドラッグ可能にし､リロード後も反論の位置が再現されるようにする + 反論のレイアウトを整える
   jsPlumb.registerConnectionTypes({
     "red-connection": {
       paintStyle: {stroke: "red", strokeWidth: 5},
@@ -194,142 +194,184 @@ jsPlumb.ready(function() {
   all_refutations.forEach( function( refutation ) {
     const refutation_id = refutation.getAttribute("id");
 
+    // 反論をドラッグ可能にし､ドラッグ終了後の反論の位置をopinion_positionsテーブルに保存する
     jsPlumb.draggable(`${refutation_id}`, {
       stop: function(event) {
-        savePositions();
+        savePosition(refutation_id, $(`#${refutation_id}`).position());
       }
     });
 
-    function savePositions() {
-      localStorage.setItem(`${refutation_id}_position`, JSON.stringify($(`#${refutation_id}`).position()));
-    }
+    // opinion_positionsテーブルのデータを使用して､ページ読み込み時に反論の位置を復元する + 反論のレイアウトを整える
+    $.ajax({
+      url: '/opinion_positions',
+      method: 'GET',
+      success: function(response) {
+        const opinion_positions = response.opinion_positions;
 
-    const refutation_position = JSON.parse(localStorage.getItem(`${refutation_id}_position`));
-    if (refutation_position) {
-      $(`#${refutation_id}`).css({left: refutation_position.left + "px", top: refutation_position.top + "px"});
-    }
+        opinion_positions.forEach(function(position) {
+          const refutation_id_num = parseInt(refutation_id.replace("refutation", ""));
+          if (position.refutation_id === refutation_id_num) {
+            $(`#${refutation_id}`).css({left: position.left + "px", top: position.top + "px"});
+          }
+        });
+        // 遅延させないとレイアウトが乱れる
+        setTimeout(arrangeRefutationLayout, 10);
+        setTimeout(setSourceEndpoint, 10);
+      },
+      error: function(xhr, status, error) {
+        console.error('Error retrieving refutation positions:', error);
+      }
+    });
 
-    // 反論の左上にソースエンドポイントを設置する
-    jsPlumb.addEndpoint(`${refutation_id}`, {
-      endpoint: "Dot",
-      anchor: "TopLeft",
-      isSource: true,
-      connectionType: "red-connection"
-    })
-  });
-
-  // 反論(サンプル)の表示がツリー型になるよう接続線を引く + 反論内にターゲットエンドポイントを設置する
-  const ref_conclusions = document.querySelectorAll(".ref_conclusion");
-  ref_conclusions.forEach( function( ref_conclusion ) {
-    const ref_conclusion_id = ref_conclusion.getAttribute("id");
-
-    jsPlumb.addEndpoint(`${ref_conclusion_id}`, {
-      endpoint: "Dot",
-      anchor: "RightMiddle",
-      isTarget: true,
-      connectionType: "red-connection"
-    })
-    jsPlumb.addEndpoint(`${ref_conclusion_id}`, {
-      endpoint: "Dot",
-      anchor: "LeftMiddle",
-      isTarget: true,
-      connectionType: "red-connection"
-    })
-
-    const ref_reasons_of_ref_conclusion = document.querySelectorAll(`.ref_reason_of_${ref_conclusion_id}`);
-    ref_reasons_of_ref_conclusion.forEach( function( ref_reason ) {
-      const ref_reason_id = ref_reason.getAttribute("id");
-
-      jsPlumb.connect({
-        source: `${ref_conclusion_id}`,
-        target: `endpoint_between_${ref_conclusion_id}_and_${ref_reason_id}`,
-        anchors: ["Bottom", "Top"],
-        connector: "Straight",
-        endpoint:"Blank",
-        overlays:[
-          ["Arrow", {width: 10, length: 10}]
-        ]
-      });
-
-      jsPlumb.addEndpoint(`endpoint_between_${ref_conclusion_id}_and_${ref_reason_id}`, {
+    // 反論の左上にソースエンドポイントを設置する関数
+    function setSourceEndpoint() {
+      jsPlumb.addEndpoint(`${refutation_id}`, {
         endpoint: "Dot",
-        anchor: "Center",
-        isTarget: true,
-        connectionType: "red-connection",
-      })
-
-      jsPlumb.connect({
-        source: `endpoint_between_${ref_conclusion_id}_and_${ref_reason_id}`,
-        target: `${ref_reason_id}`,
-        anchors: ["Bottom", "Top"],
-        connector: "Straight",
-        endpoint:"Blank",
-        overlays:[
-          ["Arrow", {width: 10, length: 10}]
-        ]
-      });
-
-      jsPlumb.addEndpoint(`${ref_reason_id}`, {
-        endpoint: "Dot",
-        anchor: "RightMiddle",
-        isTarget: true,
+        anchor: "TopLeft",
+        isSource: true,
         connectionType: "red-connection"
       })
-      jsPlumb.addEndpoint(`${ref_reason_id}`, {
-        endpoint: "Dot",
-        anchor: "LeftMiddle",
-        isTarget: true,
-        connectionType: "red-connection"
-      })
+    }
 
-      const ref_evidences_of_ref_reason = document.querySelectorAll(`.ref_evidence_of_${ref_reason_id}`);
+    // 反論のドラッグ終了後の位置をopinion_positionsテーブルに保存する関数
+    function savePosition(refutation_id, position) {
+      const refutation_id_num = parseInt(refutation_id.replace("refutation", ""));
 
-      ref_evidences_of_ref_reason.forEach( function( ref_evidence ) {
-        const ref_evidence_id = ref_evidence.getAttribute("id");
+      $.ajax({
+        url: '/opinion_positions',
+        method: 'POST',
+        data: {
+          opinion_position: {
+            argument_id: null,
+            refutation_id: refutation_id_num,
+            left: position.left,
+            top: position.top
+          }
+        },
+        success: function(response) {
+          console.log(response.message)
+        },
+        error: function(xhr, status, error) {
+          console.error('Error saving refutation position:', error);
+        }
+      });
+    }
 
-        jsPlumb.connect({
-          source: `${ref_reason_id}`,
-          target: `endpoint_between_${ref_reason_id}_and_${ref_evidence_id}`,
-          anchors: ["Bottom", "Top"],
-          connector: "Straight",
-          endpoint:"Blank",
-          overlays:[
-            ["Arrow", {width: 10, length: 10}]
-          ]
-        });
+    // 反論の表示がツリー型になるよう接続線を引く + 反論内にターゲットエンドポイントを設置する関数
+    function arrangeRefutationLayout() {
+      const ref_conclusions = document.querySelectorAll(".ref_conclusion");
+      ref_conclusions.forEach( function( ref_conclusion ) {
+        const ref_conclusion_id = ref_conclusion.getAttribute("id");
 
-        jsPlumb.addEndpoint(`endpoint_between_${ref_reason_id}_and_${ref_evidence_id}`, {
-          endpoint: "Dot",
-          anchor: "Center",
-          isTarget: true,
-          connectionType: "red-connection"
-        })
-
-        jsPlumb.connect({
-          source: `endpoint_between_${ref_reason_id}_and_${ref_evidence_id}`,
-          target: `${ref_evidence_id}`,
-          anchors: ["Bottom", "Top"],
-          connector: "Straight",
-          endpoint:"Blank",
-          overlays:[
-            ["Arrow", {width: 10, length: 10}]
-          ]
-        });
-
-        jsPlumb.addEndpoint(`${ref_evidence_id}`, {
+        jsPlumb.addEndpoint(`${ref_conclusion_id}`, {
           endpoint: "Dot",
           anchor: "RightMiddle",
           isTarget: true,
           connectionType: "red-connection"
         })
-        jsPlumb.addEndpoint(`${ref_evidence_id}`, {
+        jsPlumb.addEndpoint(`${ref_conclusion_id}`, {
           endpoint: "Dot",
           anchor: "LeftMiddle",
           isTarget: true,
           connectionType: "red-connection"
         })
+
+        const ref_reasons_of_ref_conclusion = document.querySelectorAll(`.ref_reason_of_${ref_conclusion_id}`);
+        ref_reasons_of_ref_conclusion.forEach( function( ref_reason ) {
+          const ref_reason_id = ref_reason.getAttribute("id");
+
+          jsPlumb.connect({
+            source: `${ref_conclusion_id}`,
+            target: `endpoint_between_${ref_conclusion_id}_and_${ref_reason_id}`,
+            anchors: ["Bottom", "Top"],
+            connector: "Straight",
+            endpoint:"Blank",
+            overlays:[
+              ["Arrow", {width: 10, length: 10}]
+            ]
+          });
+
+          jsPlumb.addEndpoint(`endpoint_between_${ref_conclusion_id}_and_${ref_reason_id}`, {
+            endpoint: "Dot",
+            anchor: "Center",
+            isTarget: true,
+            connectionType: "red-connection",
+          })
+
+          jsPlumb.connect({
+            source: `endpoint_between_${ref_conclusion_id}_and_${ref_reason_id}`,
+            target: `${ref_reason_id}`,
+            anchors: ["Bottom", "Top"],
+            connector: "Straight",
+            endpoint:"Blank",
+            overlays:[
+              ["Arrow", {width: 10, length: 10}]
+            ]
+          });
+
+          jsPlumb.addEndpoint(`${ref_reason_id}`, {
+            endpoint: "Dot",
+            anchor: "RightMiddle",
+            isTarget: true,
+            connectionType: "red-connection"
+          })
+          jsPlumb.addEndpoint(`${ref_reason_id}`, {
+            endpoint: "Dot",
+            anchor: "LeftMiddle",
+            isTarget: true,
+            connectionType: "red-connection"
+          })
+
+          const ref_evidences_of_ref_reason = document.querySelectorAll(`.ref_evidence_of_${ref_reason_id}`);
+
+          ref_evidences_of_ref_reason.forEach( function( ref_evidence ) {
+            const ref_evidence_id = ref_evidence.getAttribute("id");
+
+            jsPlumb.connect({
+              source: `${ref_reason_id}`,
+              target: `endpoint_between_${ref_reason_id}_and_${ref_evidence_id}`,
+              anchors: ["Bottom", "Top"],
+              connector: "Straight",
+              endpoint:"Blank",
+              overlays:[
+                ["Arrow", {width: 10, length: 10}]
+              ]
+            });
+
+            jsPlumb.addEndpoint(`endpoint_between_${ref_reason_id}_and_${ref_evidence_id}`, {
+              endpoint: "Dot",
+              anchor: "Center",
+              isTarget: true,
+              connectionType: "red-connection"
+            })
+
+            jsPlumb.connect({
+              source: `endpoint_between_${ref_reason_id}_and_${ref_evidence_id}`,
+              target: `${ref_evidence_id}`,
+              anchors: ["Bottom", "Top"],
+              connector: "Straight",
+              endpoint:"Blank",
+              overlays:[
+                ["Arrow", {width: 10, length: 10}]
+              ]
+            });
+
+            jsPlumb.addEndpoint(`${ref_evidence_id}`, {
+              endpoint: "Dot",
+              anchor: "RightMiddle",
+              isTarget: true,
+              connectionType: "red-connection"
+            })
+            jsPlumb.addEndpoint(`${ref_evidence_id}`, {
+              endpoint: "Dot",
+              anchor: "LeftMiddle",
+              isTarget: true,
+              connectionType: "red-connection"
+            })
+          });
+        });
       });
-    });
+    }
   });
 
   // 接続線が右クリックされたとき､｢削除ボタン｣を表示する
