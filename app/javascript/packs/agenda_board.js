@@ -30,7 +30,7 @@ jsPlumb.ready(function() {
         setTimeout(arrangeArgumentLayout, 10);
       },
       error: function(xhr, status, error) {
-        console.error('Error retrieving argument positions:', error);
+        console.error('主張の位置情報の取得エラー:', error);
       }
     });
 
@@ -53,7 +53,7 @@ jsPlumb.ready(function() {
           console.log(response.message)
         },
         error: function(xhr, status, error) {
-          console.error('Error saving argument position:', error);
+          console.error('主張の位置情報の保存エラー:', error);
         }
       });
     }
@@ -219,7 +219,7 @@ jsPlumb.ready(function() {
         setTimeout(setSourceEndpoint, 10);
       },
       error: function(xhr, status, error) {
-        console.error('Error retrieving refutation positions:', error);
+        console.error('反論の位置情報の取得エラー:', error);
       }
     });
 
@@ -252,7 +252,7 @@ jsPlumb.ready(function() {
           console.log(response.message)
         },
         error: function(xhr, status, error) {
-          console.error('Error saving refutation position:', error);
+          console.error('反論の位置情報の保存エラー:', error);
         }
       });
     }
