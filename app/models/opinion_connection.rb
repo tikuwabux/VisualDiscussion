@@ -1,0 +1,2 @@
+class OpinionConnection < ApplicationRecord
+end
