@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_06_13_151637) do
+ActiveRecord::Schema.define(version: 2023_06_20_091239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 2023_06_13_151637) do
     t.text "evidence_detail"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "opinion_connections", force: :cascade do |t|
+    t.string "source_id"
+    t.string "target_id"
+    t.string "source_endpoint_id"
+    t.string "target_endpoint_id"
   end
 
   create_table "opinion_positions", force: :cascade do |t|
