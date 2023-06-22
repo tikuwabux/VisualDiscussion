@@ -13,7 +13,7 @@ jsPlumb.ready(function() {
       }
     });
 
-    // opinion_positionsテーブルのデータを使用して､ページ読み込み時に主張の位置を復元する + 主張のレイアウトを整える
+    // opinion_positionsテーブルのデータを使用して､ページ読み込み時に主張の位置を復元する + 主張のレイアウトを整える + 主張ー反論間の接続線を復元する
     $.ajax({
       url: '/opinion_positions',
       method: 'GET',
@@ -28,6 +28,7 @@ jsPlumb.ready(function() {
         });
         // 遅延させないと理由証拠間のレイアウトが乱れる
         setTimeout(arrangeArgumentLayout, 10);
+        setTimeout(restoreOpinionConnections, 10);
       },
       error: function(xhr, status, error) {
         console.error('主張の位置情報の取得エラー:', error);
@@ -201,7 +202,7 @@ jsPlumb.ready(function() {
       }
     });
 
-    // opinion_positionsテーブルのデータを使用して､ページ読み込み時に反論の位置を復元する + 反論のレイアウトを整える
+    // opinion_positionsテーブルのデータを使用して､ページ読み込み時に反論の位置を復元する + 反論のレイアウトを整える + 反論ー反論間の接続線を復元する
     $.ajax({
       url: '/opinion_positions',
       method: 'GET',
@@ -217,6 +218,7 @@ jsPlumb.ready(function() {
         // 遅延させないとレイアウトが乱れる
         setTimeout(arrangeRefutationLayout, 10);
         setTimeout(setSourceEndpoint, 10);
+        setTimeout(restoreOpinionConnections, 10);
       },
       error: function(xhr, status, error) {
         console.error('反論の位置情報の取得エラー:', error);
@@ -374,9 +376,9 @@ jsPlumb.ready(function() {
     }
   });
 
-  // 接続線が右クリックされたとき､｢削除ボタン｣を表示する
+  // 意見間の接続線(赤色)が右クリックされたとき､｢削除ボタン｣を表示する
   jsPlumb.bind("contextmenu", function (component, event) {
-    if (component.hasClass("jtk-connector")) {
+    if (component.hasClass("jtk-connector") && component.sourceId.match(/refutation/)) {
       event.preventDefault();
       window.selectedConnection = component;
       $("<div class='custom-menu'><button class='delete-connection'>Delete connection</button></div>")
@@ -384,79 +386,101 @@ jsPlumb.ready(function() {
         .css({top: event.pageY + "px", left: event.pageX + "px"});
     }
   });
-  // 削除ボタンが左クリックされたとき､接続線を削除する
+  // 削除ボタンが左クリックされたとき､意見間の接続線を削除する
   $("body").on("click", ".delete-connection", function(event) {
     jsPlumb.deleteConnection(window.selectedConnection);
-    saveConnections();
+    location.reload();
   });
   // 削除ボタンが左クリックされたとき､｢削除ボタン｣を削除する
   $(document).on("click", function(event) {
     $("div.custom-menu").remove();
   });
 
-  // 接続が追加/削除された時に接続情報をローカルストレージに保存する
+  // 意見間の接続線が追加されたり､接続先が変更された時､現在の接続線情報をopinion_connectionテーブルに保存する
   jsPlumb.bind("connection", function(info) {
-    saveConnections();
-  });
-  jsPlumb.bind("connectionDetached", function(info) {
-    if (!info.connection.endpoints[0].isTemporarySourceEndpoint && !info.connection.endpoints[1].isTemporaryTargetEndpoint) {
-      removeConnection(info.connection);
-      if (info.connection && !info.connection.isDetached()) {
-        saveConnections();
-      }
+    if (info.connection.sourceId.match(/refutation/)) {
+      saveOpinionConnections(info.connection);
     }
   });
 
-  // ページリロード前に接続があった場合､ページリロード後に接続を復元する
-  // (ソースエンドポイントが反論である赤色の接続線のみを復元の対象とし､主張内･反論内の黒色の接続線は対象外とする)
-  var connections = JSON.parse(localStorage.getItem("connections"));
-  if (connections) {
-    jsPlumb.batch(function() {
-      connections.forEach(function(conn) {
-        if (conn.sourceId.match(/refutation/)) {
-          jsPlumb.connect({
-            source: conn.sourceId,
-            target: conn.targetId,
-            endpoint: "Dot",
-            anchors: ["TopLeft", ["RightMiddle", "LeftMiddle"]],
-            paintStyle: {stroke: "red", strokeWidth: 5},
-            hoverPaintStyle: {stroke: "red", strokeWidth: 10},
-            uuids: [conn.sourceEndpointId, conn.targetEndpointId],
-            overlays:[
-              ["Arrow", {width: 20, length: 20}]
-            ]
+  // 意見間の接続線が削除されたとき､その接続線の接続情報をopinion_connectionテーブルから削除する
+  jsPlumb.bind("connectionDetached", function(info) {
+    if (info.connection.sourceId.match(/refutation/)) {
+      removeOpinionConnections(info.connection);
+    }
+  });
+
+  // 意見間の接続線情報をopinion_connectionsテーブルに保存する関数
+  function saveOpinionConnections(connection) {
+    const sourceId = connection.sourceId;
+    const targetId = connection.targetId;
+
+    $.ajax({
+      url: '/opinion_connections',
+      method: 'POST',
+      data: {
+        opinion_connection: {
+          source_id: sourceId,
+          target_id: targetId
+        }
+      },
+      success: function(response) {
+        console.log(response.message);
+      },
+      error: function(xhr, status, error) {
+        console.error(error);
+      }
+    });
+  }
+
+  //意見間の接続線情報をopinion_connectionsテーブルから削除する関数
+  function removeOpinionConnections(connection) {
+    const sourceId = connection.sourceId;
+    const targetId = connection.targetId;
+
+    $.ajax({
+      url: '/opinion_connections/' + `${connection.id}`,
+      method: 'DELETE',
+      data: {
+        opinion_connection: {
+          source_id: sourceId,
+          target_id: targetId
+        }
+      },
+      success: function(response) {
+        console.log(response.message);
+      },
+      error: function(xhr, status, error) {
+        console.error(error);
+      }
+    });
+  }
+
+  // opinion_connectionsテーブルを元に､意見間の接続線を復元する関数
+  function restoreOpinionConnections() {
+    $.ajax({
+      url: '/opinion_connections',
+      method: 'GET',
+      success: function(response) {
+        const opinion_connections = response.opinion_connections;
+        if (opinion_connections) {
+          jsPlumb.batch(function() {
+            opinion_connections.forEach(function(conn) {
+              jsPlumb.connect({
+                source: conn.source_id,
+                target: conn.target_id,
+                endpoint: "Dot",
+                anchors: ["TopLeft", ["RightMiddle", "LeftMiddle"]],
+                paintStyle: {stroke: "red", strokeWidth: 5},
+                hoverPaintStyle: {stroke: "red", strokeWidth: 10},
+                overlays:[
+                  ["Arrow", {width: 20, length: 20}]
+                ]
+              });
+            });
           });
         }
-      });
-    });
-  }
-
-  // 接続情報をローカルストレージに保存する関数
-  function saveConnections() {
-    var connections = [];
-    jsPlumb.getAllConnections().forEach(function(conn) {
-      if (!conn.isDetached) {
-        connections.push({
-          sourceId: conn.sourceId,
-          targetId: conn.targetId,
-          sourceEndpointId: conn.endpoints[0].getUuid(),
-          targetEndpointId: conn.endpoints[1].getUuid()
-        });
       }
     });
-    localStorage.setItem("connections", JSON.stringify(connections));
-  }
-
-  // 接続情報をローカルストレージから削除する関数
-  function removeConnection(connection) {
-    var connections = JSON.parse(localStorage.getItem("connections"));
-    if (connections) {
-      connections = connections.filter(function(conn) {
-        return conn.sourceId !== connection.sourceId || conn.targetId !== connection.targetId;
-      });
-      if (!connection.isDetached()) {
-        localStorage.setItem("connections", JSON.stringify(connections));
-      }
-    }
   }
 });
