@@ -11,10 +11,9 @@ class OpinionConnectionsController < ApplicationController
     if opinion_connection.save
       render json: { message: "意見間の接続線情報を保存しました" }
     else
-      render json: { error: "意見間の接続線情報の保存に失敗しました" }, status: :unprocessable_entity
+      render json: { error: "意見間の接続線情報を保存できませんでした" }, status: :unprocessable_entity
     end
   end
-
 
   def update
     opinion_connection = OpinionConnection.find_by(source_id: opinion_connection_params[:source_id])
@@ -22,21 +21,8 @@ class OpinionConnectionsController < ApplicationController
     if opinion_connection.update(opinion_connection_params)
       render json: { message: "意見間の接続線情報を更新しました" }
     else
-      render json: { error: "意見間の接続線情報の更新に失敗しました" }, status: :unprocessable_entity
+      render json: { error: "意見間の接続線情報を更新できませんでした" }, status: :unprocessable_entity
     end
-
-  end
-
-  def index
-    opinion_connections = OpinionConnection.all
-    response_data = opinion_connections.map do |opinion_connection|
-      {
-        source_id: opinion_connection.source_id,
-        target_id: opinion_connection.target_id,
-      }
-    end
-
-    render json: { opinion_connections: response_data }
   end
 
   def destroy
@@ -45,7 +31,22 @@ class OpinionConnectionsController < ApplicationController
       opinion_connection.destroy
       render json: { message: "意見間の接続線情報を削除しました" }
     else
-      render json: { error: "意見間の接続線情報の削除に失敗しました" }, status: :not_found
+      render json: { error: "意見間の接続線情報を削除できませんでした" }, status: :not_found
+    end
+  end
+
+  def index
+    opinion_connections = OpinionConnection.all
+    if opinion_connections
+      response_data = opinion_connections.map do |opinion_connection|
+        {
+          source_id: opinion_connection.source_id,
+          target_id: opinion_connection.target_id,
+        }
+      end
+      render json: { opinion_connections: response_data }
+    else
+      render json: { error: '意見間の接続線情報を取得できませんでした' }, status: :not_found
     end
   end
 

@@ -428,7 +428,7 @@ jsPlumb.ready(function() {
         console.log(response.message);
       },
       error: function(xhr, status, error) {
-        console.error(error);
+        console.error(xhr.responseJSON.error);
       }
     });
   }
@@ -451,7 +451,7 @@ jsPlumb.ready(function() {
         console.log(response.message);
       },
       error: function(xhr, status, error) {
-        console.error(error);
+        console.error(xhr.responseJSON.error);
       }
     });
   }
@@ -480,6 +480,9 @@ jsPlumb.ready(function() {
             });
           });
         }
+      },
+      error: function(xhr, status, error) {
+        console.error(xhr.responseJSON.error);
       }
     });
   }
