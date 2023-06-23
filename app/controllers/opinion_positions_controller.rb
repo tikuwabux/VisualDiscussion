@@ -20,7 +20,7 @@ class OpinionPositionsController < ApplicationController
 
   def index
     opinion_positions = OpinionPosition.all
-    if opinion_positions
+    if opinion_positions.present?
       response_data = opinion_positions.map do |position|
         {
           argument_id: position.argument_id,
