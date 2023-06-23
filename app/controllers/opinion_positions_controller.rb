@@ -5,8 +5,14 @@ class OpinionPositionsController < ApplicationController
   def create
     if @opinion_position
       update
+      return
+    end
+
+    opinion_position = OpinionPosition.new(opinion_position_params)
+    if opinion_position.save
+      render_success('意見の位置情報を保存しました')
     else
-      create_new_opinion_position
+      render_error('意見の位置情報を保存できませんでした')
     end
   end
 
@@ -45,15 +51,6 @@ class OpinionPositionsController < ApplicationController
   def find_opinion_position
     @opinion_position = OpinionPosition.find_by(argument_id: opinion_position_params[:argument_id]) ||
                         OpinionPosition.find_by(refutation_id: opinion_position_params[:refutation_id])
-  end
-
-  def create_new_opinion_position
-    opinion_position = OpinionPosition.new(opinion_position_params)
-    if opinion_position.save
-      render_success('意見の位置情報を保存しました')
-    else
-      render_error('意見の位置情報を保存できませんでした')
-    end
   end
 
   def render_success(success_message)
