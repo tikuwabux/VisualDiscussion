@@ -12,24 +12,28 @@ class OpinionPositionsController < ApplicationController
 
   def update
     if @opinion_position.update(opinion_position_params)
-      render_success('意見の位置を更新しました')
+      render_success('意見の位置情報を更新しました')
     else
-      render_error(opinion_position.errors.full_messages)
+      render_error('意見の位置情報を更新できませんでした')
     end
   end
 
   def index
     opinion_positions = OpinionPosition.all
-    response_data = opinion_positions.map do |position|
-      {
-        argument_id: position.argument_id,
-        refutation_id: position.refutation_id,
-        left: position.left,
-        top: position.top,
-      }
-    end
+    if opinion_positions
+      response_data = opinion_positions.map do |position|
+        {
+          argument_id: position.argument_id,
+          refutation_id: position.refutation_id,
+          left: position.left,
+          top: position.top,
+        }
+      end
 
-    render json: { opinion_positions: response_data }
+      render json: { opinion_positions: response_data }
+    else
+      render_error('意見の位置情報を取得できませんでした')
+    end
   end
 
   private
@@ -46,9 +50,9 @@ class OpinionPositionsController < ApplicationController
   def create_new_opinion_position
     opinion_position = OpinionPosition.new(opinion_position_params)
     if opinion_position.save
-      render_success('意見の位置を保存しました')
+      render_success('意見の位置情報を保存しました')
     else
-      render_error(opinion_position.errors.full_messages)
+      render_error('意見の位置情報を保存できませんでした')
     end
   end
 
@@ -56,7 +60,7 @@ class OpinionPositionsController < ApplicationController
     render json: { message: message }
   end
 
-  def render_error(errors)
-    render json: { errors: errors }
+  def render_error(error)
+    render json: { error: error }, status: 500
   end
 end

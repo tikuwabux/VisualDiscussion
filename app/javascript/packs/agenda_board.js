@@ -31,7 +31,7 @@ jsPlumb.ready(function() {
         setTimeout(restoreOpinionConnections, 10);
       },
       error: function(xhr, status, error) {
-        console.error('主張の位置情報の取得エラー:', error);
+        console.error(xhr.responseJSON.error);
       }
     });
 
@@ -54,7 +54,7 @@ jsPlumb.ready(function() {
           console.log(response.message)
         },
         error: function(xhr, status, error) {
-          console.error('主張の位置情報の保存エラー:', error);
+          console.error(xhr.responseJSON.error);
         }
       });
     }
@@ -221,7 +221,7 @@ jsPlumb.ready(function() {
         setTimeout(restoreOpinionConnections, 10);
       },
       error: function(xhr, status, error) {
-        console.error('反論の位置情報の取得エラー:', error);
+        console.error(xhr.responseJSON.error);
       }
     });
 
@@ -254,7 +254,7 @@ jsPlumb.ready(function() {
           console.log(response.message)
         },
         error: function(xhr, status, error) {
-          console.error('反論の位置情報の保存エラー:', error);
+          console.error(xhr.responseJSON.error);
         }
       });
     }
