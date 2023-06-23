@@ -56,11 +56,11 @@ class OpinionPositionsController < ApplicationController
     end
   end
 
-  def render_success(message)
-    render json: { message: message }
+  def render_success(success_message)
+    render json: { success_message: success_message }
   end
 
-  def render_error(error)
-    render json: { error: error }, status: 500
+  def render_error(error_message)
+    render json: { error_message: error_message }, status: 500
   end
 end

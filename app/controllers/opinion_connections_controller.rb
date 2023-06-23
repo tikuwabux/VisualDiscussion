@@ -9,9 +9,9 @@ class OpinionConnectionsController < ApplicationController
 
     opinion_connection = OpinionConnection.new(opinion_connection_params)
     if opinion_connection.save
-      render json: { message: "意見間の接続線情報を保存しました" }
+      render json: { success_message: "意見間の接続線情報を保存しました" }
     else
-      render json: { error: "意見間の接続線情報を保存できませんでした" }, status: :unprocessable_entity
+      render json: { error_message: "意見間の接続線情報を保存できませんでした" }, status: :unprocessable_entity
     end
   end
 
@@ -19,9 +19,9 @@ class OpinionConnectionsController < ApplicationController
     opinion_connection = OpinionConnection.find_by(source_id: opinion_connection_params[:source_id])
 
     if opinion_connection.update(opinion_connection_params)
-      render json: { message: "意見間の接続線情報を更新しました" }
+      render json: { success_message: "意見間の接続線情報を更新しました" }
     else
-      render json: { error: "意見間の接続線情報を更新できませんでした" }, status: :unprocessable_entity
+      render json: { error_message: "意見間の接続線情報を更新できませんでした" }, status: :unprocessable_entity
     end
   end
 
@@ -29,9 +29,9 @@ class OpinionConnectionsController < ApplicationController
     opinion_connection = OpinionConnection.find_by(opinion_connection_params)
     if opinion_connection
       opinion_connection.destroy
-      render json: { message: "意見間の接続線情報を削除しました" }
+      render json: { success_message: "意見間の接続線情報を削除しました" }
     else
-      render json: { error: "意見間の接続線情報を削除できませんでした" }, status: :not_found
+      render json: { error_message: "意見間の接続線情報を削除できませんでした" }, status: :not_found
     end
   end
 
@@ -46,7 +46,7 @@ class OpinionConnectionsController < ApplicationController
       end
       render json: { opinion_connections: response_data }
     else
-      render json: { error: '意見間の接続線情報を取得できませんでした' }, status: :not_found
+      render json: { error_message: '意見間の接続線情報を取得できませんでした' }, status: :not_found
     end
   end
 

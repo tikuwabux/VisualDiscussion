@@ -31,7 +31,7 @@ jsPlumb.ready(function() {
         setTimeout(restoreOpinionConnections, 10);
       },
       error: function(xhr, status, error) {
-        console.error(xhr.responseJSON.error);
+        console.error(xhr.responseJSON.error_message);
       }
     });
 
@@ -51,10 +51,10 @@ jsPlumb.ready(function() {
           }
         },
         success: function(response) {
-          console.log(response.message)
+          console.log(response.success_message)
         },
         error: function(xhr, status, error) {
-          console.error(xhr.responseJSON.error);
+          console.error(xhr.responseJSON.error_message);
         }
       });
     }
@@ -221,7 +221,7 @@ jsPlumb.ready(function() {
         setTimeout(restoreOpinionConnections, 10);
       },
       error: function(xhr, status, error) {
-        console.error(xhr.responseJSON.error);
+        console.error(xhr.responseJSON.error_message);
       }
     });
 
@@ -251,10 +251,10 @@ jsPlumb.ready(function() {
           }
         },
         success: function(response) {
-          console.log(response.message)
+          console.log(response.success_message)
         },
         error: function(xhr, status, error) {
-          console.error(xhr.responseJSON.error);
+          console.error(xhr.responseJSON.error_message);
         }
       });
     }
@@ -425,10 +425,10 @@ jsPlumb.ready(function() {
         }
       },
       success: function(response) {
-        console.log(response.message);
+        console.log(response.success_message);
       },
       error: function(xhr, status, error) {
-        console.error(xhr.responseJSON.error);
+        console.error(xhr.responseJSON.error_message);
       }
     });
   }
@@ -448,10 +448,10 @@ jsPlumb.ready(function() {
         }
       },
       success: function(response) {
-        console.log(response.message);
+        console.log(response.success_message);
       },
       error: function(xhr, status, error) {
-        console.error(xhr.responseJSON.error);
+        console.error(xhr.responseJSON.error_message);
       }
     });
   }
@@ -482,7 +482,7 @@ jsPlumb.ready(function() {
         }
       },
       error: function(xhr, status, error) {
-        console.error(xhr.responseJSON.error);
+        console.error(xhr.responseJSON.error_message);
       }
     });
   }
