@@ -8,7 +8,5 @@ class CreateOpinionPositions < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
-    add_index :opinion_positions, :argument_id, unique: true
-    add_index :opinion_positions, :refutation_id, unique: true
   end
 end
