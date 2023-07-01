@@ -220,7 +220,7 @@ jsPlumb.ready(function() {
         // 遅延させないとレイアウトが乱れる
         setTimeout(function() {
           arrangeRefutationLayout();
-          setSourceEndpoint();
+          setSourceEndpoint(refutation_id);
           restoreOpinionConnections();
         }, 10);
       },
@@ -229,14 +229,19 @@ jsPlumb.ready(function() {
       }
     });
 
-    // 反論の左上にソースエンドポイントを設置する関数
-    function setSourceEndpoint() {
-      jsPlumb.addEndpoint(`${refutation_id}`, {
+    // 反論の左上にソースエンドポイントを1つだけ設置する関数
+    function setSourceEndpoint(refutation_id) {
+      const sourceEndpoints = jsPlumb.getEndpoints(refutation_id, { source: true });
+      if (sourceEndpoints.length > 0) {
+        jsPlumb.deleteEndpoint(sourceEndpoints[0]);
+      }
+
+      jsPlumb.addEndpoint(refutation_id, {
         endpoint: "Dot",
         anchor: "TopLeft",
         isSource: true,
         connectionType: "red-connection"
-      })
+      });
     }
 
     // 反論のドラッグ終了後の位置をopinion_positionsテーブルに保存する関数
