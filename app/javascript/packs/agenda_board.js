@@ -219,8 +219,8 @@ jsPlumb.ready(function() {
         });
         // 遅延させないとレイアウトが乱れる
         setTimeout(arrangeRefutationLayout, 10);
-        setTimeout(setSourceEndpoint(refutation_id), 20);
-        setTimeout(restoreOpinionConnections, 1000);
+        setTimeout(setSourceEndpoint(refutation_id), 50);
+        setTimeout(restoreOpinionConnections, 100);
       },
       error: function(xhr, status, error) {
         console.error(xhr.responseJSON.error_message);
