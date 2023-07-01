@@ -27,8 +27,10 @@ jsPlumb.ready(function() {
           }
         });
         // 遅延させないと理由証拠間のレイアウトが乱れる
-        setTimeout(arrangeArgumentLayout, 10);
-        setTimeout(restoreOpinionConnections, 10);
+        setTimeout(function() {
+          arrangeArgumentLayout();
+          restoreOpinionConnections();
+        }, 10);
       },
       error: function(xhr, status, error) {
         console.error(xhr.responseJSON.error_message);
@@ -216,9 +218,11 @@ jsPlumb.ready(function() {
           }
         });
         // 遅延させないとレイアウトが乱れる
-        setTimeout(arrangeRefutationLayout, 10);
-        setTimeout(setSourceEndpoint, 10);
-        setTimeout(restoreOpinionConnections, 10);
+        setTimeout(function() {
+          arrangeRefutationLayout();
+          setSourceEndpoint();
+          restoreOpinionConnections();
+        }, 10);
       },
       error: function(xhr, status, error) {
         console.error(xhr.responseJSON.error_message);
