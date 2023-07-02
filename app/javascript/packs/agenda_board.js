@@ -229,7 +229,7 @@ jsPlumb.ready(function() {
 
     // 反論の左上にソースエンドポイントを1つだけ設置する関数
     function setSourceEndpoint(refutation_id) {
-      const sourceEndpoints = jsPlumb.getEndpoints(refutation_id, { source: true });
+      const sourceEndpoints = jsPlumb.getEndpoints(refutation_id);
       if (sourceEndpoints.length > 0) {
         jsPlumb.deleteEndpoint(sourceEndpoints[0]);
       }
