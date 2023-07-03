@@ -146,3 +146,36 @@ RefEvidence.create!(
   ref_evidence_summary: '論理性の話であるため､必要なし',
   ref_evidence_detail: '特になし'
 )
+
+OpinionPosition.create!(
+  [
+    {
+      refutation_id: 1,
+      left: 1500,
+      top: 150
+    },
+    {
+      refutation_id: 2,
+      left: 2300,
+      top: 150
+    },
+    {
+      argument_id: 2,
+      left: 10,
+      top: 1000
+    }
+  ]
+)
+
+OpinionConnection.create!(
+  [
+    {
+      source_id: 'refutation1',
+      target_id: 'reason0_of_conclusion1'
+    },
+    {
+      source_id: 'refutation2',
+      target_id: 'endpoint_between_ref_reason0_of_ref_conclusion1_and_ref_evidence0_of_ref_reason0_of_ref_conclusion1'
+    }
+  ]
+)
