@@ -276,7 +276,7 @@ RSpec.describe "AgendaBoards", type: :system do
     end
 
     scenario "ログインユーザーが作成した議題ボード一覧ページに遷移すること" do
-      expect(page).to have_current_path agenda_boards_path
+      expect(page).to have_current_path current_user_created_agenda_boards_path
     end
   end
 end
