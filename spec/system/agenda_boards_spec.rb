@@ -86,7 +86,7 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "ログインユーザーが作成した議題ボード一覧ページにアクセス後" do
     before do
-      click_on "#{annie.name}さんが作成した議題ボード"
+      click_on "作成した議題ボード一覧"
     end
 
     scenario "議題ボードの議題名の一覧を動的に確認できる" do
@@ -139,7 +139,7 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "議題ボード詳細ページアクセス後" do
     before do
-      click_on "#{annie.name}さんが作成した議題ボード"
+      click_on "作成した議題ボード一覧"
       click_on about_early_bird.agenda
     end
 
@@ -262,7 +262,7 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "議題ボード編集ページアクセス後､必要事項を入力して､｢編集する｣ボタンを押すと" do
     before do
-      click_on "#{annie.name}さんが作成した議題ボード"
+      click_on "作成した議題ボード一覧"
       within "#agenda_board#{about_chatbot.id}" do
         click_on "編集"
       end
