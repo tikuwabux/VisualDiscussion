@@ -62,6 +62,11 @@ RSpec.describe "Home", type: :system do
         click_on "作成した議題ボード一覧"
         expect(page).to have_current_path current_user_created_agenda_boards_path
       end
+
+      scenario "｢意見を投稿した議題ボード一覧｣リンクを押すと､ログインユーザーが意見を投稿した議題ボード一覧ページに繊維すること" do
+        click_on "意見を投稿した議題ボード一覧"
+        expect(page).to have_current_path current_user_posted_opinion_agenda_boards_path
+      end
     end
   end
 end
