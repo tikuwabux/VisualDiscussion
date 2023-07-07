@@ -24,6 +24,11 @@ class AgendaBoardsController < ApplicationController
     @user_created_agenda_boards = AgendaBoard.where(user_id: current_user.id).order(created_at: :desc)
   end
 
+  def index_with_opinion_posted_by_current_user
+    agenda_board_ids = current_user.conclusions.pluck(:agenda_board_id) | current_user.ref_conclusions.pluck(:agenda_board_id)
+    @agenda_boards = AgendaBoard.where(id: agenda_board_ids).order(created_at: :desc)
+  end
+
   def edit
     @agenda_board = AgendaBoard.find(params[:id])
   end

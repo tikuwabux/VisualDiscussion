@@ -16,6 +16,7 @@
           <%= link_to 'ログアウト', sign_out_path %>
           <%= link_to '新規議題ボード作成ページへ', new_agenda_board_path %>
           <%= link_to "作成した議題ボード一覧", current_user_created_agenda_boards_path %>
+          <%= link_to '意見を投稿した議題ボード一覧', current_user_posted_opinion_agenda_boards_path %>
         <% else %>
           <%= link_to 'サインアップ', sign_up_path %>
           <%= link_to 'ログイン', sign_in_path %>

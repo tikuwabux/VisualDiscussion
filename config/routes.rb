@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :agenda_boards do
     collection do
       get 'index_created_by_current_user', as: 'current_user_created'
+      get 'index_with_opinion_posted_by_current_user', as: 'current_user_posted_opinion'
     end
   end
 end
