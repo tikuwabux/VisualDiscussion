@@ -97,6 +97,10 @@ RSpec.describe "AgendaBoards", type: :system do
       annie.agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.category }
     end
 
+    scenario "議題ボードの作成日の一覧を動的に確認できる" do
+      annie.agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at }
+    end
+
     scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do
       annie.agenda_boards.all? do |agenda_board|
         expect(page).to have_content agenda_board.conclusions.count + agenda_board.ref_conclusions.count
