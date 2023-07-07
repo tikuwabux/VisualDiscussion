@@ -24,7 +24,7 @@ RSpec.describe "Arguments", type: :system, js: true do
 
   describe "新規主張作成ページにアクセス後" do
     before do
-      click_on "#{annie.name}さんが作成した議題ボード"
+      click_on "作成した議題ボード一覧"
       click_on about_early_bird.agenda
       click_button "新規主張作成"
     end
@@ -52,7 +52,7 @@ RSpec.describe "Arguments", type: :system, js: true do
 
   describe "主張編集ページにアクセス後" do
     before do
-      click_on "#{annie.name}さんが作成した議題ボード"
+      click_on "作成した議題ボード一覧"
       click_on about_early_bird.agenda
       within "#argument#{very_bad_for_health.id}" do
         click_button "主張を編集する"

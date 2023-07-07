@@ -58,9 +58,14 @@ RSpec.describe "Home", type: :system do
         expect(page).to have_current_path new_agenda_board_path
       end
 
-      scenario "｢**(現在ログイン中のユーザー名)さんが作成した議題ボード｣リンクを押すと､議題ボード一覧ページに遷移すること" do
-        click_on "#{annie.name}さんが作成した議題ボード"
-        expect(page).to have_current_path agenda_boards_path
+      scenario "｢作成した議題ボード一覧｣リンクを押すと､ログインユーザーが作成した議題ボード一覧ページに遷移すること" do
+        click_on "作成した議題ボード一覧"
+        expect(page).to have_current_path current_user_created_agenda_boards_path
+      end
+
+      scenario "｢意見を投稿した議題ボード一覧｣リンクを押すと､ログインユーザーが意見を投稿した議題ボード一覧ページに繊維すること" do
+        click_on "意見を投稿した議題ボード一覧"
+        expect(page).to have_current_path current_user_posted_opinion_agenda_boards_path
       end
     end
   end

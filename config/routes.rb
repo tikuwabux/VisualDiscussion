@@ -12,5 +12,12 @@ Rails.application.routes.draw do
     get 'sign_out', :to => 'users/sessions#destroy'
   end
 
-  resources :agenda_boards, :arguments, :refutations, :opinion_positions, :opinion_connections
+  resources :arguments, :refutations, :opinion_positions, :opinion_connections
+
+  resources :agenda_boards do
+    collection do
+      get 'index_created_by_current_user', as: 'current_user_created'
+      get 'index_with_opinion_posted_by_current_user', as: 'current_user_posted_opinion'
+    end
+  end
 end

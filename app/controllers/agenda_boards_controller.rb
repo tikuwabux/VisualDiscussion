@@ -20,8 +20,13 @@ class AgendaBoardsController < ApplicationController
     @ref_conclusions = @agenda_board.ref_conclusions
   end
 
-  def index
+  def index_created_by_current_user
     @user_created_agenda_boards = AgendaBoard.where(user_id: current_user.id).order(created_at: :desc)
+  end
+
+  def index_with_opinion_posted_by_current_user
+    agenda_board_ids = current_user.conclusions.pluck(:agenda_board_id) | current_user.ref_conclusions.pluck(:agenda_board_id)
+    @agenda_boards = AgendaBoard.where(id: agenda_board_ids).order(created_at: :desc)
   end
 
   def edit
@@ -32,7 +37,7 @@ class AgendaBoardsController < ApplicationController
     agenda_board = AgendaBoard.find(params[:id])
     if agenda_board.update(agenda_board_params)
       flash[:notice] = "議題ボードの編集に成功しました"
-      redirect_to agenda_boards_path
+      redirect_to current_user_created_agenda_boards_path
     else
       flash[:notice] = "議題ボードの編集に失敗しました"
       render "edit"
@@ -43,7 +48,7 @@ class AgendaBoardsController < ApplicationController
     agenda_board = AgendaBoard.find(params[:id])
     agenda_board.destroy
     flash[:notice] = "議題ボードの削除に成功しました"
-    redirect_to agenda_boards_path
+    redirect_to current_user_created_agenda_boards_path
   end
 
   private

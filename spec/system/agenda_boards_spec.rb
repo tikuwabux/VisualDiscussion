@@ -86,7 +86,7 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "ログインユーザーが作成した議題ボード一覧ページにアクセス後" do
     before do
-      click_on "#{annie.name}さんが作成した議題ボード"
+      click_on "作成した議題ボード一覧"
     end
 
     scenario "議題ボードの議題名の一覧を動的に確認できる" do
@@ -95,6 +95,10 @@ RSpec.describe "AgendaBoards", type: :system do
 
     scenario "議題ボードのカテゴリ名の一覧を動的に確認できる" do
       annie.agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.category }
+    end
+
+    scenario "議題ボードの作成日の一覧を動的に確認できる" do
+      annie.agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at }
     end
 
     scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do
@@ -137,9 +141,40 @@ RSpec.describe "AgendaBoards", type: :system do
     end
   end
 
+  describe "ログインユーザーが意見を投稿した議題ボード一覧ページにアクセス後" do
+    before do
+      agenda_board_ids = annie.conclusions.pluck(:agenda_board_id) | annie.ref_conclusions.pluck(:agenda_board_id)
+      @agenda_boards = AgendaBoard.where(id: agenda_board_ids).order(created_at: :desc)
+      click_on "意見を投稿した議題ボード一覧"
+    end
+
+    scenario "議題ボードの議題名の一覧を動的に確認できる" do
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.agenda }
+    end
+
+    scenario "議題ボードのカテゴリ名の一覧を動的に確認できる" do
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.category }
+    end
+
+    scenario "議題ボードの作成日の一覧を動的に確認できる" do
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at }
+    end
+
+    scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do
+      @agenda_boards.all? do |agenda_board|
+        expect(page).to have_content agenda_board.conclusions.count + agenda_board.ref_conclusions.count
+      end
+    end
+
+    scenario "議題名をクリックすると､その議題ボードの詳細ページに遷移すること" do
+      click_on about_early_bird.agenda
+      expect(page).to have_current_path agenda_board_path(about_early_bird.id)
+    end
+  end
+
   describe "議題ボード詳細ページアクセス後" do
     before do
-      click_on "#{annie.name}さんが作成した議題ボード"
+      click_on "作成した議題ボード一覧"
       click_on about_early_bird.agenda
     end
 
@@ -262,7 +297,7 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "議題ボード編集ページアクセス後､必要事項を入力して､｢編集する｣ボタンを押すと" do
     before do
-      click_on "#{annie.name}さんが作成した議題ボード"
+      click_on "作成した議題ボード一覧"
       within "#agenda_board#{about_chatbot.id}" do
         click_on "編集"
       end
@@ -276,7 +311,7 @@ RSpec.describe "AgendaBoards", type: :system do
     end
 
     scenario "ログインユーザーが作成した議題ボード一覧ページに遷移すること" do
-      expect(page).to have_current_path agenda_boards_path
+      expect(page).to have_current_path current_user_created_agenda_boards_path
     end
   end
 end
