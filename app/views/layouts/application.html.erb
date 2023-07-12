@@ -17,6 +17,12 @@
           <%= link_to '新規議題ボード作成ページへ', new_agenda_board_path %>
           <%= link_to "作成した議題ボード一覧", current_user_created_agenda_boards_path %>
           <%= link_to '意見を投稿した議題ボード一覧', current_user_posted_opinion_agenda_boards_path %>
+          <%= search_form_for @search, url: category_search_agenda_boards_path do |form| %>
+            <%= form.label :category_cont, 'カテゴリ名' %>
+            <%= form.select :category_cont, options_for_select(["ビジネス", "哲学", "歴史", "社会科学", "自然科学", "技術・工学", "産業", "芸術・美術", "言語", "文学", "その他"]) %>
+            <br>
+            <%= form.submit %>
+          <% end %>
         <% else %>
           <%= link_to 'サインアップ', sign_up_path %>
           <%= link_to 'ログイン', sign_in_path %>

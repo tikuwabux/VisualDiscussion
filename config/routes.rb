@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     collection do
       get 'index_created_by_current_user', as: 'current_user_created'
       get 'index_with_opinion_posted_by_current_user', as: 'current_user_posted_opinion'
+      get 'index_searched_by_category', as: 'category_search'
     end
   end
 end
