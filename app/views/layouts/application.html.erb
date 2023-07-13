@@ -23,6 +23,12 @@
             <br>
             <%= form.submit %>
           <% end %>
+          <%= search_form_for @search, url: agenda_search_agenda_boards_path do |form| %>
+            <%= form.label :agenda_cont, '議題名(複数単語可)' %>
+            <%= form.search_field :agenda_cont %>
+            <br>
+            <%= form.submit %>
+          <% end %>
         <% else %>
           <%= link_to 'サインアップ', sign_up_path %>
           <%= link_to 'ログイン', sign_in_path %>

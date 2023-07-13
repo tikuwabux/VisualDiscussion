@@ -35,6 +35,14 @@ class AgendaBoardsController < ApplicationController
     @search_result_agenda_boards = search.result.order(created_at: :desc)
   end
 
+  def index_searched_by_agenda
+    @input_content = params[:q][:agenda_cont]
+    keywords = @input_content.split(/[\p{blank}\s]+/)
+    grouping_array = keywords.reduce([]){ |array, word| array << { agenda_cont: word } }
+    search = AgendaBoard.ransack({ combinator: 'and', groupings: grouping_array })
+    @search_result_agenda_boards = search.result.order(created_at: :desc)
+  end
+
   def edit
     @agenda_board = AgendaBoard.find(params[:id])
   end
