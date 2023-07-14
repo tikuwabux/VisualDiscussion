@@ -27,7 +27,7 @@
             <%= form.label :agenda_cont, '議題名(複数単語可)' %>
             <%= form.search_field :agenda_cont %>
             <br>
-            <%= form.submit %>
+            <%= form.submit '議題名で検索' %>
           <% end %>
         <% else %>
           <%= link_to 'サインアップ', sign_up_path %>

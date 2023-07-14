@@ -74,6 +74,13 @@ RSpec.describe "Home", type: :system do
         expect(page).to have_current_path category_search_agenda_boards_path, ignore_query: true
         expect(page).to have_content '｢自然科学｣のカテゴリをもつ議題ボード一覧'
       end
+
+      scenario "｢議題ボード検索フォーム(議題名入力式)｣で議題名を入力して､検索ボタンを押すと､入力した議題名を含む議題ボード一覧ページに遷移すること" do
+        fill_in '議題名(複数単語可)', with: '起き 健康'
+        click_on '議題名で検索'
+        expect(page).to have_current_path agenda_search_agenda_boards_path, ignore_query: true
+        expect(page).to have_content '｢起き 健康｣を議題名に含む議題ボード一覧'
+      end
     end
   end
 end

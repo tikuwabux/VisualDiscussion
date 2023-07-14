@@ -232,6 +232,65 @@ RSpec.describe "AgendaBoards", type: :system do
     end
   end
 
+  describe "｢xxx(入力された文字)｣を議題名に含む議題ボード一覧ページにアクセス後" do
+    before do
+      fill_in '議題名(複数単語可)', with: '起き 健康'
+      click_on '議題名で検索'
+      @agenda_boards = AgendaBoard.where("agenda LIKE ? AND agenda LIKE ?", "%起き%", "%健康%")
+    end
+
+    scenario "議題ボードの議題名の一覧を動的に確認できる" do
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.agenda }
+    end
+
+    scenario "議題ボードのカテゴリ名の一覧を動的に確認できる" do
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.category }
+    end
+
+    scenario "議題ボードの作成日の一覧を動的に確認できる" do
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at }
+    end
+
+    scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do
+      @agenda_boards.all? do |agenda_board|
+        expect(page).to have_content agenda_board.conclusions.count + agenda_board.ref_conclusions.count
+      end
+    end
+
+    scenario "議題名をクリックすると､その議題ボードの詳細ページに遷移すること" do
+      click_on about_early_bird.agenda
+      expect(page).to have_current_path agenda_board_path(about_early_bird.id)
+    end
+
+    context "議題ボードの作成者が現在ログイン中のユーザーであることに加え､その議題ボード中で意見が1つも作成されていないとき" do
+      scenario "｢編集｣リンクの表示を確認できること" do
+        within "#agenda_board#{about_ideal_waking_time.id}" do
+          expect(page).to have_link "編集"
+        end
+      end
+
+      scenario "｢編集｣リンクをクリックすると､議題ボード編集ページに遷移すること" do
+        within "#agenda_board#{about_ideal_waking_time.id}" do
+          click_on "編集"
+          expect(page).to have_current_path edit_agenda_board_path(about_ideal_waking_time.id)
+        end
+      end
+
+      scenario "｢削除｣リンクの表示を確認できること" do
+        within "#agenda_board#{about_ideal_waking_time.id}" do
+          expect(page).to have_link "削除"
+        end
+      end
+
+      scenario "｢削除｣リンクをクリックすると､議題ボードが削除されること" do
+        within "#agenda_board#{about_ideal_waking_time.id}" do
+          click_on "削除"
+        end
+        expect(page).to have_content "議題ボードの削除に成功しました"
+      end
+    end
+  end
+
   describe "議題ボード詳細ページアクセス後" do
     before do
       click_on "作成した議題ボード一覧"
