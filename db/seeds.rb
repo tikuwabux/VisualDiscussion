@@ -16,9 +16,18 @@ User.create!(
 )
 
 AgendaBoard.create!(
-  user_id: 1,
-  agenda: '早起きは健康によいのか',
-  category: '自然科学'
+  [
+    {
+      user_id: 1,
+      agenda: '早起きは健康によいのか',
+      category: '自然科学'
+    },
+    {
+      user_id: 1,
+      agenda: '何時に起きるのが一番健康的なのか',
+      category: '自然科学'
+    }
+  ]
 )
 
 # annieの主張1(brianからの反論有り)
