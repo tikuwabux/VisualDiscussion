@@ -67,6 +67,13 @@ RSpec.describe "Home", type: :system do
         click_on "意見を投稿した議題ボード一覧"
         expect(page).to have_current_path current_user_posted_opinion_agenda_boards_path
       end
+
+      scenario "｢議題ボード検索フォーム(カテゴリ選択式)｣でカテゴリを選択して､検索ボタンを押すと､選択したカテゴリを有する議題ボード一覧ページに遷移すること" do
+        select "自然科学", from: 'agenda_board_search_category'
+        click_on 'カテゴリ名で検索'
+        expect(page).to have_current_path category_search_agenda_boards_path, ignore_query: true
+        expect(page).to have_content '｢自然科学｣のカテゴリをもつ議題ボード一覧'
+      end
     end
   end
 end

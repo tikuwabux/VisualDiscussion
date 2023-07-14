@@ -6,6 +6,7 @@ RSpec.describe "AgendaBoards", type: :system do
 
   let(:about_early_bird) { create(:agenda_board, user_id: annie.id, agenda: "早起きは健康によいのか?", category: "自然科学") }
   let!(:about_chatbot) { create(:agenda_board, user_id: annie.id, agenda: "チャットボットは教育に悪影響を与えるのか?", category: "社会科学") }
+  let!(:about_ideal_waking_time) { create(:agenda_board, user_id: annie.id, agenda: "何時に起きるのが一番健康的なのか?", category: "自然科学") }
 
   let(:bad_for_health) do
     create(:conclusion, agenda_board_id: about_early_bird.id, user_id: annie.id, conclusion_summary: "健康に悪い")
@@ -169,6 +170,65 @@ RSpec.describe "AgendaBoards", type: :system do
     scenario "議題名をクリックすると､その議題ボードの詳細ページに遷移すること" do
       click_on about_early_bird.agenda
       expect(page).to have_current_path agenda_board_path(about_early_bird.id)
+    end
+  end
+
+  describe "選択したカテゴリを有する議題ボード一覧ページにアクセス後" do
+    before do
+      select "自然科学", from: 'agenda_board_search_category'
+      click_on 'カテゴリ名で検索'
+      @agenda_boards = AgendaBoard.where(category: '自然科学')
+    end
+
+    scenario "議題ボードの議題名の一覧を動的に確認できる" do
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.agenda }
+    end
+
+    scenario "議題ボードのカテゴリ名の一覧を動的に確認できる" do
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.category }
+    end
+
+    scenario "議題ボードの作成日の一覧を動的に確認できる" do
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at }
+    end
+
+    scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do
+      @agenda_boards.all? do |agenda_board|
+        expect(page).to have_content agenda_board.conclusions.count + agenda_board.ref_conclusions.count
+      end
+    end
+
+    scenario "議題名をクリックすると､その議題ボードの詳細ページに遷移すること" do
+      click_on about_early_bird.agenda
+      expect(page).to have_current_path agenda_board_path(about_early_bird.id)
+    end
+
+    context "議題ボードの作成者が現在ログイン中のユーザーであることに加え､その議題ボード中で意見が1つも作成されていないとき" do
+      scenario "｢編集｣リンクの表示を確認できること" do
+        within "#agenda_board#{about_ideal_waking_time.id}" do
+          expect(page).to have_link "編集"
+        end
+      end
+
+      scenario "｢編集｣リンクをクリックすると､議題ボード編集ページに遷移すること" do
+        within "#agenda_board#{about_ideal_waking_time.id}" do
+          click_on "編集"
+          expect(page).to have_current_path edit_agenda_board_path(about_ideal_waking_time.id)
+        end
+      end
+
+      scenario "｢削除｣リンクの表示を確認できること" do
+        within "#agenda_board#{about_ideal_waking_time.id}" do
+          expect(page).to have_link "削除"
+        end
+      end
+
+      scenario "｢削除｣リンクをクリックすると､議題ボードが削除されること" do
+        within "#agenda_board#{about_ideal_waking_time.id}" do
+          click_on "削除"
+        end
+        expect(page).to have_content "議題ボードの削除に成功しました"
+      end
     end
   end
 
