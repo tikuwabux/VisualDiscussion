@@ -64,7 +64,7 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "新規議題ボード作成ページアクセス後" do
     before do
-      click_on "新規議題ボード作成ページへ"
+      click_on "新規議題ボード作成"
     end
 
     describe "議題を入力し､カテゴリを選択後､｢議題ボードを作成する｣ボタンを押すと" do
@@ -84,9 +84,9 @@ RSpec.describe "AgendaBoards", type: :system do
     end
   end
 
-  describe "ログインユーザーが作成した議題ボード一覧ページにアクセス後" do
+  describe "｢**(ログインユーザー)さんが作成した議題ボード一覧｣ページにアクセス後" do
     before do
-      click_on "作成した議題ボード一覧"
+      click_on "#{annie.name}さんが作成した議題ボード"
     end
 
     scenario "議題ボードの議題名の一覧を動的に確認できる" do
@@ -141,11 +141,11 @@ RSpec.describe "AgendaBoards", type: :system do
     end
   end
 
-  describe "ログインユーザーが意見を投稿した議題ボード一覧ページにアクセス後" do
+  describe "｢**(ログインユーザー)さんが発言した議題ボード一覧｣ページにアクセス後" do
     before do
       agenda_board_ids = annie.conclusions.pluck(:agenda_board_id) | annie.ref_conclusions.pluck(:agenda_board_id)
       @agenda_boards = AgendaBoard.where(id: agenda_board_ids).order(created_at: :desc)
-      click_on "意見を投稿した議題ボード一覧"
+      click_on "#{annie.name}さんが発言した議題ボード"
     end
 
     scenario "議題ボードの議題名の一覧を動的に確認できる" do
@@ -292,7 +292,7 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "議題ボード詳細ページアクセス後" do
     before do
-      click_on "作成した議題ボード一覧"
+      click_on "#{annie.name}さんが作成した議題ボード"
       click_on about_early_bird.agenda
     end
 
@@ -415,7 +415,7 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "議題ボード編集ページアクセス後､必要事項を入力して､｢編集する｣ボタンを押すと" do
     before do
-      click_on "作成した議題ボード一覧"
+      click_on "#{annie.name}さんが作成した議題ボード"
       within "#agenda_board#{about_ideal_waking_time.id}" do
         click_on "編集"
       end
@@ -428,7 +428,7 @@ RSpec.describe "AgendaBoards", type: :system do
       expect(page).to have_content "議題ボードの編集に成功しました"
     end
 
-    scenario "ログインユーザーが作成した議題ボード一覧ページに遷移すること" do
+    scenario "｢**(ログインユーザー)さんが作成した議題ボード一覧｣ページに遷移すること" do
       expect(page).to have_current_path current_user_created_agenda_boards_path
     end
   end

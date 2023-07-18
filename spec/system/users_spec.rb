@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Home", type: :system do
+RSpec.describe "Users", type: :system do
   let(:annie) { create(:user, name: "annie") }
 
   context "ログイン前の時" do
@@ -21,7 +21,7 @@ RSpec.describe "Home", type: :system do
         click_button "Sign up"
         expect(page).to have_current_path root_path
         within "header" do
-          expect(page).to have_content "benny@example.com"
+          expect(page).to have_content "ログアウト"
         end
       end
 
@@ -63,9 +63,9 @@ RSpec.describe "Home", type: :system do
       click_button "Log in"
     end
 
-    describe "プロフィール変更リンク押下後" do
+    describe "プロフ変更リンク押下後" do
       before do
-        click_on "プロフィール変更"
+        click_on "プロフ変更"
       end
 
       describe "変更したい項目と現在のパスワードを入力して､updateボタンを押すと" do
@@ -82,7 +82,7 @@ RSpec.describe "Home", type: :system do
         scenario "ログイン後のホームページに遷移すること" do
           expect(page).to have_current_path root_path
           within "header" do
-            expect(page).to have_content "annie@example.com"
+            expect(page).to have_content "ログアウト"
           end
         end
       end
@@ -108,7 +108,7 @@ RSpec.describe "Home", type: :system do
         click_on "Back"
         expect(page).to have_current_path root_path
         within "header" do
-          expect(page).to have_content annie.email
+          expect(page).to have_content "ログアウト"
         end
       end
     end
@@ -125,7 +125,7 @@ RSpec.describe "Home", type: :system do
       scenario "ログイン前のホームページに遷移すること" do
         expect(page).to have_current_path root_path
         within "header" do
-          expect(page).not_to have_content annie.email
+          expect(page).not_to have_content "ログアウト"
         end
       end
     end

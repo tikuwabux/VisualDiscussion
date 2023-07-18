@@ -34,14 +34,8 @@ RSpec.describe "Home", type: :system do
         click_button "Log in"
       end
 
-      scenario "ヘッダー中にログインユーザーのメールアドレスを動的に確認できること" do
-        within "header" do
-          expect(page).to have_content annie.email
-        end
-      end
-
-      scenario "プロフィール変更リンクを押すと､プロフィール変更ページに遷移すること" do
-        click_on "プロフィール変更"
+      scenario "プロフ変更リンクを押すと､プロフ変更ページに遷移すること" do
+        click_on "プロフ変更"
         expect(page).to have_current_path edit_user_registration_path
       end
 
@@ -53,18 +47,18 @@ RSpec.describe "Home", type: :system do
         end
       end
 
-      scenario "｢新規議題ボード作成ページへ｣リンクを押すと､新規議題ボード作成ページに遷移すること" do
-        click_on "新規議題ボード作成ページへ"
+      scenario "｢新規議題ボード作成｣リンクを押すと､新規議題ボード作成ページに遷移すること" do
+        click_on "新規議題ボード作成"
         expect(page).to have_current_path new_agenda_board_path
       end
 
-      scenario "｢作成した議題ボード一覧｣リンクを押すと､ログインユーザーが作成した議題ボード一覧ページに遷移すること" do
-        click_on "作成した議題ボード一覧"
+      scenario "｢**(ログインユーザー)さんが作成した議題ボード一覧｣リンクを押すと､ログインユーザーが作成した議題ボード一覧ページに遷移すること" do
+        click_on "#{annie.name}さんが作成した議題ボード"
         expect(page).to have_current_path current_user_created_agenda_boards_path
       end
 
-      scenario "｢意見を投稿した議題ボード一覧｣リンクを押すと､ログインユーザーが意見を投稿した議題ボード一覧ページに繊維すること" do
-        click_on "意見を投稿した議題ボード一覧"
+      scenario "｢**(ログインユーザー)さんが発言した議題ボード｣リンクを押すと､｢**(ログインユーザー)さんが発言した議題ボード一覧｣ページに繊維すること" do
+        click_on "#{annie.name}さんが発言した議題ボード"
         expect(page).to have_current_path current_user_posted_opinion_agenda_boards_path
       end
 

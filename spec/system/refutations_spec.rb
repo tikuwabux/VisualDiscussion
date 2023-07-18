@@ -69,7 +69,7 @@ RSpec.describe "Refutations", type: :system, js: true do
     fill_in "メールアドレス", with: annie.email
     fill_in "パスワード", with: annie.password
     click_button "Log in"
-    click_on "作成した議題ボード一覧"
+    click_on "#{annie.name}さんが作成した議題ボード"
     click_on about_early_bird.agenda
 
     # 主張･反論の要素を移動させ､重なりを防ぐことで､主張・反論下の各々のボタンが押せるようにする
