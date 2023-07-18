@@ -1,0 +1,73 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ */
+
+a {
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+body, div, p, ul, ol, li, dl, dt, dd th, td, img, figure, h1, h2, h3, h4, h5, h6, form, select {
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #ADD8E6;
+  width: 100%;
+  padding: 20px 0;
+  position: fixed;
+  top: 0;
+  z-index: 10;
+
+  .header_container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 40px;
+
+    .header_left {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+
+      img {
+        height: 60px;
+        border-radius: 50px;
+      }
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+    }
+  }
+}
+
+footer {
+  background-color: #ADD8E6;
+  width: 100%;
+  padding: 10px 0;
+  position: fixed;
+  bottom: 0;
+  z-index: -1;
+
+  h4 {
+    text-align: center;
+  }
+}
