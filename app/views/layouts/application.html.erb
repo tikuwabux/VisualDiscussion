@@ -37,6 +37,7 @@
           <% else %>
             <%= link_to 'サインアップ', sign_up_path %>
             <%= link_to 'ログイン', sign_in_path %>
+            <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post %>
           <% end %>
         </nav>
       </div>

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     get 'sign_up', :to => 'users/registrations#new'
     get 'sign_in', :to => 'users/sessions#new'
     get 'sign_out', :to => 'users/sessions#destroy'
+    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
   end
 
   resources :arguments, :refutations, :opinion_positions, :opinion_connections

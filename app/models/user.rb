@@ -7,4 +7,11 @@ class User < ApplicationRecord
   has_many :agenda_boards
   has_many :conclusions
   has_many :ref_conclusions
+
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.name = "guest"
+      user.password = SecureRandom.urlsafe_base64
+    end
+  end
 end
