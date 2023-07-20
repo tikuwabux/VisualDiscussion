@@ -59,6 +59,16 @@ header {
   }
 }
 
+main {
+  .container {
+    width: 80%;
+    margin: 0 auto;
+    margin-top: 150px;
+    margin-bottom: 150px;
+    text-align: center;
+  }
+}
+
 footer {
   background-color: #ADD8E6;
   width: 100%;
