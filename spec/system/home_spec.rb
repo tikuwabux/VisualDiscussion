@@ -24,6 +24,12 @@ RSpec.describe "Home", type: :system do
         click_on "ログイン"
         expect(page).to have_current_path sign_in_path
       end
+
+      scenario "｢ゲストログイン｣リンクを押すと､ゲストログイン後､ホームページに遷移すること" do
+        click_on "ゲストログイン"
+        expect(page).to have_content 'ゲストユーザーとしてログインしました｡'
+        expect(page).to have_current_path root_path
+      end
     end
 
     context "ログイン済みの時" do
