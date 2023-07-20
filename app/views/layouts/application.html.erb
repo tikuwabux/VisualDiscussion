@@ -14,15 +14,17 @@
           <%= link_to root_path do %>
             <%= image_tag "logo_image.png" %>
           <% end %>
-          <%= search_form_for @search, url: category_search_agenda_boards_path do |form| %>
-            <%= form.select :category_cont, options_for_select(["ビジネス", "哲学", "歴史", "社会科学", "自然科学", "技術・工学", "産業", "芸術・美術", "言語", "文学", "その他"], selected: @search.category_cont), {include_blank: '選択してください'}, { id: "agenda_board_search_category" } %>
-            <br>
-            <%= form.submit 'カテゴリ名で検索'%>
-          <% end %>
-          <%= search_form_for @search, url: agenda_search_agenda_boards_path do |form| %>
-            <%= form.search_field :agenda_cont, placeholder: '議題名(複数単語可)' %>
-            <br>
-            <%= form.submit '議題名で検索' %>
+          <% if current_user %>
+            <%= search_form_for @search, url: category_search_agenda_boards_path do |form| %>
+              <%= form.select :category_cont, options_for_select(["ビジネス", "哲学", "歴史", "社会科学", "自然科学", "技術・工学", "産業", "芸術・美術", "言語", "文学", "その他"], selected: @search.category_cont), {include_blank: '選択してください'}, { id: "agenda_board_search_category" } %>
+              <br>
+              <%= form.submit 'カテゴリ名で検索'%>
+            <% end %>
+            <%= search_form_for @search, url: agenda_search_agenda_boards_path do |form| %>
+              <%= form.search_field :agenda_cont, placeholder: '議題名(複数単語可)' %>
+              <br>
+              <%= form.submit '議題名で検索' %>
+            <% end %>
           <% end %>
         </div>
         <nav>
