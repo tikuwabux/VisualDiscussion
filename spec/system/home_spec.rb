@@ -30,6 +30,22 @@ RSpec.describe "Home", type: :system do
         expect(page).to have_content 'ゲストユーザーとしてログインしました｡'
         expect(page).to have_current_path root_path
       end
+
+      scenario "｢新規登録して議題ボードを作成する｣リンクを押すと､サインアップページに遷移すること" do
+        click_on '新規登録して議題ボードを作成する'
+        expect(page).to have_current_path sign_up_path
+      end
+
+      scenario "｢ログインする｣リンクを押すと､ログインページに遷移すること" do
+        click_on 'ログインする'
+        expect(page).to have_current_path sign_in_path
+      end
+
+      scenario "｢ゲストログインする｣リンクを押すと､ゲストログイン後､ホームページに遷移すること" do
+        click_on 'ゲストログインする'
+        expect(page).to have_content 'ゲストユーザーとしてログインしました｡'
+        expect(page).to have_current_path root_path
+      end
     end
 
     context "ログイン済みの時" do
@@ -68,16 +84,52 @@ RSpec.describe "Home", type: :system do
         expect(page).to have_current_path current_user_posted_opinion_agenda_boards_path
       end
 
-      scenario "｢議題ボード検索フォーム(カテゴリ選択式)｣でカテゴリを選択して､検索ボタンを押すと､選択したカテゴリを有する議題ボード一覧ページに遷移すること" do
-        select "自然科学", from: 'agenda_board_search_category'
-        click_on 'カテゴリ名で検索'
+      scenario "ヘッダー中の｢議題ボード検索フォーム(カテゴリ選択式)｣でカテゴリを選択して､検索ボタンを押すと､選択したカテゴリを有する議題ボード一覧ページに遷移すること" do
+        within "header" do
+          select "自然科学", from: 'agenda_board_search_category'
+          click_on 'カテゴリ名で検索'
+        end
         expect(page).to have_current_path category_search_agenda_boards_path, ignore_query: true
         expect(page).to have_content '｢自然科学｣のカテゴリをもつ議題ボード一覧'
       end
 
-      scenario "｢議題ボード検索フォーム(議題名入力式)｣で議題名を入力して､検索ボタンを押すと､入力した議題名を含む議題ボード一覧ページに遷移すること" do
-        fill_in '議題名(複数単語可)', with: '起き 健康'
-        click_on '議題名で検索'
+      scenario "ヘッダー中の｢議題ボード検索フォーム(議題名入力式)｣で議題名を入力して､検索ボタンを押すと､入力した議題名を含む議題ボード一覧ページに遷移すること" do
+        within "header" do
+          fill_in '議題名(複数単語可)', with: '起き 健康'
+          click_on '議題名で検索'
+        end
+        expect(page).to have_current_path agenda_search_agenda_boards_path, ignore_query: true
+        expect(page).to have_content '｢起き 健康｣を議題名に含む議題ボード一覧'
+      end
+
+      scenario "｢新たな議題ボードを作成する｣リンクを押すと､新規議題ボード作成ページに遷移すること" do
+        click_on "新たな議題ボードを作成する"
+        expect(page).to have_current_path new_agenda_board_path
+      end
+
+      scenario "ヘッダー中の｢議題ボード検索フォーム(カテゴリ選択式)｣でカテゴリを選択して､検索ボタンを押すと､選択したカテゴリを有する議題ボード一覧ページに遷移すること" do
+        within "header" do
+          select "自然科学", from: 'agenda_board_search_category'
+          click_on 'カテゴリ名で検索'
+        end
+        expect(page).to have_current_path category_search_agenda_boards_path, ignore_query: true
+        expect(page).to have_content '｢自然科学｣のカテゴリをもつ議題ボード一覧'
+      end
+
+      scenario "メイン中の｢議題ボード検索フォーム(カテゴリ選択式)｣でカテゴリを選択して､検索ボタンを押すと､選択したカテゴリを有する議題ボード一覧ページに遷移すること" do
+        within ".search_area" do
+          select "自然科学", from: 'agenda_board_search_category'
+          click_on 'カテゴリ名で検索'
+        end
+        expect(page).to have_current_path category_search_agenda_boards_path, ignore_query: true
+        expect(page).to have_content '｢自然科学｣のカテゴリをもつ議題ボード一覧'
+      end
+
+      scenario "メイン中の｢議題ボード検索フォーム(議題名入力式)｣で議題名を入力して､検索ボタンを押すと､入力した議題名を含む議題ボード一覧ページに遷移すること" do
+        within ".search_area" do
+          fill_in '議題名(複数単語可)', with: '起き 健康'
+          click_on '議題名で検索'
+        end
         expect(page).to have_current_path agenda_search_agenda_boards_path, ignore_query: true
         expect(page).to have_content '｢起き 健康｣を議題名に含む議題ボード一覧'
       end
