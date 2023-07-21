@@ -98,7 +98,7 @@ RSpec.describe "AgendaBoards", type: :system do
     end
 
     scenario "議題ボードの作成日の一覧を動的に確認できる" do
-      annie.agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at }
+      annie.agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at.to_s(:datetime_jp) }
     end
 
     scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do

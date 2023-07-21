@@ -17,7 +17,7 @@
         <tr id="agenda_board<%= user_created_agenda_board.id %>">
           <td><%= link_to user_created_agenda_board.agenda, agenda_board_path(user_created_agenda_board.id) %></td>
           <td><%= user_created_agenda_board.category %></td>
-          <td><%= user_created_agenda_board.created_at %></td>
+          <td><%= user_created_agenda_board.created_at.to_s(:datetime_jp) %></td>
           <td>
             <% if user_created_agenda_board.conclusions == [] && user_created_agenda_board.ref_conclusions == [] %>
               <%= link_to "編集", edit_agenda_board_path(user_created_agenda_board.id) %>
