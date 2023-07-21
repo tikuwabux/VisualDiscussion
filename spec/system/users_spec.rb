@@ -48,16 +48,16 @@ RSpec.describe "Users", type: :system do
       click_button "ログイン"
     end
 
-    describe "プロフ変更リンク押下後" do
+    describe "ユーザー情報編集リンク押下後" do
       before do
-        click_on "プロフ変更"
+        click_on "ユーザー情報編集"
       end
 
       describe "変更したい項目と現在のパスワードを入力して､updateボタンを押すと" do
         before do
           fill_in "メールアドレス", with: "annie@example.com"
           fill_in "現在のパスワード", with: annie.password
-          click_button "Update"
+          click_button "編集する"
         end
 
         scenario "アカウント情報が変更されること" do
@@ -72,9 +72,9 @@ RSpec.describe "Users", type: :system do
         end
       end
 
-      describe "Cancel my accountボタンを押すと" do
+      describe "｢アカウントを削除する｣ボタンを押すと" do
         before do
-          click_button "Cancel my account"
+          click_button "アカウントを削除する"
         end
 
         scenario "アカウントが消去されること" do
@@ -86,14 +86,6 @@ RSpec.describe "Users", type: :system do
           within "header" do
             expect(page).not_to have_content annie.email
           end
-        end
-      end
-
-      scenario "Backリンクを押すと､ログイン後のホームページに遷移すること" do
-        click_on "Back"
-        expect(page).to have_current_path root_path
-        within "header" do
-          expect(page).to have_content "ログアウト"
         end
       end
     end
