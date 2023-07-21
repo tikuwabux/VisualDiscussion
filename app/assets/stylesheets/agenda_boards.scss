@@ -127,3 +127,15 @@
 td {
   text-align: center;
 }
+
+
+.create_new_agenda_board {
+  font-size: 20px;
+
+  .title {
+    font-size: 30px;
+  }
+  select, input {
+    font-size: 20px;
+  }
+}

@@ -1,21 +1,26 @@
-<%= form_with model: @agenda_board, local: true do |form| %>
-  <table>
-    <tr>
-      <th>新規議題ボード作成フォーム</th>
-    </tr>
-    <tr>
-      <td><%= form.hidden_field :user_id, value: current_user.id %></td>
-    </tr>
-    <tr>
-      <th><%= form.label :agenda, "議題" %></th>
-      <td><%= form.text_field :agenda %></td>
-    </tr>
-    <tr>
-      <th><%= form.label :category, "カテゴリ" %></th>
-      <td><%= form.select :category, [ ["ビジネス", "ビジネス"], ["哲学", "哲学"], ["歴史", "歴史"], ["社会科学", "社会科学"], ["自然科学", "自然科学"], ["技術・工学", "技術・工学"], ["産業", "産業"], ["芸術・美術", "芸術・美術"], ["言語", "言語"], ["文学", "文学"], ["その他", "その他"]] %></td>
-    </tr>
-    <tr>
-      <th><%= form.submit "議題ボードを作成する"%></th>
-    </tr>
-  </table>
-<% end %>
+<div class="container">
+  <div class="create_new_agenda_board">
+    <%= form_with model: @agenda_board, local: true do |form| %>
+      <table>
+        <tr>
+          <th class='title'>新規議題ボード作成フォーム</th>
+        </tr>
+        <tr>
+          <td><%= form.hidden_field :user_id, value: current_user.id %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :agenda, "議題" %></th>
+          <td><%= form.text_field :agenda, class: 'adjust-entered-text-width' %></td>
+        </tr>
+        <tr>
+          <th><%= form.label :category, "カテゴリ" %></th>
+          <td><%= form.select :category, [ ["ビジネス", "ビジネス"], ["哲学", "哲学"], ["歴史", "歴史"], ["社会科学", "社会科学"], ["自然科学", "自然科学"], ["技術・工学", "技術・工学"], ["産業", "産業"], ["芸術・美術", "芸術・美術"], ["言語", "言語"], ["文学", "文学"], ["その他", "その他"]] %></td>
+        </tr>
+        <tr>
+          <th><%= form.submit "議題ボードを作成する"%></th>
+        </tr>
+      </table>
+    <% end %>
+  </div>
+</div>
+<%= javascript_pack_tag 'create_new_agenda_board' %>
