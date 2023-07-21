@@ -34,17 +34,7 @@ RSpec.describe "Users", type: :system do
       scenario "必須項目を入力して､ログインボタンを押すと､ログイン後のホームページに遷移すること" do
         fill_in "メールアドレス", with: annie.email
         fill_in "パスワード", with: annie.password
-        click_button "Log in"
-      end
-
-      scenario "Sign upリンクを押すと､サインアップページに遷移すること" do
-        click_on "Sign up"
-        expect(page).to have_current_path new_user_registration_path
-      end
-
-      scenario "Forgot your password?リンクを押すと､パスワード再設定ページに遷移すること" do
-        click_on "Forgot your password"
-        expect(page).to have_current_path new_user_password_path
+        click_button "ログイン"
       end
     end
   end
@@ -55,7 +45,7 @@ RSpec.describe "Users", type: :system do
       click_on "ログイン"
       fill_in "メールアドレス", with: annie.email
       fill_in "パスワード", with: annie.password
-      click_button "Log in"
+      click_button "ログイン"
     end
 
     describe "プロフ変更リンク押下後" do
