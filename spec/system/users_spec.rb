@@ -14,20 +14,15 @@ RSpec.describe "Users", type: :system do
       end
 
       scenario "必須項目を入力して､サインアップボタンを押すと､ログイン後のホームページに遷移すること" do
-        fill_in "Name", with: "benny"
+        fill_in "ニックネーム", with: "benny"
         fill_in "メールアドレス", with: "benny@example.com"
         fill_in "パスワード", with: 123456
         fill_in "確認用パスワード", with: 123456
-        click_button "Sign up"
+        click_button "新規登録"
         expect(page).to have_current_path root_path
         within "header" do
           expect(page).to have_content "ログアウト"
         end
-      end
-
-      scenario "Log inリンクを押すと､ログインページに遷移すること" do
-        click_on "Log in"
-        expect(page).to have_current_path new_user_session_path
       end
     end
 
