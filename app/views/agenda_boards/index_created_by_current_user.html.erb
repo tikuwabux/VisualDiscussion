@@ -1,39 +1,43 @@
-<h3><%= current_user.name %>さんの作成した議題ボード一覧</h3>
-<table>
-  <thead>
-    <tr>
-      <th>議題</th>
-      <th>カテゴリ</th>
-      <th>作成日</th>
-      <th>編集</th>
-      <th>削除</th>
-      <th>意見数</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @user_created_agenda_boards.each do |user_created_agenda_board| %>
-    <tr id="agenda_board<%= user_created_agenda_board.id %>">
-      <td><%= link_to user_created_agenda_board.agenda, agenda_board_path(user_created_agenda_board.id) %></td>
-      <td><%= user_created_agenda_board.category %></td>
-      <td><%= user_created_agenda_board.created_at %></td>
-      <td>
-        <% if user_created_agenda_board.conclusions == [] && user_created_agenda_board.ref_conclusions == [] %>
-          <%= link_to "編集", edit_agenda_board_path(user_created_agenda_board.id) %>
-        <% else %>
-          編集不可
+<div class="container">
+  <div class="index_created_by_current_user">
+    <h3 class="agenda_board_index_title"><%= current_user.name %>さんの作成した議題ボード一覧</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>議題</th>
+          <th>カテゴリ</th>
+          <th>作成日</th>
+          <th>編集</th>
+          <th>削除</th>
+          <th>意見数</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @user_created_agenda_boards.each do |user_created_agenda_board| %>
+        <tr id="agenda_board<%= user_created_agenda_board.id %>">
+          <td><%= link_to user_created_agenda_board.agenda, agenda_board_path(user_created_agenda_board.id) %></td>
+          <td><%= user_created_agenda_board.category %></td>
+          <td><%= user_created_agenda_board.created_at %></td>
+          <td>
+            <% if user_created_agenda_board.conclusions == [] && user_created_agenda_board.ref_conclusions == [] %>
+              <%= link_to "編集", edit_agenda_board_path(user_created_agenda_board.id) %>
+            <% else %>
+              編集不可
+            <% end %>
+          </td>
+          <td>
+            <% if user_created_agenda_board.conclusions == [] && user_created_agenda_board.ref_conclusions == [] %>
+              <%= link_to "削除", agenda_board_path(user_created_agenda_board.id), method: :delete %>
+            <% else %>
+              削除不可
+            <% end %>
+          </td>
+          <td>
+            <%= user_created_agenda_board.conclusions.count + user_created_agenda_board.ref_conclusions.count %>
+          </td>
+        </tr>
         <% end %>
-      </td>
-      <td>
-        <% if user_created_agenda_board.conclusions == [] && user_created_agenda_board.ref_conclusions == [] %>
-          <%= link_to "削除", agenda_board_path(user_created_agenda_board.id), method: :delete %>
-        <% else %>
-          削除不可
-        <% end %>
-      </td>
-      <td>
-        <%= user_created_agenda_board.conclusions.count + user_created_agenda_board.ref_conclusions.count %>
-      </td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+      </tbody>
+    </table>
+  </div>
+</div>
