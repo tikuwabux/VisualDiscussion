@@ -53,11 +53,11 @@ RSpec.describe "Home", type: :system do
         click_on "ログイン"
         fill_in "メールアドレス", with: annie.email
         fill_in "パスワード", with: annie.password
-        click_button "Log in"
+        click_button "ログイン"
       end
 
-      scenario "プロフ変更リンクを押すと､プロフ変更ページに遷移すること" do
-        click_on "プロフ変更"
+      scenario "ユーザー情報編集リンクを押すと､ユーザー情報編集ページに遷移すること" do
+        click_on "ユーザー情報編集"
         expect(page).to have_current_path edit_user_registration_path
       end
 
