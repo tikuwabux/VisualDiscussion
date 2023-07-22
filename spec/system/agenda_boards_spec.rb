@@ -174,8 +174,10 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "選択したカテゴリを有する議題ボード一覧ページにアクセス後" do
     before do
-      select "自然科学", from: 'agenda_board_search_category'
-      click_on 'カテゴリ名で検索'
+      within "header" do
+        select "自然科学", from: 'agenda_board_search_category'
+        click_on 'カテゴリ名で検索'
+      end
       @agenda_boards = AgendaBoard.where(category: '自然科学')
     end
 
@@ -188,7 +190,7 @@ RSpec.describe "AgendaBoards", type: :system do
     end
 
     scenario "議題ボードの作成日の一覧を動的に確認できる" do
-      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at }
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at.to_s(:datetime_jp) }
     end
 
     scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do
