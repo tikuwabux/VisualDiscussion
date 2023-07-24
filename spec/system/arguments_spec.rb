@@ -59,7 +59,7 @@ RSpec.describe "Arguments", type: :system, js: true do
       end
     end
 
-    describe "必要事項を入力して､｢主張を編集｣ボタンを押すと" do
+    describe "必要事項を入力して､｢主張を編集する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "拷問は言い過ぎだが､かなり健康に悪い"
         fill_in "結論詳細", with: "特になし"
@@ -67,7 +67,7 @@ RSpec.describe "Arguments", type: :system, js: true do
         fill_in "理由詳細", with: "特になし"
         fill_in "証拠", with: "サリンジャー博士の研究"
         fill_in "証拠詳細", with: "https://www.researchgate.net/profile/Paul-Kelley-4"
-        click_button "主張を編集"
+        click_button "主張を編集する"
       end
 
       scenario "主張が編集されること" do

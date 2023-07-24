@@ -1,33 +1,35 @@
-<h1><%= @agenda_board_agenda %></h1>
-<div class="create_new_argument_form">
-  <h3 class="argument_title">編集対象の主張</h3>
-  <%= form_with model: @conclusion, url: argument_path, local: true do |conclusion_form| %>
-    <div class="tree_structure">
-      <div class="conclusion box">
-        <h3><%= conclusion_form.label :conclusion_summary, "結論" %></h3>
-        <div class="inner">
-          <%= conclusion_form.text_field :conclusion_summary, class: 'adjust-entered-text-width' %>
+<div class="container">
+  <h1><%= @agenda_board_agenda %></h1>
+  <div class="create_new_argument_form">
+    <h3 class="argument_title">編集対象の主張</h3>
+    <%= form_with model: @conclusion, url: argument_path, local: true do |conclusion_form| %>
+      <div class="tree_structure">
+        <div class="conclusion box">
+          <h3><%= conclusion_form.label :conclusion_summary, "結論" %></h3>
+          <div class="inner">
+            <%= conclusion_form.text_field :conclusion_summary, class: 'adjust-entered-text-width' %>
+          </div>
+          <h3><%= conclusion_form.label :conclusion_detail, "結論詳細" %></h3>
+          <div class="inner">
+            <%= conclusion_form.text_area :conclusion_detail, class: 'adjust-entered-text-size' %>
+          </div>
         </div>
-        <h3><%= conclusion_form.label :conclusion_detail, "結論詳細" %></h3>
-        <div class="inner">
-          <%= conclusion_form.text_area :conclusion_detail, class: 'adjust-entered-text-size' %>
+
+        <div class="bases nested_bases_forms">
+          <%= conclusion_form.fields_for :reasons, conclusion_form.object.reasons.order(:created_at) do |nested_reason_form| %>
+            <%= render "reason_fields", f: nested_reason_form %>
+          <% end %>
+
+          <div class="add_nested_reason_form">
+            <%= link_to_add_association "理由を追加", conclusion_form, :reasons, class: 'add-reason-link' %>
+          </div>
+        </div>
+
+        <div>
+          <%= conclusion_form.button "主張を編集する", type: 'button', onclick: 'submit();' %>
         </div>
       </div>
-
-      <div class="bases nested_bases_forms">
-        <%= conclusion_form.fields_for :reasons, conclusion_form.object.reasons.order(:created_at) do |nested_reason_form| %>
-          <%= render "reason_fields", f: nested_reason_form %>
-        <% end %>
-
-        <div class="add_nested_reason_form">
-          <%= link_to_add_association "理由を追加", conclusion_form, :reasons, class: 'add-reason-link' %>
-        </div>
-      </div>
-
-      <div>
-        <%= conclusion_form.button "主張を編集", type: 'button', onclick: 'submit();' %>
-      </div>
-    </div>
-  <% end %>
+    <% end %>
+  </div>
 </div>
 <%= javascript_pack_tag 'edit_opinion' %>
