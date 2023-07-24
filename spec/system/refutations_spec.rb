@@ -163,7 +163,7 @@ RSpec.describe "Refutations", type: :system, js: true do
         fill_in "理由詳細", with: "特になし"
         fill_in "証拠", with: "｢犬が歩けば棒に当たる｣というが､必ずしも犬が歩くと､棒に当たるわけではない"
         fill_in "証拠詳細", with: "特になし"
-        click_button "反論を編集"
+        click_button "反論を編集する"
       end
 
       scenario "反論が編集されること" do
@@ -250,7 +250,7 @@ RSpec.describe "Refutations", type: :system, js: true do
         fill_in "理由詳細", with: "特になし"
         fill_in "証拠", with: "論理性の話であるため必要なし"
         fill_in "証拠詳細", with: "特になし"
-        click_button "反論を編集"
+        click_button "反論を編集する"
       end
 
       scenario "反論が編集されること" do
