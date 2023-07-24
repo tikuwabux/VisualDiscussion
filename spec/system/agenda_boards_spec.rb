@@ -331,15 +331,15 @@ RSpec.describe "AgendaBoards", type: :system do
     end
 
     context "主張の作成者が現在ログイン中のユーザーであることに加え､その主張への反論が作成されていないとき" do
-      scenario "｢主張を編集する｣ボタンの表示を確認できること" do
+      scenario "｢主張を編集｣ボタンの表示を確認できること" do
         within "#argument#{very_bad_for_health.id}" do
-          expect(page).to have_button "主張を編集する"
+          expect(page).to have_button "主張を編集"
         end
       end
 
-      scenario "｢主張を編集する｣ボタンをクリックすると､主張編集ページに遷移すること" do
+      scenario "｢主張を編集｣ボタンをクリックすると､主張編集ページに遷移すること" do
         within "#argument#{very_bad_for_health.id}" do
-          click_button "主張を編集する"
+          click_button "主張を編集"
         end
         expect(page).to have_current_path edit_argument_path(very_bad_for_health), ignore_query: true
       end
@@ -389,15 +389,15 @@ RSpec.describe "AgendaBoards", type: :system do
     end
 
     context "反論の作成者が現在ログイン中のユーザーであることに加え､その反論への反論が作成されていないとき" do
-      scenario "｢反論を編集する｣ボタンの表示を確認できること" do
+      scenario "｢反論を編集｣ボタンの表示を確認できること" do
         within "#refutation#{problematic_reason_and_evidence_connection.id}" do
-          expect(page).to have_button "反論を編集する"
+          expect(page).to have_button "反論を編集"
         end
       end
 
-      scenario "｢反論を編集する｣ボタンをクリックすると､反論編集ページに遷移すること" do
+      scenario "｢反論を編集｣ボタンをクリックすると､反論編集ページに遷移すること" do
         within "#refutation#{problematic_reason_and_evidence_connection.id}" do
-          click_button "反論を編集する"
+          click_button "反論を編集"
         end
         expect(page).to have_current_path edit_refutation_path(problematic_reason_and_evidence_connection), ignore_query: true
       end

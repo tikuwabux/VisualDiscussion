@@ -55,7 +55,7 @@ RSpec.describe "Arguments", type: :system, js: true do
       click_on "#{annie.name}さんが作成した議題ボード"
       click_on about_early_bird.agenda
       within "#argument#{very_bad_for_health.id}" do
-        click_button "主張を編集する"
+        click_button "主張を編集"
       end
     end
 

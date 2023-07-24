@@ -133,10 +133,10 @@ RSpec.describe "Refutations", type: :system, js: true do
     end
   end
 
-  context "主張に対する反論下の｢反論を編集する｣ボタンをクリックして､反論編集ページにアクセスした時" do
+  context "主張に対する反論下の｢反論を編集｣ボタンをクリックして､反論編集ページにアクセスした時" do
     before do
       within "#refutation#{probalematic_conclusion_and_reason_connection.id}" do
-        click_button "反論を編集する"
+        click_button "反論を編集"
       end
     end
 
@@ -155,7 +155,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       end
     end
 
-    describe "必要事項を入力して､｢反論を編集｣ボタンを押すと" do
+    describe "必要事項を入力して､｢反論を編集する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "理由が結論に繋がっていない"
         fill_in "結論詳細", with: "特になし"
@@ -220,10 +220,10 @@ RSpec.describe "Refutations", type: :system, js: true do
     end
   end
 
-  context "反論に対する反論下の｢反論を編集する｣ボタンをクリックして､反論編集ページにアクセスした時" do
+  context "反論に対する反論下の｢反論を編集｣ボタンをクリックして､反論編集ページにアクセスした時" do
     before do
       within "#refutation#{problematic_reason_and_evidence_connection.id}" do
-        click_button "反論を編集する"
+        click_button "反論を編集"
       end
     end
 
@@ -242,7 +242,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       end
     end
 
-    describe "必要事項を入力して､｢反論を編集｣ボタンを押すと" do
+    describe "必要事項を入力して､｢反論を編集する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "証拠が理由に繋がらない"
         fill_in "結論詳細", with: "特になし"
