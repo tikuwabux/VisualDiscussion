@@ -1,6 +1,6 @@
 <div class="container">
-  <h1><%= @agenda_board_agenda %></h1>
-  <div class="create_new_refutation">
+  <h1 class="agenda_name"><%= @agenda_board_agenda %></h1>
+  <div class="edit_existing_refutation">
     <% if @rebuttal_target_conclusion %>
       <div class="rebuttal_target_argument" id="argument<%= @rebuttal_target_conclusion.id %>">
         <h3 class="argument_title">反論対象の主張</h3>
@@ -95,7 +95,7 @@
       </div>
     <% end %>
 
-    <div class="create_new_refutation_form">
+    <div class="edit_existing_refutation_form">
       <h3 class="refutation_title">編集対象の反論</h3>
       <%= form_with model: @ref_conclusion, url: refutation_path, local: true do |ref_conclusion_form| %>
         <div class="ref_tree_structure">

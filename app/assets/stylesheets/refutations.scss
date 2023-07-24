@@ -26,16 +26,12 @@ textarea {
 }
 
 // その他
-.create_new_refutation {
+.create_new_refutation, .edit_existing_refutation {
   display: flex;
-  gap: 70px
+  gap: 70px;
 }
 
-h1 {
-  text-align: left;
-}
-
-.rebuttal_target_argument, .rebuttal_target_refutation, .create_new_refutation_form {
+.rebuttal_target_argument, .rebuttal_target_refutation, .create_new_refutation_form, .edit_existing_refutation_form {
   text-align: left;
   margin-top: 50px;
 }

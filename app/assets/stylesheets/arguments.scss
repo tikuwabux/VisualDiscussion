@@ -26,12 +26,12 @@ textarea {
 }
 
 // その他
-h1 {
-  text-align: left;
-}
-
-.create_new_argument_form {
+.create_new_argument_form, .edit_existing_argument_form {
   text-align: left;
   margin-top: 50px;
 }
 
+// 新規主張作成､主張編集､新規反論作成､反論編集ページ共通のレイアウト
+.agenda_name {
+  text-align: left;
+}

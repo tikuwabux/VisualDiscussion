@@ -1,6 +1,6 @@
 <div class="container">
-  <h1><%= @agenda_board_agenda %></h1>
-  <div class="create_new_argument_form">
+  <h1 class="agenda_name"><%= @agenda_board_agenda %></h1>
+  <div class="edit_existing_argument_form">
     <h3 class="argument_title">編集対象の主張</h3>
     <%= form_with model: @conclusion, url: argument_path, local: true do |conclusion_form| %>
       <div class="tree_structure">
