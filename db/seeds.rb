@@ -47,7 +47,8 @@ Reason.create!(
         体内時計的に、最適な起床時間は青年期(15~30歳)で朝9時、
       壮年期・中年期(31~64歳)で朝8時、高年期(65歳以上で)朝7時。
 
-        以上の時間より早起きすればするほど、体内時計の周期と生活の行動周期のズレが大きくなり、
+        以上の時間より早起きすればするほど、
+      体内時計の周期と生活の行動周期のズレが大きくなり、
       心身に悪影響を与える
       DETAILS
     },
@@ -67,7 +68,10 @@ Evidence.create!(
     {
       reason_id: 1,
       evidence_summary: '早起きは種々の生活習慣病のリスクを上げる',
-      evidence_detail: 'https://gooday.nikkei.co.jp/atcl/report/14/091100031/111100171/?P=2'
+      evidence_detail: <<~DETAILS
+      https://gooday.nikkei.co.jp/atcl/
+      report/14/091100031/111100171/?P=2
+      DETAILS
     },
     {
       reason_id: 1,
@@ -145,8 +149,9 @@ RefReason.create!(
   ref_conclusion_id: 2,
   ref_reason_summary: '証拠にあげている調査は､同年齢を対象としたものではないから',
   ref_reason_detail: <<~DETAILS
-    提示された調査は､様々な年齢の人々(平均年齢は36.7歳)を対象にしたものなので､
-  ｢体内時計は同年齢間においても個人差がある｣ということの証拠として適当ではない
+    提示された調査は､様々な年齢の人々(平均年齢は36.7歳)
+  を対象にしたものなので､｢体内時計は同年齢間においても個人差がある｣
+  ということの証拠として適当ではない
   DETAILS
 )
 
@@ -159,19 +164,24 @@ RefEvidence.create!(
 OpinionPosition.create!(
   [
     {
+      argument_id: 1,
+      left: 130,
+      top: 180
+    },
+    {
       refutation_id: 1,
-      left: 1500,
-      top: 150
+      left: 130,
+      top: 1200
     },
     {
       refutation_id: 2,
-      left: 2300,
-      top: 150
+      left: 900,
+      top: 1200
     },
     {
       argument_id: 2,
-      left: 10,
-      top: 1000
+      left: 1500,
+      top: 180
     }
   ]
 )
