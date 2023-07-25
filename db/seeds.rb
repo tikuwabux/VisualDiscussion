@@ -1,16 +1,16 @@
 User.create!(
   [
     {
-      name: "annie",
-      email: 'annie@seed.com',
-      password: 'annie000',
-      password_confirmation: 'annie000'
+      name: "guest",
+      email: 'guest@example.com',
+      password: 'guest000',
+      password_confirmation: 'guest000'
     },
     {
-      name: "brian",
-      email: 'brian@seed.com',
-      password: 'brian000',
-      password_confirmation: 'brian000'
+      name: "annie",
+      email: 'annie@example.com',
+      password: 'annie000',
+      password_confirmation: 'annie000'
     }
   ]
 )
@@ -30,7 +30,7 @@ AgendaBoard.create!(
   ]
 )
 
-# annieの主張1(brianからの反論有り)
+# guestの主張1(annieからの反論有り)
 Conclusion.create!(
   agenda_board_id: 1,
   user_id: 1,
@@ -91,7 +91,7 @@ Evidence.create!(
   ]
 )
 
-# annieの主張2(誰からの反論も無し)
+# guestの主張2(誰からの反論も無し)
 Conclusion.create!(
   agenda_board_id: 1,
   user_id: 1,
@@ -111,7 +111,7 @@ Evidence.create!(
   evidence_detail: '特になし'
 )
 
-# annieの主張1へのbrianの反論(annieからの反論有り)
+# guestの主張1へのannieの反論(guestからの反論有り)
 RefConclusion.create!(
   agenda_board_id: 1,
   user_id: 2,
@@ -136,7 +136,7 @@ RefEvidence.create!(
   ref_evidence_detail: 'https://team.tokyo-med.ac.jp/omh/news/202203_chronotype/'
 )
 
-# brianの反論へのannieの反論(誰からの反論も無し)
+# annieの反論へのguestの反論(誰からの反論も無し)
 RefConclusion.create!(
   agenda_board_id: 1,
   user_id: 1,
