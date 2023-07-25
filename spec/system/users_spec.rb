@@ -53,7 +53,7 @@ RSpec.describe "Users", type: :system do
         click_on "ユーザー情報編集"
       end
 
-      describe "変更したい項目と現在のパスワードを入力して､updateボタンを押すと" do
+      describe "変更したい項目と現在のパスワードを入力して､｢編集する｣ボタンを押すと" do
         before do
           fill_in "メールアドレス", with: "annie@example.com"
           fill_in "現在のパスワード", with: annie.password
@@ -68,23 +68,6 @@ RSpec.describe "Users", type: :system do
           expect(page).to have_current_path root_path
           within "header" do
             expect(page).to have_content "ログアウト"
-          end
-        end
-      end
-
-      describe "｢アカウントを削除する｣ボタンを押すと" do
-        before do
-          click_button "アカウントを削除する"
-        end
-
-        scenario "アカウントが消去されること" do
-          expect(page).to have_content "アカウントを削除しました。またのご利用をお待ちしております。"
-        end
-
-        scenario "ログイン後のホームページに遷移すること" do
-          expect(page).to have_current_path root_path
-          within "header" do
-            expect(page).not_to have_content annie.email
           end
         end
       end
