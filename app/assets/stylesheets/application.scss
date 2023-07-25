@@ -59,6 +59,23 @@ header {
   }
 }
 
+.flash_message_block {
+  position: absolute;
+  top: 105px;
+  font-size: 18px;
+  font-weight: bold;
+  width: 100%;
+  text-align: center;
+  color: white;
+
+  .notice {
+    background-color: #0066CC;
+  }
+  .alert {
+    background-color: #FF3366;
+  }
+}
+
 main {
   .container {
     width: 80%;
