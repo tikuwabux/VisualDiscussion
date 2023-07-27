@@ -9,34 +9,48 @@
   </head>
   <body>
     <header>
-      <nav>
-        <% if user_signed_in? %>
-          Logged in as <strong><%= current_user.email %></strong>.
-          <%= link_to 'プロフィール変更', edit_user_registration_path %>
-          <%= link_to 'ログアウト', sign_out_path %>
-          <%= link_to '新規議題ボード作成ページへ', new_agenda_board_path %>
-          <%= link_to "作成した議題ボード一覧", current_user_created_agenda_boards_path %>
-          <%= link_to '意見を投稿した議題ボード一覧', current_user_posted_opinion_agenda_boards_path %>
-          <%= search_form_for @search, url: category_search_agenda_boards_path do |form| %>
-            <%= form.label :category_cont, 'カテゴリ名' %>
-            <%= form.select :category_cont, options_for_select(["ビジネス", "哲学", "歴史", "社会科学", "自然科学", "技術・工学", "産業", "芸術・美術", "言語", "文学", "その他"]), {}, { id: "agenda_board_search_category" } %>
-            <br>
-            <%= form.submit 'カテゴリ名で検索'%>
+      <div class="header_container">
+        <div class="header_left">
+          <%= link_to root_path do %>
+            <%= image_tag "logo_image.png" %>
           <% end %>
-          <%= search_form_for @search, url: agenda_search_agenda_boards_path do |form| %>
-            <%= form.label :agenda_cont, '議題名(複数単語可)' %>
-            <%= form.search_field :agenda_cont %>
-            <br>
-            <%= form.submit '議題名で検索' %>
+          <% if current_user %>
+            <%= search_form_for @search, url: category_search_agenda_boards_path do |form| %>
+              <%= form.select :category_cont, options_for_select(["ビジネス", "哲学", "歴史", "社会科学", "自然科学", "技術・工学", "産業", "芸術・美術", "言語", "文学", "その他"], selected: @search.category_cont), {include_blank: '選択してください'}, { id: "agenda_board_search_category" } %>
+              <br>
+              <%= form.submit 'カテゴリ名で検索'%>
+            <% end %>
+            <%= search_form_for @search, url: agenda_search_agenda_boards_path do |form| %>
+              <%= form.search_field :agenda_cont, placeholder: '議題名(複数単語可)' %>
+              <br>
+              <%= form.submit '議題名で検索' %>
+            <% end %>
           <% end %>
-        <% else %>
-          <%= link_to 'サインアップ', sign_up_path %>
-          <%= link_to 'ログイン', sign_in_path %>
-        <% end %>
-      </nav>
+        </div>
+        <nav>
+          <% if user_signed_in? %>
+            <%= link_to 'ユーザー情報編集', edit_user_registration_path %>
+            <%= link_to 'ログアウト', sign_out_path %>
+            <%= link_to '新規議題ボード作成', new_agenda_board_path %>
+            <%= link_to "#{current_user.name}さんが作成した議題ボード", current_user_created_agenda_boards_path %>
+            <%= link_to "#{current_user.name}さんが発言した議題ボード", current_user_posted_opinion_agenda_boards_path %>
+          <% else %>
+            <%= link_to 'サインアップ', sign_up_path %>
+            <%= link_to 'ログイン', sign_in_path %>
+            <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post %>
+          <% end %>
+        </nav>
+      </div>
     </header>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    <div class="flash_message_block">
+      <p class="notice"><%= notice %></p>
+      <p class="alert"><%= alert %></p>
+    </div>
+    <main>
+      <%= yield %>
+    <main>
+    <footer>
+      <h4>@2023/7/15 Visual Discussion</h4>
+    </footer>
   </body>
 </html>

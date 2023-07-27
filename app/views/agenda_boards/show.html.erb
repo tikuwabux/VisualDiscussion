@@ -1,112 +1,114 @@
-<div class="agenda">
-  <h1><%= @agenda_board.agenda %></h1>
-    <div id="exchange_of_opinions">
-    <% @conclusions.each do |conclusion| %>
-      <div class="argument" id="argument<%= conclusion.id %>">
-        <h3 class="argument_title"><%= speaker_name(conclusion) %>さんの主張</h3>
-        <div class="tree_structure">
-          <div class="conclusion box" id="conclusion<%= conclusion.id %>">
-            <h3>結論</h3>
-            <div class="inner">
-              <%= conclusion.conclusion_summary %>
-            </div>
-            <h3>結論詳細</h3>
-            <pre class="inner"><%= conclusion.conclusion_detail %></pre>
-          </div>
-
-          <div class="bases">
-            <% conclusion.reasons.order(:created_at).each_with_index do |reason, r_i| %>
-              <div class="basis">
-                <div class="endpoint endpoint_between_conclusion<%= conclusion.id %>_and_reason" id="endpoint_between_conclusion<%= conclusion.id %>_and_reason<%= r_i %>_of_conclusion<%= conclusion.id %>"></div>
-                <div class="reason box reason_of_conclusion<%= conclusion.id %>" id="reason<%= r_i %>_of_conclusion<%= conclusion.id %>">
-                  <h3>理由</h3>
-                  <div class="inner">
-                    <%= reason.reason_summary %>
-                  </div>
-                  <h3>理由詳細</h3>
-                  <pre class="inner"><%= reason.reason_detail %></pre>
-                </div>
-
-                <div class="evidences">
-                  <% reason.evidences.order(:created_at).each_with_index do |evidence, e_i| %>
-                    <div class="evidence">
-                      <div class="endpoint endpoint_between_reason<%= r_i %>_of_conclusion<%= conclusion.id %>_and_evidence" id="endpoint_between_reason<%= r_i %>_of_conclusion<%= conclusion.id %>_and_evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= conclusion.id %>"></div>
-                      <div class="evidence box evidence_of_reason<%= r_i %>_of_conclusion<%= conclusion.id %>" id="evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= conclusion.id %>">
-                        <h3>証拠</h3>
-                        <div class="inner">
-                          <%= evidence.evidence_summary %>
-                        </div>
-                        <h3>証拠詳細</h3>
-                        <pre class="inner"><%= evidence.evidence_detail %></pre>
-                      </div>
-                    </div>
-                  <% end %>
-                </div>
+<div class="container">
+  <div class="agenda_board_show">
+    <h1><%= @agenda_board.agenda %></h1>
+      <div id="exchange_of_opinions">
+      <% @conclusions.each do |conclusion| %>
+        <div class="argument" id="argument<%= conclusion.id %>">
+          <h3 class="argument_title"><%= speaker_name(conclusion) %>さんの主張</h3>
+          <div class="tree_structure">
+            <div class="conclusion box" id="conclusion<%= conclusion.id %>">
+              <h3>結論</h3>
+              <div class="inner">
+                <%= conclusion.conclusion_summary %>
               </div>
-            <% end %>
-          </div>
-        </div>
-        <%= button_to "新規反論作成", new_refutation_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda, rebuttal_target_conclusion_id: conclusion.id, type_of_opinion: "argument" } %>
-        <% if current_user.id == conclusion.user_id && conclusion.ref_conclusions == [] %>
-          <%= button_to "主張を編集する", edit_argument_path(conclusion.id), method: :get %>
-          <%= button_to "主張を削除する", argument_path(conclusion.id), method: :delete %>
-        <% end %>
-      </div>
-    <% end %>
-    <% @ref_conclusions.each do |ref_conclusion| %>
-      <div class="refutation" id="refutation<%= ref_conclusion.id %>">
-        <h3 class="refutation_title"><%= speaker_name(ref_conclusion) %>さんの反論</h3>
-        <div class="ref_tree_structure">
-          <div class="ref_conclusion ref_box" id="ref_conclusion<%= ref_conclusion.id %>">
-            <h3>結論</h3>
-            <div class="inner">
-              <%= ref_conclusion.ref_conclusion_summary %>
+              <h3>結論詳細</h3>
+              <pre class="inner"><%= conclusion.conclusion_detail %></pre>
             </div>
-            <h3>結論詳細</h3>
-            <pre class="inner"><%= ref_conclusion.ref_conclusion_detail %></pre>
-          </div>
 
-          <div class="bases">
-            <% ref_conclusion.ref_reasons.order(:created_at).each_with_index do |ref_reason, r_r_i| %>
-              <div class="basis">
-                <div class="endpoint endpoint_between_ref_conclusion<%= ref_conclusion.id %>_and_ref_reason" id="endpoint_between_ref_conclusion<%= ref_conclusion.id %>_and_ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>"></div>
-                <div class="ref_reason ref_box ref_reason_of_ref_conclusion<%= ref_conclusion.id %>" id="ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>">
-                  <h3>理由</h3>
-                  <div class="inner">
-                    <%= ref_reason.ref_reason_summary %>
-                  </div>
-                  <h3>理由詳細</h3>
-                  <pre class="inner"><%= ref_reason.ref_reason_detail %></pre>
-                </div>
-
-                <div class="evidences">
-                  <% ref_reason.ref_evidences.order(:created_at).each_with_index do |ref_evidence, r_e_i| %>
-                    <div class="ref_evidence">
-                      <div class="endpoint endpoint_between_ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>_and_ref_evidence" id="endpoint_between_ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>_and_ref_evidence<%= r_e_i %>_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>"></div>
-                      <div class="ref_evidence ref_box ref_evidence_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>" id="ref_evidence<%= r_e_i %>_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>">
-                        <h3>証拠</h3>
-                        <div class="inner">
-                          <%= ref_evidence.ref_evidence_summary %>
-                        </div>
-                        <h3>証拠詳細</h3>
-                        <pre class="inner"><%= ref_evidence.ref_evidence_detail %></pre>
-                      </div>
+            <div class="bases">
+              <% conclusion.reasons.order(:created_at).each_with_index do |reason, r_i| %>
+                <div class="basis">
+                  <div class="endpoint endpoint_between_conclusion<%= conclusion.id %>_and_reason" id="endpoint_between_conclusion<%= conclusion.id %>_and_reason<%= r_i %>_of_conclusion<%= conclusion.id %>"></div>
+                  <div class="reason box reason_of_conclusion<%= conclusion.id %>" id="reason<%= r_i %>_of_conclusion<%= conclusion.id %>">
+                    <h3>理由</h3>
+                    <div class="inner">
+                      <%= reason.reason_summary %>
                     </div>
-                  <% end %>
+                    <h3>理由詳細</h3>
+                    <pre class="inner"><%= reason.reason_detail %></pre>
+                  </div>
+
+                  <div class="evidences">
+                    <% reason.evidences.order(:created_at).each_with_index do |evidence, e_i| %>
+                      <div class="evidence">
+                        <div class="endpoint endpoint_between_reason<%= r_i %>_of_conclusion<%= conclusion.id %>_and_evidence" id="endpoint_between_reason<%= r_i %>_of_conclusion<%= conclusion.id %>_and_evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= conclusion.id %>"></div>
+                        <div class="evidence box evidence_of_reason<%= r_i %>_of_conclusion<%= conclusion.id %>" id="evidence<%= e_i %>_of_reason<%= r_i %>_of_conclusion<%= conclusion.id %>">
+                          <h3>証拠</h3>
+                          <div class="inner">
+                            <%= evidence.evidence_summary %>
+                          </div>
+                          <h3>証拠詳細</h3>
+                          <pre class="inner"><%= evidence.evidence_detail %></pre>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
                 </div>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
           </div>
+          <%= button_to "新規反論作成", new_refutation_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda, rebuttal_target_conclusion_id: conclusion.id, type_of_opinion: "argument" } %>
+          <% if current_user.id == conclusion.user_id && conclusion.ref_conclusions == [] %>
+            <%= button_to "主張を編集", edit_argument_path(conclusion.id), method: :get %>
+            <%= button_to "主張を削除する", argument_path(conclusion.id), method: :delete %>
+          <% end %>
         </div>
-        <%= button_to "新規反論作成", new_refutation_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda, rebuttal_target_ref_conclusion_id: ref_conclusion.id } %>
-        <% if current_user.id == ref_conclusion.user_id && ref_conclusion.child_ref_conclusions == [] %>
-          <%= button_to "反論を編集する", edit_refutation_path(ref_conclusion.id), method: :get %>
-          <%= button_to "反論を削除する", refutation_path(ref_conclusion.id), method: :delete %>
-        <% end %>
+      <% end %>
+      <% @ref_conclusions.each do |ref_conclusion| %>
+        <div class="refutation" id="refutation<%= ref_conclusion.id %>">
+          <h3 class="refutation_title"><%= speaker_name(ref_conclusion) %>さんの反論</h3>
+          <div class="ref_tree_structure">
+            <div class="ref_conclusion ref_box" id="ref_conclusion<%= ref_conclusion.id %>">
+              <h3>結論</h3>
+              <div class="inner">
+                <%= ref_conclusion.ref_conclusion_summary %>
+              </div>
+              <h3>結論詳細</h3>
+              <pre class="inner"><%= ref_conclusion.ref_conclusion_detail %></pre>
+            </div>
+
+            <div class="bases">
+              <% ref_conclusion.ref_reasons.order(:created_at).each_with_index do |ref_reason, r_r_i| %>
+                <div class="basis">
+                  <div class="endpoint endpoint_between_ref_conclusion<%= ref_conclusion.id %>_and_ref_reason" id="endpoint_between_ref_conclusion<%= ref_conclusion.id %>_and_ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>"></div>
+                  <div class="ref_reason ref_box ref_reason_of_ref_conclusion<%= ref_conclusion.id %>" id="ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>">
+                    <h3>理由</h3>
+                    <div class="inner">
+                      <%= ref_reason.ref_reason_summary %>
+                    </div>
+                    <h3>理由詳細</h3>
+                    <pre class="inner"><%= ref_reason.ref_reason_detail %></pre>
+                  </div>
+
+                  <div class="evidences">
+                    <% ref_reason.ref_evidences.order(:created_at).each_with_index do |ref_evidence, r_e_i| %>
+                      <div class="ref_evidence">
+                        <div class="endpoint endpoint_between_ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>_and_ref_evidence" id="endpoint_between_ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>_and_ref_evidence<%= r_e_i %>_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>"></div>
+                        <div class="ref_evidence ref_box ref_evidence_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>" id="ref_evidence<%= r_e_i %>_of_ref_reason<%= r_r_i %>_of_ref_conclusion<%= ref_conclusion.id %>">
+                          <h3>証拠</h3>
+                          <div class="inner">
+                            <%= ref_evidence.ref_evidence_summary %>
+                          </div>
+                          <h3>証拠詳細</h3>
+                          <pre class="inner"><%= ref_evidence.ref_evidence_detail %></pre>
+                        </div>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+          <%= button_to "新規反論作成", new_refutation_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda, rebuttal_target_ref_conclusion_id: ref_conclusion.id } %>
+          <% if current_user.id == ref_conclusion.user_id && ref_conclusion.child_ref_conclusions == [] %>
+            <%= button_to "反論を編集", edit_refutation_path(ref_conclusion.id), method: :get %>
+            <%= button_to "反論を削除する", refutation_path(ref_conclusion.id), method: :delete %>
+          <% end %>
+        </div>
+      <% end %>
       </div>
-    <% end %>
-    </div>
-  <%= button_to "新規主張作成", new_argument_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda}, class: "create_new_argument_button" %>
+    <%= button_to "新規主張作成", new_argument_path, method: :get, params: {agenda_board_id: @agenda_board.id, agenda_board_agenda: @agenda_board.agenda}, class: "create_new_argument_button" %>
+  </div>
 </div>
 <script
 src="https://code.jquery.com/jquery-3.5.1.min.js"

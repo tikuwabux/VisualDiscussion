@@ -65,4 +65,6 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
 
   config.include AgendaBoardsHelper
+
+  Webdrivers::Chromedriver.required_version = '114.0.5735.90'
 end

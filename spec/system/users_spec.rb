@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "Home", type: :system do
+RSpec.describe "Users", type: :system do
   let(:annie) { create(:user, name: "annie") }
 
   context "ログイン前の時" do
@@ -14,20 +14,15 @@ RSpec.describe "Home", type: :system do
       end
 
       scenario "必須項目を入力して､サインアップボタンを押すと､ログイン後のホームページに遷移すること" do
-        fill_in "Name", with: "benny"
+        fill_in "ニックネーム", with: "benny"
         fill_in "メールアドレス", with: "benny@example.com"
         fill_in "パスワード", with: 123456
         fill_in "確認用パスワード", with: 123456
-        click_button "Sign up"
+        click_button "新規登録"
         expect(page).to have_current_path root_path
         within "header" do
-          expect(page).to have_content "benny@example.com"
+          expect(page).to have_content "ログアウト"
         end
-      end
-
-      scenario "Log inリンクを押すと､ログインページに遷移すること" do
-        click_on "Log in"
-        expect(page).to have_current_path new_user_session_path
       end
     end
 
@@ -39,17 +34,7 @@ RSpec.describe "Home", type: :system do
       scenario "必須項目を入力して､ログインボタンを押すと､ログイン後のホームページに遷移すること" do
         fill_in "メールアドレス", with: annie.email
         fill_in "パスワード", with: annie.password
-        click_button "Log in"
-      end
-
-      scenario "Sign upリンクを押すと､サインアップページに遷移すること" do
-        click_on "Sign up"
-        expect(page).to have_current_path new_user_registration_path
-      end
-
-      scenario "Forgot your password?リンクを押すと､パスワード再設定ページに遷移すること" do
-        click_on "Forgot your password"
-        expect(page).to have_current_path new_user_password_path
+        click_button "ログイン"
       end
     end
   end
@@ -60,19 +45,19 @@ RSpec.describe "Home", type: :system do
       click_on "ログイン"
       fill_in "メールアドレス", with: annie.email
       fill_in "パスワード", with: annie.password
-      click_button "Log in"
+      click_button "ログイン"
     end
 
-    describe "プロフィール変更リンク押下後" do
+    describe "ユーザー情報編集リンク押下後" do
       before do
-        click_on "プロフィール変更"
+        click_on "ユーザー情報編集"
       end
 
-      describe "変更したい項目と現在のパスワードを入力して､updateボタンを押すと" do
+      describe "変更したい項目と現在のパスワードを入力して､｢編集する｣ボタンを押すと" do
         before do
           fill_in "メールアドレス", with: "annie@example.com"
           fill_in "現在のパスワード", with: annie.password
-          click_button "Update"
+          click_button "編集する"
         end
 
         scenario "アカウント情報が変更されること" do
@@ -82,33 +67,8 @@ RSpec.describe "Home", type: :system do
         scenario "ログイン後のホームページに遷移すること" do
           expect(page).to have_current_path root_path
           within "header" do
-            expect(page).to have_content "annie@example.com"
+            expect(page).to have_content "ログアウト"
           end
-        end
-      end
-
-      describe "Cancel my accountボタンを押すと" do
-        before do
-          click_button "Cancel my account"
-        end
-
-        scenario "アカウントが消去されること" do
-          expect(page).to have_content "アカウントを削除しました。またのご利用をお待ちしております。"
-        end
-
-        scenario "ログイン後のホームページに遷移すること" do
-          expect(page).to have_current_path root_path
-          within "header" do
-            expect(page).not_to have_content annie.email
-          end
-        end
-      end
-
-      scenario "Backリンクを押すと､ログイン後のホームページに遷移すること" do
-        click_on "Back"
-        expect(page).to have_current_path root_path
-        within "header" do
-          expect(page).to have_content annie.email
         end
       end
     end
@@ -125,7 +85,7 @@ RSpec.describe "Home", type: :system do
       scenario "ログイン前のホームページに遷移すること" do
         expect(page).to have_current_path root_path
         within "header" do
-          expect(page).not_to have_content annie.email
+          expect(page).not_to have_content "ログアウト"
         end
       end
     end

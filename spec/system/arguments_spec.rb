@@ -19,12 +19,12 @@ RSpec.describe "Arguments", type: :system, js: true do
     click_on "ログイン"
     fill_in "メールアドレス", with: annie.email
     fill_in "パスワード", with: annie.password
-    click_button "Log in"
+    click_button "ログイン"
   end
 
   describe "新規主張作成ページにアクセス後" do
     before do
-      click_on "作成した議題ボード一覧"
+      click_on "#{annie.name}さんが作成した議題ボード"
       click_on about_early_bird.agenda
       click_button "新規主張作成"
     end
@@ -52,14 +52,14 @@ RSpec.describe "Arguments", type: :system, js: true do
 
   describe "主張編集ページにアクセス後" do
     before do
-      click_on "作成した議題ボード一覧"
+      click_on "#{annie.name}さんが作成した議題ボード"
       click_on about_early_bird.agenda
       within "#argument#{very_bad_for_health.id}" do
-        click_button "主張を編集する"
+        click_button "主張を編集"
       end
     end
 
-    describe "必要事項を入力して､｢主張を編集｣ボタンを押すと" do
+    describe "必要事項を入力して､｢主張を編集する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "拷問は言い過ぎだが､かなり健康に悪い"
         fill_in "結論詳細", with: "特になし"
@@ -67,7 +67,7 @@ RSpec.describe "Arguments", type: :system, js: true do
         fill_in "理由詳細", with: "特になし"
         fill_in "証拠", with: "サリンジャー博士の研究"
         fill_in "証拠詳細", with: "https://www.researchgate.net/profile/Paul-Kelley-4"
-        click_button "主張を編集"
+        click_button "主張を編集する"
       end
 
       scenario "主張が編集されること" do

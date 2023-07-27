@@ -68,8 +68,8 @@ RSpec.describe "Refutations", type: :system, js: true do
     click_on "ログイン"
     fill_in "メールアドレス", with: annie.email
     fill_in "パスワード", with: annie.password
-    click_button "Log in"
-    click_on "作成した議題ボード一覧"
+    click_button "ログイン"
+    click_on "#{annie.name}さんが作成した議題ボード"
     click_on about_early_bird.agenda
 
     # 主張･反論の要素を移動させ､重なりを防ぐことで､主張・反論下の各々のボタンが押せるようにする
@@ -133,10 +133,10 @@ RSpec.describe "Refutations", type: :system, js: true do
     end
   end
 
-  context "主張に対する反論下の｢反論を編集する｣ボタンをクリックして､反論編集ページにアクセスした時" do
+  context "主張に対する反論下の｢反論を編集｣ボタンをクリックして､反論編集ページにアクセスした時" do
     before do
       within "#refutation#{probalematic_conclusion_and_reason_connection.id}" do
-        click_button "反論を編集する"
+        click_button "反論を編集"
       end
     end
 
@@ -155,7 +155,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       end
     end
 
-    describe "必要事項を入力して､｢反論を編集｣ボタンを押すと" do
+    describe "必要事項を入力して､｢反論を編集する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "理由が結論に繋がっていない"
         fill_in "結論詳細", with: "特になし"
@@ -163,7 +163,7 @@ RSpec.describe "Refutations", type: :system, js: true do
         fill_in "理由詳細", with: "特になし"
         fill_in "証拠", with: "｢犬が歩けば棒に当たる｣というが､必ずしも犬が歩くと､棒に当たるわけではない"
         fill_in "証拠詳細", with: "特になし"
-        click_button "反論を編集"
+        click_button "反論を編集する"
       end
 
       scenario "反論が編集されること" do
@@ -220,10 +220,10 @@ RSpec.describe "Refutations", type: :system, js: true do
     end
   end
 
-  context "反論に対する反論下の｢反論を編集する｣ボタンをクリックして､反論編集ページにアクセスした時" do
+  context "反論に対する反論下の｢反論を編集｣ボタンをクリックして､反論編集ページにアクセスした時" do
     before do
       within "#refutation#{problematic_reason_and_evidence_connection.id}" do
-        click_button "反論を編集する"
+        click_button "反論を編集"
       end
     end
 
@@ -242,7 +242,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       end
     end
 
-    describe "必要事項を入力して､｢反論を編集｣ボタンを押すと" do
+    describe "必要事項を入力して､｢反論を編集する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "証拠が理由に繋がらない"
         fill_in "結論詳細", with: "特になし"
@@ -250,7 +250,7 @@ RSpec.describe "Refutations", type: :system, js: true do
         fill_in "理由詳細", with: "特になし"
         fill_in "証拠", with: "論理性の話であるため必要なし"
         fill_in "証拠詳細", with: "特になし"
-        click_button "反論を編集"
+        click_button "反論を編集する"
       end
 
       scenario "反論が編集されること" do

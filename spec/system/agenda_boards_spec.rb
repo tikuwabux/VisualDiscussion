@@ -59,12 +59,12 @@ RSpec.describe "AgendaBoards", type: :system do
     click_on "ログイン"
     fill_in "メールアドレス", with: annie.email
     fill_in "パスワード", with: annie.password
-    click_button "Log in"
+    click_button "ログイン"
   end
 
   describe "新規議題ボード作成ページアクセス後" do
     before do
-      click_on "新規議題ボード作成ページへ"
+      click_on "新規議題ボード作成"
     end
 
     describe "議題を入力し､カテゴリを選択後､｢議題ボードを作成する｣ボタンを押すと" do
@@ -84,9 +84,9 @@ RSpec.describe "AgendaBoards", type: :system do
     end
   end
 
-  describe "ログインユーザーが作成した議題ボード一覧ページにアクセス後" do
+  describe "｢**(ログインユーザー)さんが作成した議題ボード一覧｣ページにアクセス後" do
     before do
-      click_on "作成した議題ボード一覧"
+      click_on "#{annie.name}さんが作成した議題ボード"
     end
 
     scenario "議題ボードの議題名の一覧を動的に確認できる" do
@@ -98,7 +98,7 @@ RSpec.describe "AgendaBoards", type: :system do
     end
 
     scenario "議題ボードの作成日の一覧を動的に確認できる" do
-      annie.agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at }
+      annie.agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at.to_s(:datetime_jp) }
     end
 
     scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do
@@ -141,11 +141,11 @@ RSpec.describe "AgendaBoards", type: :system do
     end
   end
 
-  describe "ログインユーザーが意見を投稿した議題ボード一覧ページにアクセス後" do
+  describe "｢**(ログインユーザー)さんが発言した議題ボード一覧｣ページにアクセス後" do
     before do
       agenda_board_ids = annie.conclusions.pluck(:agenda_board_id) | annie.ref_conclusions.pluck(:agenda_board_id)
       @agenda_boards = AgendaBoard.where(id: agenda_board_ids).order(created_at: :desc)
-      click_on "意見を投稿した議題ボード一覧"
+      click_on "#{annie.name}さんが発言した議題ボード"
     end
 
     scenario "議題ボードの議題名の一覧を動的に確認できる" do
@@ -157,7 +157,7 @@ RSpec.describe "AgendaBoards", type: :system do
     end
 
     scenario "議題ボードの作成日の一覧を動的に確認できる" do
-      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at }
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at.to_s(:datetime_jp) }
     end
 
     scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do
@@ -174,8 +174,10 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "選択したカテゴリを有する議題ボード一覧ページにアクセス後" do
     before do
-      select "自然科学", from: 'agenda_board_search_category'
-      click_on 'カテゴリ名で検索'
+      within "header" do
+        select "自然科学", from: 'agenda_board_search_category'
+        click_on 'カテゴリ名で検索'
+      end
       @agenda_boards = AgendaBoard.where(category: '自然科学')
     end
 
@@ -188,7 +190,7 @@ RSpec.describe "AgendaBoards", type: :system do
     end
 
     scenario "議題ボードの作成日の一覧を動的に確認できる" do
-      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at }
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at.to_s(:datetime_jp) }
     end
 
     scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do
@@ -233,8 +235,10 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "｢xxx(入力された文字)｣を議題名に含む議題ボード一覧ページにアクセス後" do
     before do
-      fill_in '議題名(複数単語可)', with: '起き 健康'
-      click_on '議題名で検索'
+      within "header" do
+        fill_in '議題名(複数単語可)', with: '起き 健康'
+        click_on '議題名で検索'
+      end
       @agenda_boards = AgendaBoard.where("agenda LIKE ? AND agenda LIKE ?", "%起き%", "%健康%")
     end
 
@@ -247,7 +251,7 @@ RSpec.describe "AgendaBoards", type: :system do
     end
 
     scenario "議題ボードの作成日の一覧を動的に確認できる" do
-      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at }
+      @agenda_boards.all? { |agenda_board| expect(page).to have_content agenda_board.created_at.to_s(:datetime_jp) }
     end
 
     scenario "議題ボードに投稿されている意見数の一覧を動的に確認できる" do
@@ -292,7 +296,7 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "議題ボード詳細ページアクセス後" do
     before do
-      click_on "作成した議題ボード一覧"
+      click_on "#{annie.name}さんが作成した議題ボード"
       click_on about_early_bird.agenda
     end
 
@@ -327,15 +331,15 @@ RSpec.describe "AgendaBoards", type: :system do
     end
 
     context "主張の作成者が現在ログイン中のユーザーであることに加え､その主張への反論が作成されていないとき" do
-      scenario "｢主張を編集する｣ボタンの表示を確認できること" do
+      scenario "｢主張を編集｣ボタンの表示を確認できること" do
         within "#argument#{very_bad_for_health.id}" do
-          expect(page).to have_button "主張を編集する"
+          expect(page).to have_button "主張を編集"
         end
       end
 
-      scenario "｢主張を編集する｣ボタンをクリックすると､主張編集ページに遷移すること" do
+      scenario "｢主張を編集｣ボタンをクリックすると､主張編集ページに遷移すること" do
         within "#argument#{very_bad_for_health.id}" do
-          click_button "主張を編集する"
+          click_button "主張を編集"
         end
         expect(page).to have_current_path edit_argument_path(very_bad_for_health), ignore_query: true
       end
@@ -385,15 +389,15 @@ RSpec.describe "AgendaBoards", type: :system do
     end
 
     context "反論の作成者が現在ログイン中のユーザーであることに加え､その反論への反論が作成されていないとき" do
-      scenario "｢反論を編集する｣ボタンの表示を確認できること" do
+      scenario "｢反論を編集｣ボタンの表示を確認できること" do
         within "#refutation#{problematic_reason_and_evidence_connection.id}" do
-          expect(page).to have_button "反論を編集する"
+          expect(page).to have_button "反論を編集"
         end
       end
 
-      scenario "｢反論を編集する｣ボタンをクリックすると､反論編集ページに遷移すること" do
+      scenario "｢反論を編集｣ボタンをクリックすると､反論編集ページに遷移すること" do
         within "#refutation#{problematic_reason_and_evidence_connection.id}" do
-          click_button "反論を編集する"
+          click_button "反論を編集"
         end
         expect(page).to have_current_path edit_refutation_path(problematic_reason_and_evidence_connection), ignore_query: true
       end
@@ -415,7 +419,7 @@ RSpec.describe "AgendaBoards", type: :system do
 
   describe "議題ボード編集ページアクセス後､必要事項を入力して､｢編集する｣ボタンを押すと" do
     before do
-      click_on "作成した議題ボード一覧"
+      click_on "#{annie.name}さんが作成した議題ボード"
       within "#agenda_board#{about_ideal_waking_time.id}" do
         click_on "編集"
       end
@@ -428,7 +432,7 @@ RSpec.describe "AgendaBoards", type: :system do
       expect(page).to have_content "議題ボードの編集に成功しました"
     end
 
-    scenario "ログインユーザーが作成した議題ボード一覧ページに遷移すること" do
+    scenario "｢**(ログインユーザー)さんが作成した議題ボード一覧｣ページに遷移すること" do
       expect(page).to have_current_path current_user_created_agenda_boards_path
     end
   end

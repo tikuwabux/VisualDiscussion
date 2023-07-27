@@ -1,4 +1,8 @@
 // 主張と反論のレイアウト
+.argument, .refutation {
+  text-align: left;
+}
+
 .argument_title {
   background: #CC99CC;
   color: #FFF;
@@ -21,12 +25,14 @@
   border: 2px solid #CC99CC;
   padding: 10px;
   width: fit-content;
+  background-color: #FFF;
 }
 
 .ref_tree_structure {
   border: 2px solid #0094D6;
   padding: 10px;
   width: fit-content;
+  background-color: #FFF;
 }
 
 .conclusion, .ref_conclusion {
@@ -93,6 +99,8 @@
 
 .inner {
   word-break: break-all;
+  font-family: 'ヒラギノ明朝';
+  font-size: 16px;
 }
 
 // 主張と反論をドラッグ可能にする
@@ -125,5 +133,38 @@
 }
 
 td {
+  text-align: center;
+}
+
+
+.create_new_agenda_board {
+  font-size: 20px;
+
+  .title {
+    font-size: 25px;
+  }
+  select, input {
+    font-size: 20px;
+  }
+}
+
+.agenda_board_index_title {
+  text-align: left;
+  padding: 10px 0px;
+  margin: 0px 20px;
+}
+
+.create_new_argument_button {
+  font-size: large;
+  font-weight: bold;
+  border: 5px solid black;
+  border-bottom: 10px solid black;
+  border-radius: 30px;
+  z-index: 10;
+  background-color: #ADD8E6;
+  padding: 10px 20px;
+}
+
+.agenda_board_show h1 {
   text-align: center;
 }
