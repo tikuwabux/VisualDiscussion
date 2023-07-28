@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
   let(:annie) { create(:user, name: "annie") }
+  let(:brian) { create(:user, name: "brian")}
 
   context "ログイン前の時" do
     before do
@@ -13,16 +14,43 @@ RSpec.describe "Users", type: :system do
         click_on "サインアップ"
       end
 
-      scenario "必須項目を入力して､サインアップボタンを押すと､ログイン後のホームページに遷移すること" do
-        fill_in "ニックネーム", with: "benny"
+      describe "必須項目に有効な値を入力して､サインアップボタンを押すと" do
+        before do
+          fill_in "ニックネーム", with: "benny"
+          fill_in "メールアドレス", with: "benny@example.com"
+          fill_in "パスワード", with: 123456
+          fill_in "確認用パスワード", with: 123456
+          click_button "新規登録"
+        end
+
+        scenario "通知メッセージが表示されること" do
+          expect(page).to have_content "アカウント登録が完了しました"
+        end
+
+        scenario "ログイン後のホームページに遷移すること" do
+          expect(page).to have_current_path root_path
+          within "header" do
+            expect(page).to have_content "ログアウト"
+          end
+        end
+      end
+
+      scenario "ニックネームを入力せず､サインアップボタンを押すと､警告メッセージが表示されること" do
         fill_in "メールアドレス", with: "benny@example.com"
         fill_in "パスワード", with: 123456
         fill_in "確認用パスワード", with: 123456
         click_button "新規登録"
-        expect(page).to have_current_path root_path
-        within "header" do
-          expect(page).to have_content "ログアウト"
-        end
+        expect(page).to have_content "ニックネームを入力してください"
+      end
+
+      scenario "重複するニックネームを入力して､サインアップボタンを押すと､警告メッセージが表示されること" do
+        annie
+        fill_in "ニックネーム", with: "annie"
+        fill_in "メールアドレス", with: "benny@example.com"
+        fill_in "パスワード", with: 123456
+        fill_in "確認用パスワード", with: 123456
+        click_button "新規登録"
+        expect(page).to have_content "ニックネームはすでに存在します"
       end
     end
 
@@ -31,10 +59,23 @@ RSpec.describe "Users", type: :system do
         click_on "ログイン"
       end
 
-      scenario "必須項目を入力して､ログインボタンを押すと､ログイン後のホームページに遷移すること" do
-        fill_in "メールアドレス", with: annie.email
-        fill_in "パスワード", with: annie.password
-        click_button "ログイン"
+      describe "必須項目に有効な値を入力して､ログインボタンを押すと" do
+        before do
+          fill_in "メールアドレス", with: annie.email
+          fill_in "パスワード", with: annie.password
+          click_button "ログイン"
+        end
+
+        scenario "通知メッセージが表示されること" do
+          expect(page).to have_content "ログインしました"
+        end
+
+        scenario "ログイン後のホームページに遷移すること" do
+          expect(page).to have_current_path root_path
+          within "header" do
+            expect(page).to have_content "ログアウト"
+          end
+        end
       end
     end
   end
@@ -53,14 +94,14 @@ RSpec.describe "Users", type: :system do
         click_on "ユーザー情報編集"
       end
 
-      describe "変更したい項目と現在のパスワードを入力して､｢編集する｣ボタンを押すと" do
+      describe "変更したい項目に有効な値を入力し､それに加えて現在のパスワードを入力して､｢編集する｣ボタンを押すと" do
         before do
-          fill_in "メールアドレス", with: "annie@example.com"
+          fill_in "ニックネーム", with: "anniexxx"
           fill_in "現在のパスワード", with: annie.password
           click_button "編集する"
         end
 
-        scenario "アカウント情報が変更されること" do
+        scenario "通知メッセージが表示されること" do
           expect(page).to have_content "アカウント情報を変更しました。"
         end
 
@@ -70,6 +111,26 @@ RSpec.describe "Users", type: :system do
             expect(page).to have_content "ログアウト"
           end
         end
+
+        scenario "ユーザー情報が編集されていること" do
+          expect(page).to have_link "anniexxxさんが作成した議題ボード"
+        end
+      end
+
+      scenario "ニックネームを入力せず､｢編集する｣ボタンを押すと､警告メッセージが表示されること" do
+        fill_in "ニックネーム", with: nil
+        fill_in "メールアドレス", with: annie.email
+        fill_in "現在のパスワード", with: annie.password
+        click_button "編集する"
+        expect(page).to have_content "ニックネームを入力してください"
+      end
+
+      scenario "重複するニックネームを入力して､｢編集する｣ボタンを押すと､警告メッセージが表示されること" do
+        brian
+        fill_in "ニックネーム", with: "brian"
+        fill_in "現在のパスワード", with: annie.password
+        click_button "編集する"
+        expect(page).to have_content "ニックネームはすでに存在します"
       end
     end
 
@@ -78,14 +139,14 @@ RSpec.describe "Users", type: :system do
         click_on "ログアウト"
       end
 
-      scenario "ログアウトが実行されること" do
+      scenario "通知メッセージが表示されること" do
         expect(page).to have_content "ログアウトしました。"
       end
 
       scenario "ログイン前のホームページに遷移すること" do
         expect(page).to have_current_path root_path
         within "header" do
-          expect(page).not_to have_content "ログアウト"
+          expect(page).to have_content "ログイン"
         end
       end
     end
