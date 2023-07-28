@@ -1,6 +1,25 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  let!(:user) { create(:user) }
+  let!(:annie) { create(:user, name: "annie") }
+
+  it "適切な｢ニックネーム｣,｢メールアドレス｣,｢パスワード｣があれば有効な状態であること" do
+    expect(user).to be_valid
+  end
+
+  it "ニックネームが無ければ無効な状態であること" do
+    user.name = nil
+    user.valid?
+    expect(user.errors.full_messages.first).to eq "ニックネームを入力してください"
+  end
+
+  it "重複したニックネームなら無効な状態であること" do
+    user.name = "annie"
+    user.valid?
+    expect(user.errors.full_messages.first).to eq "ニックネームはすでに存在します"
+  end
+
   describe '.guest' do
     context "ゲストユーザーがすでに存在する時" do
       let!(:guest_user) { create(:user, name: 'guest', email: 'guest@example.com', password: SecureRandom.urlsafe_base64) }

@@ -8,6 +8,8 @@ class User < ApplicationRecord
   has_many :conclusions
   has_many :ref_conclusions
 
+  validates :name, presence: true, uniqueness: true
+
   def self.guest
     find_or_create_by!(email: 'guest@example.com') do |user|
       user.name = "guest"
