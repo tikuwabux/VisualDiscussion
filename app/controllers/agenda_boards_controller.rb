@@ -53,7 +53,7 @@ class AgendaBoardsController < ApplicationController
       flash[:notice] = "議題ボードの編集に成功しました"
       redirect_to current_user_created_agenda_boards_path
     else
-      flash[:notice] = "議題ボードの編集に失敗しました"
+      flash[:error_full_messages] = agenda_board.errors.full_messages
       render "edit"
     end
   end
