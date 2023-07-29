@@ -9,13 +9,14 @@ class ArgumentsController < ApplicationController
   end
 
   def create
-    argument = Conclusion.new(argument_params)
-    if argument.valid?
+    @conclusion = Conclusion.new(argument_params)
+
+    if @conclusion.valid?
       flash[:notice] = "新規主張の作成に成功しました"
-      argument.save!
-      redirect_to agenda_board_path(argument.agenda_board_id)
+      @conclusion.save!
+      redirect_to agenda_board_path(@conclusion.agenda_board_id)
     else
-      flash[:notice] = "新規主張の作成に失敗しました｡"
+      flash[:error_full_messages] = @conclusion.errors.full_messages
       render :new
     end
   end
