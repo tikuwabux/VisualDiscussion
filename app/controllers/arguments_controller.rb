@@ -16,7 +16,7 @@ class ArgumentsController < ApplicationController
       @conclusion.save!
       redirect_to agenda_board_path(@conclusion.agenda_board_id)
     else
-      flash[:error_full_messages] = @conclusion.errors.full_messages
+      flash[:error_full_messages] = @conclusion.errors.full_messages.reverse
       @agenda_board_id = params[:conclusion][:agenda_board_id].to_i
       @agenda_board_agenda = AgendaBoard.find(@agenda_board_id).agenda
       render :new
