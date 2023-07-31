@@ -8,6 +8,5 @@ class Conclusion < ApplicationRecord
 
   has_one :opinion_position, foreign_key: 'argument_id', dependent: :destroy
 
-  validates :agenda_board_id, presence: true
   validates :conclusion_summary, presence: true
 end
