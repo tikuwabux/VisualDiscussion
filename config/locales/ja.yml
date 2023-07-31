@@ -5,3 +5,9 @@ ja:
     name: ニックネーム
    agenda_board:
     agenda: 議題
+   conclusion:
+    conclusion_summary: 結論
+   conclusion/reasons:
+    reason_summary: 理由
+   conclusion/reasons/evidences:
+    evidence_summary: 証拠
