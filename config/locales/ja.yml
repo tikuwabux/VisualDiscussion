@@ -19,3 +19,9 @@ ja:
     reason_summary: 理由
    conclusion/reasons/evidences:
     evidence_summary: 証拠
+   ref_conclusion:
+    ref_conclusion_summary: 結論
+   ref_conclusion/ref_reasons:
+    ref_reason_summary: 理由
+   ref_conclusion/ref_reasons/ref_evidences:
+    ref_evidence_summary: 証拠
