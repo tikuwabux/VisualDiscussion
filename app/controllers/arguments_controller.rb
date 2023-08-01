@@ -29,13 +29,14 @@ class ArgumentsController < ApplicationController
   end
 
   def update
-    argument = Conclusion.find(params[:id])
-    if argument.update(argument_params)
+    @conclusion = Conclusion.find(params[:id])
+
+    if @conclusion.update(argument_params)
       flash[:notice] = "主張の編集に成功しました"
-      redirect_to agenda_board_path(argument.agenda_board_id)
+      redirect_to agenda_board_path(@conclusion.agenda_board_id)
     else
-      flash[:notice] = "主張の編集に失敗しました"
-      render "edit"
+      flash[:error_full_messages] = @conclusion.errors.full_messages.reverse
+      render :edit
     end
   end
 
