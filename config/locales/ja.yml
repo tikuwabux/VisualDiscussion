@@ -41,3 +41,7 @@ ja:
    opinion_position:
     left: 基準となる要素の左辺からの距離(px)
     top: 基準となる要素の上辺からの距離(px)
+
+   opinion_connection:
+    source_id: 接続線の始点があるHTML要素(反論)のid属性値
+    target_id: 接続線の終点があるHTML要素(意見)のid属性値
