@@ -86,8 +86,8 @@ RSpec.describe "Refutations", type: :system, js: true do
     page.execute_script(move_600px_to_the_right, probalematic_conclusion_and_reason_connection_element)
 
     problematic_reason_and_evidence_connection_element = find("#refutation#{problematic_reason_and_evidence_connection.id}")
-    move_800px_to_the_right = "arguments[0].style.transform = 'translateX(800px)';"
-    page.execute_script(move_800px_to_the_right, problematic_reason_and_evidence_connection_element)
+    move_1200px_to_the_right = "arguments[0].style.transform = 'translateX(1200px)';"
+    page.execute_script(move_1200px_to_the_right, problematic_reason_and_evidence_connection_element)
   end
 
   context "主張下の｢新規反論作成｣ボタンをクリックして､新規反論作成ページにアクセスした時" do
@@ -112,7 +112,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       end
     end
 
-    describe "必要事項を入力して､｢新規反論を作成する｣ボタンを押すと" do
+    describe "有効な｢結論｣,｢理由｣,｢証拠｣を入力して､｢新規反論を作成する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "理由部分に誤りがある"
         fill_in "結論詳細", with: "特になし"
@@ -130,6 +130,39 @@ RSpec.describe "Refutations", type: :system, js: true do
       scenario "反論が所属する議題ボード詳細ページに遷移すること" do
         expect(page).to have_current_path agenda_board_path(about_early_bird.id)
       end
+    end
+
+    scenario "結論を入力せず,｢新規主張を作成する｣ボタンを押すと,警告メッセージが表示されること" do
+      fill_in "結論", with: nil
+      fill_in "結論詳細", with: "特になし"
+      fill_in "理由", with: "体内時計は､同年齢間においても個人差があり､一律ではないから"
+      fill_in "理由詳細", with: "特になし"
+      fill_in "証拠", with: "8155名のMSFsc調査結果"
+      fill_in "証拠詳細", with: "特になし"
+      click_button "新規反論を作成する"
+      expect(page).to have_content "結論を入力してください"
+    end
+
+    scenario "理由を入力せず,｢新規主張を作成する｣ボタンを押すと,警告メッセージが表示されること" do
+      fill_in "結論", with: "理由部分に誤りがある"
+      fill_in "結論詳細", with: "特になし"
+      fill_in "理由", with: nil
+      fill_in "理由詳細", with: "特になし"
+      fill_in "証拠", with: "8155名のMSFsc調査結果"
+      fill_in "証拠詳細", with: "特になし"
+      click_button "新規反論を作成する"
+      expect(page).to have_content "理由を入力してください"
+    end
+
+    scenario "証拠を入力せず,｢新規主張を作成する｣ボタンを押すと,警告メッセージが表示されること" do
+      fill_in "結論", with: "理由部分に誤りがある"
+      fill_in "結論詳細", with: "特になし"
+      fill_in "理由", with: "体内時計は､同年齢間においても個人差があり､一律ではないから"
+      fill_in "理由詳細", with: "特になし"
+      fill_in "証拠", with: nil
+      fill_in "証拠詳細", with: "特になし"
+      click_button "新規反論を作成する"
+      expect(page).to have_content "証拠を入力してください"
     end
   end
 
@@ -155,7 +188,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       end
     end
 
-    describe "必要事項を入力して､｢反論を編集する｣ボタンを押すと" do
+    describe "有効な｢結論｣,｢理由｣,｢証拠｣を入力して､｢反論を編集する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "理由が結論に繋がっていない"
         fill_in "結論詳細", with: "特になし"
@@ -173,6 +206,39 @@ RSpec.describe "Refutations", type: :system, js: true do
       scenario "反論が所属する議題ボード詳細ページに遷移すること" do
         expect(page).to have_current_path agenda_board_path(probalematic_conclusion_and_reason_connection.agenda_board_id)
       end
+    end
+
+    scenario "結論を入力せず,｢反論を編集する｣ボタンを押すと,警告メッセージが表示されること" do
+      fill_in "結論", with: nil
+      fill_in "結論詳細", with: "特になし"
+      fill_in "理由", with: "ことわざに真実性はないから"
+      fill_in "理由詳細", with: "特になし"
+      fill_in "証拠", with: "｢犬が歩けば棒に当たる｣というが､必ずしも犬が歩くと､棒に当たるわけではない"
+      fill_in "証拠詳細", with: "特になし"
+      click_button "反論を編集する"
+      expect(page).to have_content "結論を入力してください"
+    end
+
+    scenario "理由を入力せず,｢反論を編集する｣ボタンを押すと,警告メッセージが表示されること" do
+      fill_in "結論", with: "理由が結論に繋がっていない"
+      fill_in "結論詳細", with: "特になし"
+      fill_in "理由", with: nil
+      fill_in "理由詳細", with: "特になし"
+      fill_in "証拠", with: "｢犬が歩けば棒に当たる｣というが､必ずしも犬が歩くと､棒に当たるわけではない"
+      fill_in "証拠詳細", with: "特になし"
+      click_button "反論を編集する"
+      expect(page).to have_content "理由を入力してください"
+    end
+
+    scenario "証拠を入力せず,｢反論を編集する｣ボタンを押すと,警告メッセージが表示されること" do
+      fill_in "結論", with: "理由が結論に繋がっていない"
+      fill_in "結論詳細", with: "特になし"
+      fill_in "理由", with: "ことわざに真実性はないから"
+      fill_in "理由詳細", with: "特になし"
+      fill_in "証拠", with: nil
+      fill_in "証拠詳細", with: "特になし"
+      click_button "反論を編集する"
+      expect(page).to have_content "証拠を入力してください"
     end
   end
 
@@ -198,7 +264,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       end
     end
 
-    describe "必要事項を入力して､｢新規反論を作成する｣ボタンを押すと" do
+    describe "有効な｢結論｣,｢理由｣,｢証拠｣を入力して､｢新規反論を作成する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "証拠と理由が繋がっていない"
         fill_in "結論詳細", with: "特になし"
@@ -217,6 +283,40 @@ RSpec.describe "Refutations", type: :system, js: true do
       scenario "反論が所属する議題ボード詳細ページに遷移すること" do
         expect(page).to have_current_path agenda_board_path(about_early_bird.id)
       end
+    end
+
+    scenario "結論を入力せず,｢新規主張を作成する｣ボタンを押すと,警告メッセージが表示されること" do
+      fill_in "結論", with: nil
+      fill_in "結論詳細", with: "特になし"
+      fill_in "理由", with: "証拠にあげている調査は､同年齢を対象としたものではないから"
+      fill_in "理由詳細", with: "特になし"
+      fill_in "証拠", with: "提示された調査は､様々な年齢の人々(平均年齢は36.7歳)を対象にしたものなので､
+      ｢体内時計は同年齢間においても個人差がある｣という理由の証拠として適当ではない"
+      fill_in "証拠詳細", with: "特になし"
+      click_button "新規反論を作成する"
+      expect(page).to have_content "結論を入力してください"
+    end
+
+    scenario "理由を入力せず,｢新規主張を作成する｣ボタンを押すと,警告メッセージが表示されること" do
+      fill_in "結論", with: "理由部分に誤りがある"
+      fill_in "結論詳細", with: "特になし"
+      fill_in "理由", with: nil
+      fill_in "理由詳細", with: "特になし"
+      fill_in "証拠", with: "8155名のMSFsc調査結果"
+      fill_in "証拠詳細", with: "特になし"
+      click_button "新規反論を作成する"
+      expect(page).to have_content "理由を入力してください"
+    end
+
+    scenario "証拠を入力せず,｢新規主張を作成する｣ボタンを押すと,警告メッセージが表示されること" do
+      fill_in "結論", with: "証拠と理由が繋がっていない"
+      fill_in "結論詳細", with: "特になし"
+      fill_in "理由", with: "証拠にあげている調査は､同年齢を対象としたものではないから"
+      fill_in "理由詳細", with: "特になし"
+      fill_in "証拠", with: nil
+      fill_in "証拠詳細", with: "特になし"
+      click_button "新規反論を作成する"
+      expect(page).to have_content "証拠を入力してください"
     end
   end
 
@@ -242,7 +342,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       end
     end
 
-    describe "必要事項を入力して､｢反論を編集する｣ボタンを押すと" do
+    describe "有効な｢結論｣,｢理由｣,｢証拠｣を入力して､｢反論を編集する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "証拠が理由に繋がらない"
         fill_in "結論詳細", with: "特になし"
@@ -260,6 +360,39 @@ RSpec.describe "Refutations", type: :system, js: true do
       scenario "反論が所属する議題ボード詳細ページに遷移すること" do
         expect(page).to have_current_path agenda_board_path(problematic_reason_and_evidence_connection.agenda_board_id)
       end
+    end
+
+    scenario "結論を入力せず,｢反論を編集する｣ボタンを押すと,警告メッセージが表示されること" do
+      fill_in "結論", with: nil
+      fill_in "結論詳細", with: "特になし"
+      fill_in "理由", with: "証拠にあげている調査は､同年齢を対象としたものではないから"
+      fill_in "理由詳細", with: "特になし"
+      fill_in "証拠", with: "論理性の話であるため必要なし"
+      fill_in "証拠詳細", with: "特になし"
+      click_button "反論を編集する"
+      expect(page).to have_content "結論を入力してください"
+    end
+
+    scenario "理由を入力せず,｢反論を編集する｣ボタンを押すと,警告メッセージが表示されること" do
+      fill_in "結論", with: "証拠が理由に繋がらない"
+      fill_in "結論詳細", with: "特になし"
+      fill_in "理由", with: nil
+      fill_in "理由詳細", with: "特になし"
+      fill_in "証拠", with: "論理性の話であるため必要なし"
+      fill_in "証拠詳細", with: "特になし"
+      click_button "反論を編集する"
+      expect(page).to have_content "理由を入力してください"
+    end
+
+    scenario "証拠を入力せず,｢反論を編集する｣ボタンを押すと,警告メッセージが表示されること" do
+      fill_in "結論", with: "証拠が理由に繋がらない"
+      fill_in "結論詳細", with: "特になし"
+      fill_in "理由", with: "証拠にあげている調査は､同年齢を対象としたものではないから"
+      fill_in "理由詳細", with: "特になし"
+      fill_in "証拠", with: nil
+      fill_in "証拠詳細", with: "特になし"
+      click_button "反論を編集する"
+      expect(page).to have_content "証拠を入力してください"
     end
   end
 end
