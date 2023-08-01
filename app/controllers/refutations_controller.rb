@@ -23,7 +23,7 @@ class RefutationsController < ApplicationController
       flash[:notice] = "新規反論の作成に成功しました"
       redirect_to agenda_board_path(@ref_conclusion.agenda_board_id)
     else
-      flash[:error_full_messages] = @ref_conclusion.errors.full_messages
+      flash[:error_full_messages] = @ref_conclusion.errors.full_messages.reverse
       set_additional_variables
       render :new
     end
