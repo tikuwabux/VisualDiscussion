@@ -32,8 +32,12 @@ ja:
    ref_evidence:
     ref_evidence_summary: 証拠
     ref_reason: 帰属先である理由のid値
-    
+
    ref_conclusion/ref_reasons:
     ref_reason_summary: 理由
    ref_conclusion/ref_reasons/ref_evidences:
     ref_evidence_summary: 証拠
+
+   opinion_position:
+    left: 基準となる要素の左辺からの距離(px)
+    top: 基準となる要素の上辺からの距離(px)
