@@ -1,14 +1,12 @@
 class RefutationsController < ApplicationController
   def new
-    @agenda_board_id = params[:agenda_board_id].to_i
+    @agenda_board_id = params[:agenda_board_id]
     @agenda_board_agenda = params[:agenda_board_agenda]
 
     if params[:type_of_opinion] == "argument"
-      rebuttal_target_conclusion_id = params[:rebuttal_target_conclusion_id].to_i
-      @rebuttal_target_conclusion = Conclusion.find(rebuttal_target_conclusion_id)
+      @rebuttal_target_conclusion = Conclusion.find(params[:rebuttal_target_conclusion_id])
     else
-      rebuttal_target_ref_conclusion_id = params[:rebuttal_target_ref_conclusion_id].to_i
-      @rebuttal_target_ref_conclusion = RefConclusion.find(rebuttal_target_ref_conclusion_id)
+      @rebuttal_target_ref_conclusion = RefConclusion.find(params[:rebuttal_target_ref_conclusion_id])
     end
 
     @ref_conclusion = RefConclusion.new
