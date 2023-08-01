@@ -2,6 +2,7 @@ class RefutationsController < ApplicationController
   def new
     @agenda_board_id = params[:agenda_board_id].to_i
     @agenda_board_agenda = params[:agenda_board_agenda]
+
     if params[:type_of_opinion] == "argument"
       rebuttal_target_conclusion_id = params[:rebuttal_target_conclusion_id].to_i
       @rebuttal_target_conclusion = Conclusion.find(rebuttal_target_conclusion_id)
@@ -16,13 +17,22 @@ class RefutationsController < ApplicationController
   end
 
   def create
-    refutation = RefConclusion.new(refutation_params)
-    if refutation.valid?
+    @ref_conclusion = RefConclusion.new(refutation_params)
+
+    if @ref_conclusion.valid?
       flash[:notice] = "新規反論の作成に成功しました"
-      refutation.save!
-      redirect_to agenda_board_path(refutation.agenda_board_id)
+      @ref_conclusion.save!
+      redirect_to agenda_board_path(@ref_conclusion.agenda_board_id)
     else
-      flash[:notice] = "新規反論の作成に失敗しました｡"
+      flash[:error_full_messages] = @ref_conclusion.errors.full_messages
+
+      if refutation_params[:conclusion_id]
+        rebuttal_target_conclusion_id = refutation_params[:conclusion_id]
+        @rebuttal_target_conclusion = Conclusion.find(rebuttal_target_conclusion_id)
+      else
+        rebuttal_target_ref_conclusion_id = refutation_params[:parent_ref_conclusion_id]
+        @rebuttal_target_ref_conclusion = RefConclusion.find(rebuttal_target_ref_conclusion_id)
+      end
       render :new
     end
   end
