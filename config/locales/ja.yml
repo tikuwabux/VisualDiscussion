@@ -7,6 +7,14 @@ ja:
     agenda: 議題
    conclusion:
     conclusion_summary: 結論
+    agenda_board: 所属する議題ボードのid値
+    user: 作成者であるユーザーのid値
+   reason:
+    reason_summary: 理由
+    conclusion: 帰属先である結論のid値
+   evidence:
+    evidence_summary: 証拠
+    reason: 帰属先である理由のid値
    conclusion/reasons:
     reason_summary: 理由
    conclusion/reasons/evidences:
