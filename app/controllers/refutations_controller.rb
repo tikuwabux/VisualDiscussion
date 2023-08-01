@@ -31,7 +31,8 @@ class RefutationsController < ApplicationController
 
   def edit
     @ref_conclusion = RefConclusion.find(params[:id])
-    @agenda_board_agenda = AgendaBoard.find(@ref_conclusion.agenda_board_id).agenda
+    @agenda_board_id = @ref_conclusion.agenda_board_id
+    @agenda_board_agenda = AgendaBoard.find(@agenda_board_id).agenda
 
     if @ref_conclusion.conclusion_id
       @rebuttal_target_conclusion = Conclusion.find(@ref_conclusion.conclusion_id)
@@ -41,14 +42,15 @@ class RefutationsController < ApplicationController
   end
 
   def update
-    refutation = RefConclusion.find(params[:id])
+    @ref_conclusion = RefConclusion.find(params[:id])
 
-    if refutation.update(refutation_params)
+    if @ref_conclusion.update(refutation_params)
       flash[:notice] = "反論の編集に成功しました"
-      redirect_to agenda_board_path(refutation.agenda_board_id)
+      redirect_to agenda_board_path(@ref_conclusion.agenda_board_id)
     else
-      flash[:notice] = "反論の編集に失敗しました"
-      render "edit"
+      flash[:error_full_messages] = @ref_conclusion.errors.full_messages.reverse
+      set_additional_variables
+      render :edit
     end
   end
 
