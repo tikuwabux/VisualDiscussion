@@ -1,6 +1,6 @@
 class ArgumentsController < ApplicationController
   def new
-    @agenda_board_id = params[:agenda_board_id].to_i
+    @agenda_board_id = params[:agenda_board_id]
     @agenda_board_agenda = params[:agenda_board_agenda]
 
     @conclusion = Conclusion.new
@@ -11,9 +11,8 @@ class ArgumentsController < ApplicationController
   def create
     @conclusion = Conclusion.new(argument_params)
 
-    if @conclusion.valid?
+    if @conclusion.save
       flash[:notice] = "新規主張の作成に成功しました"
-      @conclusion.save!
       redirect_to agenda_board_path(@conclusion.agenda_board_id)
     else
       flash[:error_full_messages] = @conclusion.errors.full_messages.reverse
