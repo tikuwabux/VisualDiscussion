@@ -19,22 +19,12 @@ class RefutationsController < ApplicationController
   def create
     @ref_conclusion = RefConclusion.new(refutation_params)
 
-    if @ref_conclusion.valid?
+    if @ref_conclusion.save
       flash[:notice] = "新規反論の作成に成功しました"
-      @ref_conclusion.save!
       redirect_to agenda_board_path(@ref_conclusion.agenda_board_id)
     else
       flash[:error_full_messages] = @ref_conclusion.errors.full_messages
-      @agenda_board_id = refutation_params[:agenda_board_id]
-      @agenda_board_agenda = AgendaBoard.find(@agenda_board_id).agenda
-
-      if refutation_params[:conclusion_id]
-        rebuttal_target_conclusion_id = refutation_params[:conclusion_id]
-        @rebuttal_target_conclusion = Conclusion.find(rebuttal_target_conclusion_id)
-      else
-        rebuttal_target_ref_conclusion_id = refutation_params[:parent_ref_conclusion_id]
-        @rebuttal_target_ref_conclusion = RefConclusion.find(rebuttal_target_ref_conclusion_id)
-      end
+      set_additional_variables
       render :new
     end
   end
@@ -80,5 +70,16 @@ class RefutationsController < ApplicationController
         ref_evidences_attributes: [:id, :ref_evidence_summary, :ref_evidence_detail, :_destroy],
       ]
     )
+  end
+
+  def set_additional_variables
+    @agenda_board_id = refutation_params[:agenda_board_id]
+    @agenda_board_agenda = AgendaBoard.find(@agenda_board_id).agenda
+
+    if refutation_params[:conclusion_id]
+      @rebuttal_target_conclusion = Conclusion.find(refutation_params[:conclusion_id])
+    else
+      @rebuttal_target_ref_conclusion = RefConclusion.find(refutation_params[:parent_ref_conclusion_id])
+    end
   end
 end
