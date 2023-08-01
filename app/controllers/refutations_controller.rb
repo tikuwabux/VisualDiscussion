@@ -25,6 +25,8 @@ class RefutationsController < ApplicationController
       redirect_to agenda_board_path(@ref_conclusion.agenda_board_id)
     else
       flash[:error_full_messages] = @ref_conclusion.errors.full_messages
+      @agenda_board_id = refutation_params[:agenda_board_id]
+      @agenda_board_agenda = AgendaBoard.find(@agenda_board_id).agenda
 
       if refutation_params[:conclusion_id]
         rebuttal_target_conclusion_id = refutation_params[:conclusion_id]
