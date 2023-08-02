@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe "Users", type: :system do
   let(:annie) { create(:user, name: "annie") }
-  let(:brian) { create(:user, name: "brian")}
+  let(:brian) { create(:user, name: "brian") }
 
   context "ログイン前の時" do
     before do
