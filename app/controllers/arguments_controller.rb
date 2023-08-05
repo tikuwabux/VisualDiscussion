@@ -1,6 +1,6 @@
 class ArgumentsController < ApplicationController
   def new
-    @agenda_board_id = params[:agenda_board_id].to_i
+    @agenda_board_id = params[:agenda_board_id]
     @agenda_board_agenda = params[:agenda_board_agenda]
 
     @conclusion = Conclusion.new
@@ -9,13 +9,15 @@ class ArgumentsController < ApplicationController
   end
 
   def create
-    argument = Conclusion.new(argument_params)
-    if argument.valid?
+    @conclusion = Conclusion.new(argument_params)
+
+    if @conclusion.save
       flash[:notice] = "新規主張の作成に成功しました"
-      argument.save!
-      redirect_to agenda_board_path(argument.agenda_board_id)
+      redirect_to agenda_board_path(@conclusion.agenda_board_id)
     else
-      flash[:notice] = "新規主張の作成に失敗しました｡"
+      flash[:error_full_messages] = @conclusion.errors.full_messages.reverse
+      @agenda_board_id = argument_params[:agenda_board_id]
+      @agenda_board_agenda = AgendaBoard.find(@agenda_board_id).agenda
       render :new
     end
   end
@@ -26,13 +28,15 @@ class ArgumentsController < ApplicationController
   end
 
   def update
-    argument = Conclusion.find(params[:id])
-    if argument.update(argument_params)
+    @conclusion = Conclusion.find(params[:id])
+
+    if @conclusion.update(argument_params)
       flash[:notice] = "主張の編集に成功しました"
-      redirect_to agenda_board_path(argument.agenda_board_id)
+      redirect_to agenda_board_path(@conclusion.agenda_board_id)
     else
-      flash[:notice] = "主張の編集に失敗しました"
-      render "edit"
+      flash[:error_full_messages] = @conclusion.errors.full_messages.reverse
+      @agenda_board_agenda = AgendaBoard.find(@conclusion.agenda_board_id).agenda
+      render :edit
     end
   end
 

@@ -11,6 +11,5 @@ class RefConclusion < ApplicationRecord
 
   has_one :opinion_position, foreign_key: 'refutation_id', dependent: :destroy
 
-  validates :agenda_board_id, presence: true
   validates :ref_conclusion_summary, presence: true
 end

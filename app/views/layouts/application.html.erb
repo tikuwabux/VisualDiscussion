@@ -43,8 +43,14 @@
       </div>
     </header>
     <div class="flash_message_block">
-      <p class="notice"><%= notice %></p>
-      <p class="alert"><%= alert %></p>
+      <p class="notice"><%= flash[:notice] %></p>
+      <% if flash[:alert] %>
+        <p class="alert"><%= flash[:alert] %></p>
+      <% elsif flash[:error_full_messages] %>
+        <% flash[:error_full_messages].each do |alert| %>
+          <p class="alert"><%= alert %></p>
+        <% end %>
+      <% end %>
     </div>
     <main>
       <%= yield %>

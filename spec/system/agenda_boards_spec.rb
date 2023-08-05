@@ -67,20 +67,34 @@ RSpec.describe "AgendaBoards", type: :system do
       click_on "新規議題ボード作成"
     end
 
-    describe "議題を入力し､カテゴリを選択後､｢議題ボードを作成する｣ボタンを押すと" do
+    describe "有効な議題を入力し､カテゴリを選択後､｢議題ボードを作成する｣ボタンを押すと" do
       before do
         fill_in "議題", with: "なぜ空は青いのか?"
         select "自然科学", from: "agenda_board_category"
         click_button "議題ボードを作成する"
       end
 
-      scenario "新たな議題ボードが作成されること" do
+      scenario "通知メッセージが表示されること" do
         expect(page).to have_content "｢なぜ空は青いのか?｣のボード作成に成功しました"
       end
 
       scenario "作成した議題ボードの詳細ページに遷移すること" do
         expect(page).to have_current_path agenda_board_path(annie.agenda_boards.last.id)
       end
+    end
+
+    scenario "議題を入力せず､カテゴリを選択し､｢議題ボードを作成する｣ボタンを押すと､警告メッセージが表示されること" do
+      select "自然科学", from: "agenda_board_category"
+      click_button "議題ボードを作成する"
+      expect(page).to have_content "議題を入力してください"
+    end
+
+    scenario "重複する議題を入力し､カテゴリを選択後､｢議題ボード作成する｣ボタンを押すと､警告メッセージが表示されること" do
+      about_early_bird
+      fill_in "議題", with: "早起きは健康によいのか?"
+      select "自然科学", from: "agenda_board_category"
+      click_button "議題ボードを作成する"
+      expect(page).to have_content "議題はすでに存在します"
     end
   end
 
@@ -417,23 +431,43 @@ RSpec.describe "AgendaBoards", type: :system do
     end
   end
 
-  describe "議題ボード編集ページアクセス後､必要事項を入力して､｢編集する｣ボタンを押すと" do
+  describe "議題ボード編集ページアクセス後" do
     before do
       click_on "#{annie.name}さんが作成した議題ボード"
       within "#agenda_board#{about_ideal_waking_time.id}" do
         click_on "編集"
       end
-      fill_in "議題", with: "8時出社の会社員の場合､理想的な起床時間は何時か?"
-      select "ビジネス", from: "agenda_board_category"
+    end
+
+    describe "有効な議題を入力し､カテゴリを選択後､｢議題ボードを作成する｣ボタンを押すと" do
+      before do
+        fill_in "議題", with: "8時出社の会社員の場合､理想的な起床時間は何時か?"
+        select "ビジネス", from: "agenda_board_category"
+        click_button "編集する"
+      end
+
+      scenario "通知メッセージが表示されること" do
+        expect(page).to have_content "議題ボードの編集に成功しました"
+      end
+
+      scenario "｢**(ログインユーザー)さんが作成した議題ボード一覧｣ページに遷移すること" do
+        expect(page).to have_current_path current_user_created_agenda_boards_path
+      end
+    end
+
+    scenario "議題を入力せず､カテゴリを選択し､｢編集する｣ボタンを押すと､警告メッセージが表示されること" do
+      fill_in "議題", with: nil
+      select "自然科学", from: "agenda_board_category"
       click_button "編集する"
+      expect(page).to have_content "議題を入力してください"
     end
 
-    scenario "議題ボードが編集されること" do
-      expect(page).to have_content "議題ボードの編集に成功しました"
-    end
-
-    scenario "｢**(ログインユーザー)さんが作成した議題ボード一覧｣ページに遷移すること" do
-      expect(page).to have_current_path current_user_created_agenda_boards_path
+    scenario "重複する議題を入力し､カテゴリを選択後､｢編集する｣ボタンを押すと､警告メッセージが表示されること" do
+      about_early_bird
+      fill_in "議題", with: "早起きは健康によいのか?"
+      select "自然科学", from: "agenda_board_category"
+      click_button "編集する"
+      expect(page).to have_content "議題はすでに存在します"
     end
   end
 end
