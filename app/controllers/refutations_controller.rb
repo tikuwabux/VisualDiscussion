@@ -1,4 +1,6 @@
 class RefutationsController < ApplicationController
+  before_action :authenticate_user
+  
   def new
     @agenda_board_id = params[:agenda_board_id]
     @agenda_board_agenda = params[:agenda_board_agenda]

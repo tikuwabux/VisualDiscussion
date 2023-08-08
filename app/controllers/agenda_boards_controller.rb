@@ -1,4 +1,6 @@
 class AgendaBoardsController < ApplicationController
+  before_action :authenticate_user
+
   def new
     @agenda_board = AgendaBoard.new
   end
