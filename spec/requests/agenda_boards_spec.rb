@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.shared_examples("未ログイン時ユーザーに対するアクセス制限のテスト") do
+RSpec.shared_examples("未ログインユーザーに対するアクセス制限のテスト") do
   it "302リダイレクトを返すこと" do
     expect(response).to have_http_status(302)
   end
@@ -21,52 +21,52 @@ RSpec.describe "AgendaBoards", type: :request do
   context "未ログイン時" do
     describe "GET /agenda_boards/new" do
       before { get new_agenda_board_path }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
     describe "POST /agenda_boards" do
       before { post agenda_boards_path }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
     describe "GET /agenda_boards/:id" do
       before { get agenda_board_path(about_early_bird.id) }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
     describe "GET /agenda_boards/index_created_by_current_user" do
       before { get current_user_created_agenda_boards_path }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
     describe "GET /agenda_boards/index_with_opinion_posted_by_current_user" do
       before { get current_user_posted_opinion_agenda_boards_path }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
     describe "GET /agenda_boards/index_searched_by_category" do
       before { get category_search_agenda_boards_path }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
     describe "GET /agenda_boards/index_searched_by_agenda" do
       before { get agenda_search_agenda_boards_path }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
-    describe "GET /agenda_boards/:id" do
+    describe "GET /agenda_boards/:id/edit" do
       before { get edit_agenda_board_path(about_early_bird.id) }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
     describe "PATCH /agenda_boards/:id" do
       before { patch agenda_board_path(about_early_bird.id) }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
     describe "DELETE /agenda_boards/:id" do
       before { delete agenda_board_path(about_early_bird.id) }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
   end
 end
