@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.shared_examples("未ログイン時ユーザーに対するアクセス制限のテスト") do
+RSpec.shared_examples("未ログインユーザーに対するアクセス制限のテスト") do
   it "302リダイレクトを返すこと" do
     expect(response).to have_http_status(302)
   end
@@ -31,27 +31,27 @@ RSpec.describe "Arguments", type: :request do
   context "未ログイン時" do
     describe "GET /arguments/new" do
       before { get new_argument_path }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
     describe "POST /arguments" do
       before { post arguments_path }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
-    describe "GET /arguments/:id" do
+    describe "GET /arguments/:id/edit" do
       before { get edit_argument_path(very_bad_for_health.id) }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
     describe "PATCH /arguments/:id" do
       before { patch argument_path(very_bad_for_health.id) }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
 
     describe "DELETE /arguments/:id" do
       before { delete argument_path(very_bad_for_health.id) }
-      include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+      include_examples("未ログインユーザーに対するアクセス制限のテスト")
     end
   end
 end
