@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
   end
 
   def authenticate_user
-    if current_user == nil
+    if current_user.nil?
       flash[:alert] = "ログインもしくはサインアップが必要です"
       redirect_to sign_in_path
     end

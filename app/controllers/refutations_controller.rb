@@ -91,7 +91,7 @@ class RefutationsController < ApplicationController
 
     if current_user.id != refutation.user_id
       flash[:alert] = "編集/削除する権限があるのは､あなた自身が作成した反論のみです"
-      redirect_to  agenda_board_path(refutation.agenda_board_id)
+      redirect_to agenda_board_path(refutation.agenda_board_id)
     end
   end
 end

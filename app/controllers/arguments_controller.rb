@@ -65,7 +65,7 @@ class ArgumentsController < ApplicationController
 
     if current_user.id != argument.user_id
       flash[:alert] = "編集/削除する権限があるのは､あなた自身が作成した主張のみです"
-      redirect_to  agenda_board_path(argument.agenda_board_id)
+      redirect_to agenda_board_path(argument.agenda_board_id)
     end
   end
 end
