@@ -67,4 +67,6 @@ RSpec.configure do |config|
   config.include AgendaBoardsHelper
 
   Webdrivers::Chromedriver.required_version = '114.0.5735.90'
+
+  config.include Devise::Test::IntegrationHelpers, type: :request
 end

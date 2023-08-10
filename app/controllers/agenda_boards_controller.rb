@@ -1,4 +1,7 @@
 class AgendaBoardsController < ApplicationController
+  before_action :authenticate_user
+  before_action :check_user_has_authorization, { only: [:edit, :update, :destroy] }
+
   def new
     @agenda_board = AgendaBoard.new
   end
@@ -69,5 +72,14 @@ class AgendaBoardsController < ApplicationController
 
   def agenda_board_params
     params.require(:agenda_board).permit(:user_id, :agenda, :category)
+  end
+
+  def check_user_has_authorization
+    agenda_board = AgendaBoard.find(params[:id])
+
+    if current_user.id != agenda_board.user_id
+      flash[:alert] = "編集/削除する権限があるのは､あなた自身が作成した議題ボードのみです"
+      redirect_to current_user_created_agenda_boards_path
+    end
   end
 end

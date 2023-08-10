@@ -1,4 +1,7 @@
 class ArgumentsController < ApplicationController
+  before_action :authenticate_user
+  before_action :check_user_has_authorization, { only: [:edit, :update, :destroy] }
+
   def new
     @agenda_board_id = params[:agenda_board_id]
     @agenda_board_agenda = params[:agenda_board_agenda]
@@ -55,5 +58,14 @@ class ArgumentsController < ApplicationController
         :id, :reason_summary, :reason_detail, :_destroy,
         evidences_attributes: [:id, :evidence_summary, :evidence_detail, :_destroy],
       ])
+  end
+
+  def check_user_has_authorization
+    argument = Conclusion.find(params[:id])
+
+    if current_user.id != argument.user_id
+      flash[:alert] = "編集/削除する権限があるのは､あなた自身が作成した主張のみです"
+      redirect_to agenda_board_path(argument.agenda_board_id)
+    end
   end
 end
