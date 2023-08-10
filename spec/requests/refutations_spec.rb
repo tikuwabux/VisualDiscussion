@@ -61,7 +61,7 @@ RSpec.describe "Refutations", type: :request do
       include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
     end
 
-    describe "GET /refutations/:id" do
+    describe "GET /refutations/:id/edit" do
       before { get edit_refutation_path(problematic_reason.id) }
       include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
     end
