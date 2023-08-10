@@ -1,6 +1,7 @@
 class RefutationsController < ApplicationController
   before_action :authenticate_user
-  
+  before_action :check_user_has_authorization, { only: [:edit, :update, :destroy] }
+
   def new
     @agenda_board_id = params[:agenda_board_id]
     @agenda_board_agenda = params[:agenda_board_agenda]
@@ -82,6 +83,15 @@ class RefutationsController < ApplicationController
       @rebuttal_target_conclusion = Conclusion.find(refutation_params[:conclusion_id])
     else
       @rebuttal_target_ref_conclusion = RefConclusion.find(refutation_params[:parent_ref_conclusion_id])
+    end
+  end
+
+  def check_user_has_authorization
+    refutation = RefConclusion.find(params[:id])
+
+    if current_user.id != refutation.user_id
+      flash[:alert] = "編集/削除する権限があるのは､あなた自身が作成した反論のみです"
+      redirect_to  agenda_board_path(refutation.agenda_board_id)
     end
   end
 end

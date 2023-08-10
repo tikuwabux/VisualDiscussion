@@ -14,6 +14,16 @@ RSpec.shared_examples("未ログイン時ユーザーに対するアクセス制
   end
 end
 
+RSpec.shared_examples("反論の編集/削除に関するアクセス制限のテスト") do
+  it "302リダイレクトを返すこと" do
+    expect(response).to have_http_status(302)
+  end
+
+  it "設定したフラッシュメッセージがセットされていること" do
+    expect(flash[:alert]).to eq("編集/削除する権限があるのは､あなた自身が作成した反論のみです")
+  end
+end
+
 RSpec.describe "Refutations", type: :request do
   let(:annie) { create(:user, name: "annie") }
   let(:brian) { create(:user, name: "brian") }
@@ -64,6 +74,39 @@ RSpec.describe "Refutations", type: :request do
     describe "DELETE /refutations/:id" do
       before { delete refutation_path(problematic_reason.id) }
       include_examples("未ログイン時ユーザーに対するアクセス制限のテスト")
+    end
+  end
+
+  context "既ログイン時" do
+    before { sign_in(annie) }
+
+    describe "以下の権限のない反論の編集/削除に関するリクエストを行った時" do
+      describe "GET /refutations/:id/edit" do
+        before { get edit_refutation_path(problematic_reason.id) }
+
+        include_examples("反論の編集/削除に関するアクセス制限のテスト")
+        it "編集しようとした反論が所属する議題ボード詳細ページへリダイレクトされること" do
+          expect(response).to redirect_to(agenda_board_path(problematic_reason.agenda_board_id))
+        end
+      end
+
+      describe "PATCH /refutations/:id" do
+        before { patch refutation_path(problematic_reason.id) }
+
+        include_examples("反論の編集/削除に関するアクセス制限のテスト")
+        it "編集しようとした反論が所属する議題ボード詳細ページへリダイレクトされること" do
+          expect(response).to redirect_to(agenda_board_path(problematic_reason.agenda_board_id))
+        end
+      end
+
+      describe "DELETE /refutations/:id" do
+        before { delete refutation_path(problematic_reason.id) }
+
+        include_examples("反論の編集/削除に関するアクセス制限のテスト")
+        it "削除しようとした反論が所属する議題ボード詳細ページへリダイレクトされること" do
+          expect(response).to redirect_to(agenda_board_path(problematic_reason.agenda_board_id))
+        end
+      end
     end
   end
 end
