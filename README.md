@@ -1,24 +1,25 @@
-# README
+# アプリ詳細
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## アプリurl
+https://visual-discussion.herokuapp.com
 
-Things you may want to cover:
+## アプリ名
+Visual Discussion (略称: Visu Disu)
 
-* Ruby version
+## 開発の背景(なぜ作ったのか)
 
-* System dependencies
+## デモ動画(ゲストログイン ~ 新規反論投稿)
 
-* Configuration
+## 機能一覧
 
-* Database creation
+## こだわりのポイント
 
-* Database initialization
+## 使用した技術
 
-* How to run the test suite
+## ER図
 
-* Services (job queues, cache servers, search engines, etc.)
+## 全体設計
 
-* Deployment instructions
+## 今後追加したい機能
 
-* ...
+## ライセンス
