@@ -122,13 +122,17 @@ Visual Discussion (略称: Visu Disu)
 | JQuery | js記述の簡素化 |
 | cocoon | 主張･反論作成/編集ページにおける､理由､証拠入力フォームの動的追加･削除機能実装の簡素化|
 | jsplumb | 意見のレイアウトをツリー状に整えることを簡素化 |
-| ---- | 議題ボード詳細ページ上の､意見の挙動や意見間の接続線機能実装の簡素化 |
+| 同上 | 議題ボード詳細ページ上の､意見の挙動や意見間の接続線機能実装の簡素化 |
 
 
 ## ER図
+![スクリーンショット 2023-08-27 7 07 05](https://github.com/tikuwabux/VisualDiscussion/assets/111355072/cc4c5930-2f45-4bff-8fa7-8feb455a280c)
 
-## 全体設計
 
 ## 今後追加したい機能
+| 機能 | 説明 |
+| ---- | ---- |
 
-## ライセンス
+## 本アプリの仕様決定において参考にしたサイト
+https://www.ritsumei.ac.jp/ir/ir-navi/technic/technic06.html/
+
