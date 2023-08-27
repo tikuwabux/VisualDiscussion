@@ -99,18 +99,40 @@ https://github.com/tikuwabux/VisualDiscussion/assets/111355072/fe821be7-f99f-4e3
 
 ### 2. 反論作成のしやすさ
 反論対象の意見を横目に見ながら反論を作成することができる
+![反論作成のこだわり](https://github.com/tikuwabux/VisualDiscussion/assets/111355072/24c9aa1e-4852-4786-a7c1-5726c5e910bd)
+
+![反論作成のこだわり2](https://github.com/tikuwabux/VisualDiscussion/assets/111355072/85e47cd2-0490-4d67-be00-eea6ec4f24c5)
+
 
 
 ### 3. 意見のレイアウト
-ツリー上に無駄なく配置された､美しいレイアウト
+意見の構造を視覚的に捉えやすいツリー型のレイアウト
+![意見のレイアウトこだわり1](https://github.com/tikuwabux/VisualDiscussion/assets/111355072/3a264a21-ed85-4bd6-bd0d-4b0c4d2ab525)
+![意見のこだわり理レイアウト2](https://github.com/tikuwabux/VisualDiscussion/assets/111355072/f59fc120-54f1-4fdd-a21b-f199427128e7)
 
-### 4. 目に優しい色
-長時間見続けても､疲れにくいセイフカラーのみを使用
 
-### 5. 最短距離でつながる接続線
+### 4. 目に優しい配色
+長時間見続けても､疲れにくいよう青を基調とした淡い色で配色を統一
 
-### 5. 議題名での議題ボード検索の自由度
+
+https://github.com/tikuwabux/VisualDiscussion/assets/111355072/6ba4cd13-d352-43ee-85d1-6a3c4d4d15fc
+
+
+### 5. 最短距離で繋がる接続線
+接続線が繋がった状態で､片方の意見の位置を移動させると､接続線が最短距離になるように接続線の終点が左右に移動する｡
+
+
+https://github.com/tikuwabux/VisualDiscussion/assets/111355072/e5c22dc1-df7b-4f4d-aeef-adae34f19fd1
+
+
+
+
+### 6. 議題名での議題ボード検索の自由度
 複数単語での自由度の高い検索が可能
+
+
+
+https://github.com/tikuwabux/VisualDiscussion/assets/111355072/3b8c96bd-d162-48a3-adc8-0b3549b94a49
 
 
 
