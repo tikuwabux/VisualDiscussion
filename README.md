@@ -30,7 +30,7 @@ Visual Discussion (略称: Visu Disu)
 
 ## デモ画像
 
-### 議題ボード詳細ページ
+### 議題ボード詳細ページの一部
 ![discussion_imageのコピー](https://github.com/tikuwabux/VisualDiscussion/assets/111355072/48a8845c-4f7e-401d-bcc8-7af0773d31e3)
 
 
