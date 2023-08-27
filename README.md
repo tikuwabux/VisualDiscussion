@@ -90,7 +90,10 @@ Visual Discussion (略称: Visu Disu)
 4. 結論詳細･理由詳細･証拠詳細入力欄(改行可)の幅は､最大幅の文字列を含む行の幅に､高さは全行の高さに合わせて伸縮
 
 
-https://github.com/tikuwabux/VisualDiscussion/assets/111355072/f0499815-a9eb-4227-a54b-1c52eedcb1f6
+https://github.com/tikuwabux/VisualDiscussion/assets/111355072/711d8c99-31a7-4262-b3e4-cc3ecc77d29c
+
+
+
 
 
 
