@@ -151,8 +151,9 @@ https://github.com/tikuwabux/VisualDiscussion/assets/111355072/3b8c96bd-d162-48a
 ### フロントエンド
 | 使用技術 | 用途 |
 | ---- | ---- |
-| scss | 全体的なレイアウト整理 |
-| javascript | 動的操作の実装 |
+| HTML | 全体的なレイアウト |
+| Scss | 全体的なレイアウト整理 |
+| Javascript | 動的操作の実装 |
 | jQuery | js記述の簡素化 |
 | cocoon | 主張･反論作成/編集ページにおける､理由､証拠入力フォームの動的追加･削除機能実装の簡素化|
 | jsplumb | 意見のレイアウトをツリー状に整えることを簡素化 |
