@@ -159,7 +159,8 @@ https://github.com/tikuwabux/VisualDiscussion/assets/111355072/3b8c96bd-d162-48a
 | jsplumb | 意見のレイアウトをツリー状に整えることを簡素化 |
 | 同上 | 議題ボード詳細ページ上の､意見の挙動や意見間の接続線機能実装の簡素化 |
 
-
+### インフラ
+| Heroku | アプリケーション公開に必要な環境構築の簡素化 |
 ## ER図
 ![スクリーンショット 2023-08-27 7 07 05](https://github.com/tikuwabux/VisualDiscussion/assets/111355072/cc4c5930-2f45-4bff-8fa7-8feb455a280c)
 
