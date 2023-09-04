@@ -7,7 +7,7 @@ https://visual-discussion.herokuapp.com
 Visual Discussion (略称: Visu Disu)
 
 ## 想定ユーザー
-文語形式で建設的な議論をしたい人
+文章のやりとりを通じて､建設的な議論をしたい人
 
 ## 開発の理由と背景
 ### 理由
