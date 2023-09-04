@@ -54,7 +54,7 @@ Visual Discussion (略称: Visu Disu)
 
 ## 既存のQ&Aサイト(画像1)と本アプリ(画像2)で同様の議論展開がされたときの比較
 
-<img width="1497" alt="比較画像 png" src="https://github.com/tikuwabux/VisualDiscussion/assets/111355072/481af184-a7cf-48ba-978c-87e972024ada">
+<img width="642" alt="比較画像_png_border" src="https://github.com/tikuwabux/VisualDiscussion/assets/111355072/c1011f5c-9506-49f4-a14e-c69552e2f6f9">
 
 
 
