@@ -54,8 +54,7 @@ Visual Discussion (略称: Visu Disu)
 
 ## 既存のQ&Aサイト(Quora)と本アプリで同様の議論展開がされたときの比較
 
-<img width="642" alt="比較画像_png_border" src="https://github.com/tikuwabux/VisualDiscussion/assets/111355072/c1011f5c-9506-49f4-a14e-c69552e2f6f9">
-
+<img width="1459" alt="比較画像 png" src="https://github.com/tikuwabux/VisualDiscussion/assets/111355072/77be7d3b-2ee3-43f3-8621-410987378be1">
 
 
 
