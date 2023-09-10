@@ -405,6 +405,11 @@ jsPlumb.ready(function() {
     }
   });
 
+  // 意見間の接続線の接続先が変更された時､リロードを実行する
+  jsPlumb.bind("connectionMoved", function(info){
+    location.reload();
+  });
+
   // 意見間の接続線が削除されたとき､その接続線の接続情報をopinion_connectionテーブルから削除する
   jsPlumb.bind("connectionDetached", function(info) {
     if (info.connection.sourceId.match(/refutation/)) {
