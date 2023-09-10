@@ -6,8 +6,10 @@ jsPlumb.ready(function() {
   all_arguments.forEach( function( argument ) {
     const argument_id = argument.getAttribute("id");
 
-    // 主張をドラッグ可能にし､ドラッグ終了後の主張の位置をopinion_positionsテーブルに保存する
+    // 主張をドラッグ可能(ドラッグハンドルは｢〇〇さんの主張｣部分を指定)にし､ドラッグ終了後の主張の位置をopinion_positionsテーブルに保存する
     jsPlumb.draggable(`${argument_id}`, {
+      handle: '.argument_title',
+
       stop: function(event) {
         savePosition(argument_id, $(`#${argument_id}`).position());
       }
