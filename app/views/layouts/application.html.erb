@@ -29,11 +29,21 @@
         </div>
         <nav>
           <% if user_signed_in? %>
-            <%= link_to 'ユーザー情報編集', edit_user_registration_path %>
-            <%= link_to 'ログアウト', sign_out_path %>
-            <%= link_to '新規議題ボード作成', new_agenda_board_path %>
-            <%= link_to "#{current_user.name}さんが作成した議題ボード", current_user_created_agenda_boards_path %>
-            <%= link_to "#{current_user.name}さんが発言した議題ボード", current_user_posted_opinion_agenda_boards_path %>
+            <%= link_to edit_user_registration_path do %>
+              ユーザー<br>情報編集
+            <% end %>
+            <%= link_to sign_out_path do %>
+              ログ<br>アウト
+            <% end %>
+            <%= link_to new_agenda_board_path do %>
+              新規議題<br>ボード作成
+            <% end %>
+            <%= link_to current_user_created_agenda_boards_path  do %>
+              <%= current_user.name %>さんが<br>作成した議題ボード
+            <% end %>
+            <%= link_to current_user_posted_opinion_agenda_boards_path do %>
+              <%= current_user.name%>さんが<br>発言した議題ボード
+            <% end %>
           <% else %>
             <%= link_to 'サインアップ', sign_up_path %>
             <%= link_to 'ログイン', sign_in_path %>
@@ -55,8 +65,5 @@
     <main>
       <%= yield %>
     <main>
-    <footer>
-      <h4>@2023/7/15 Visual Discussion</h4>
-    </footer>
   </body>
 </html>

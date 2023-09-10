@@ -1,19 +1,55 @@
 <div class="container">
   <div class="top_wrapper">
-    <h1>さあ､｢視える｣議論をはじめよう!!</h1>
-    <%= image_tag "discussion_image.png" %>
+    <h1>さあ､｢視える｣ディスカッションをはじめよう!!</h1>
+    <%= image_tag "discussion_image.png", width: "100%" %>
   </div>
   <div class="main_wrapper">
+    <div class="usage_explanation">
+      <h2>【 VisuDis使い方解説動画 (音声なし ･ 字幕あり) 】</h2>
+      <p>&nbsp;&nbsp;&nbsp;※ PCで本アプリを実際に使用しながら解説しています｡ </p>
+      <p class="red_annotation">&nbsp;&nbsp;&nbsp;※ 本アプリはPCでの使用を強く推奨します｡</p>
+      <%= video_tag "/videos/sample_movie.mp4", controls: true, muted: true, width: "100%", class: "sample_movie" %>
+    </div>
+    <div class="overview">
+      <h1>VisuDisuとは?</h1>
+      <ul>
+        <li><strong>文章のやりとりを通じてディスカッションを行いたい人</strong>  に向けた､</li>
+        <li><strong>視覚的に分かりやすいディスカッションを行う</strong>  ための､</li>
+        <li><strong>ディスカッション情報を視覚化することに特化したコミュニュケーションアプリ</strong></li>
+      </ul>
+    </div>
     <div class="sales_point">
-      <div class="three_points">
-        <h2>以下の3点が一目で分かる!</h2>
-        <ul>
-          <li>① <strong>何</strong>(主張? 反論?) が､</li>
-          <li>② <strong>どこ</strong>(上? 下? 右? 左?)にあって､</li>
-          <li>③ <strong>どの部分</strong>(結論と理由の間?)に繋がっているのか</li>
-        </ul>
+      <h1>｢視える｣ディスカッションを実現するために､3つの情報を視覚化</h1>
+      <div class="three_visualized_information">
+        <div class="visualized_information">
+          <h3>① 意見の種類</h3>
+          <%= image_tag "visualized_info1_1.png", width: "100%" %>
+          <%= image_tag "visualized_info1_2.png", width: "100%" %>
+          <p>意見を｢主張｣と｢反論｣の2種類に大別し､<br>
+            両者を色で判別できるよう､<br>
+            ｢主張｣を｢青｣､｢反論｣を｢ピンク｣で色分け</p>
+        </div>
+        <div class="visualized_information">
+          <h3>② 意見の構成</h3>
+          <%= image_tag "visualized_info2.png", width: "100%" %>
+          <p>意見の構成要素である｢結論｣｢理由｣｢証拠｣を<br>
+            ツリー型に配置
+          </p>
+        </div>
+        <div class="visualized_information">
+          <h3>③  どの反論が､どの意見の､<br>
+            どの要素に対して､<br>
+            批判を提示しているのか
+          </h3>
+            <%= image_tag "visualized_info3.png", width: "100%" %>
+          <p>反論左上の｢●｣から､<br>
+            意見中の｢結論｣｢理由｣｢証拠｣要素の<br>
+            左右の｢●｣や､<br>
+            各要素間の｢●｣に向けて､<br>
+            赤色の接続線を引くことが可能
+          </p>
+        </div>
       </div>
-      <%= video_tag "/videos/sample_movie.mp4", controls: true, muted: true, width: "600", class: "sample_movie" %>
     </div>
   </div>
   <div class="information_wrapper">
@@ -46,3 +82,6 @@
     <% end %>
   </div>
 </div>
+<footer>
+  <p>&copy;  2023  齋藤真一</p>
+</footer>
