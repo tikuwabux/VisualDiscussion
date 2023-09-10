@@ -199,8 +199,10 @@ jsPlumb.ready(function() {
   all_refutations.forEach( function( refutation ) {
     const refutation_id = refutation.getAttribute("id");
 
-    // 反論をドラッグ可能にし､ドラッグ終了後の反論の位置をopinion_positionsテーブルに保存する
+    // 反論をドラッグ可能(ドラッグハンドルは｢〇〇さんの反論｣部分を指定｣)にし､ドラッグ終了後の反論の位置をopinion_positionsテーブルに保存する
     jsPlumb.draggable(`${refutation_id}`, {
+      handle: '.refutation_title',
+      
       stop: function(event) {
         savePosition(refutation_id, $(`#${refutation_id}`).position());
       }
