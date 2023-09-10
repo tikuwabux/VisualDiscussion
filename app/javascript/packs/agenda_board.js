@@ -383,7 +383,7 @@ jsPlumb.ready(function() {
     if (component.hasClass("jtk-connector") && component.sourceId.match(/refutation/)) {
       event.preventDefault();
       window.selectedConnection = component;
-      $("<div class='custom-menu'><button class='delete-connection'>Delete connection</button></div>")
+      $("<div class='custom-menu'><button class='delete-connection'>接続線を削除する</button></div>")
         .appendTo("body")
         .css({top: event.pageY + "px", left: event.pageX + "px"});
     }
