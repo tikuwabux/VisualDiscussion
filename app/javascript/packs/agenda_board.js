@@ -237,7 +237,9 @@ jsPlumb.ready(function() {
         endpoint: "Dot",
         anchor: "TopLeft",
         isSource: true,
-        connectionType: "red-connection"
+        connectionType: "red-connection",
+        paintStyle: { fill: "#456", radius: 10 },
+        endpointHoverStyle: { fill: "red", radius: 15 }
       });
     }
 
