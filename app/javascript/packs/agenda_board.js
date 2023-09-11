@@ -202,7 +202,7 @@ jsPlumb.ready(function() {
     // 反論をドラッグ可能(ドラッグハンドルは｢〇〇さんの反論｣部分を指定｣)にし､ドラッグ終了後の反論の位置をopinion_positionsテーブルに保存する
     jsPlumb.draggable(`${refutation_id}`, {
       handle: '.refutation_title',
-      
+
       stop: function(event) {
         savePosition(refutation_id, $(`#${refutation_id}`).position());
       }
@@ -407,6 +407,12 @@ jsPlumb.ready(function() {
     if (info.connection.sourceId.match(/refutation/)) {
       saveOpinionConnections(info.connection);
     }
+  });
+
+  // 新たな意見間の接続線が追加された時､リロードを実行する
+  jsPlumb.bind("beforeDrop", function(info) {
+      location.reload();
+      return true;
   });
 
   // 意見間の接続線の接続先が変更された時､リロードを実行する
