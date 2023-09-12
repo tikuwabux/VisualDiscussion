@@ -29,7 +29,7 @@ RSpec.describe "Arguments", type: :system, js: true do
       click_button "新規主張作成"
     end
 
-    describe "有効な｢結論｣,｢理由｣,｢証拠｣を入力して､｢新規主張を作成する｣ボタンを押すと" do
+    describe "有効な｢結論｣,｢理由｣,｢証拠｣を入力して､｢作成を完了する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "健康に悪い"
         fill_in "結論詳細", with: "体と心の健康に悪い"
@@ -37,7 +37,7 @@ RSpec.describe "Arguments", type: :system, js: true do
         fill_in "理由詳細", with: "青年期(15~30歳)の最適な起床時間は朝9時だから"
         fill_in "証拠", with: "ケリー博士の研究"
         fill_in "証拠詳細", with: "https://www.researchgate.net/profile/Paul-Kelley-4"
-        click_button "新規主張を作成する"
+        click_button "作成を完了する"
       end
 
       scenario "新たな主張が作成されること" do
@@ -49,33 +49,33 @@ RSpec.describe "Arguments", type: :system, js: true do
       end
     end
 
-    scenario "結論を入力せず,｢新規主張を作成する｣ボタンを押すと,警告メッセージが表示されること" do
+    scenario "結論を入力せず,｢作成を完了する｣ボタンを押すと,警告メッセージが表示されること" do
       fill_in "結論詳細", with: "体と心の健康に悪い"
       fill_in "理由", with: "人間の体内時計と噛み合っていないから"
       fill_in "理由詳細", with: "青年期(15~30歳)の最適な起床時間は朝9時だから"
       fill_in "証拠", with: "ケリー博士の研究"
       fill_in "証拠詳細", with: "https://www.researchgate.net/profile/Paul-Kelley-4"
-      click_button "新規主張を作成する"
+      click_button "作成を完了する"
       expect(page).to have_content "結論を入力してください"
     end
 
-    scenario "理由を入力せず,｢新規主張を作成する｣ボタンを押すと,警告メッセージが表示されること" do
+    scenario "理由を入力せず,｢作成を完了する｣ボタンを押すと,警告メッセージが表示されること" do
       fill_in "結論", with: "健康に悪い"
       fill_in "結論詳細", with: "体と心の健康に悪い"
       fill_in "理由詳細", with: "青年期(15~30歳)の最適な起床時間は朝9時だから"
       fill_in "証拠", with: "ケリー博士の研究"
       fill_in "証拠詳細", with: "https://www.researchgate.net/profile/Paul-Kelley-4"
-      click_button "新規主張を作成する"
+      click_button "作成を完了する"
       expect(page).to have_content "理由を入力してください"
     end
 
-    scenario "証拠を入力せず,｢新規主張を作成する｣ボタンを押すと,警告メッセージが表示されること" do
+    scenario "証拠を入力せず,｢作成を完了する｣ボタンを押すと,警告メッセージが表示されること" do
       fill_in "結論", with: "健康に悪い"
       fill_in "結論詳細", with: "体と心の健康に悪い"
       fill_in "理由", with: "人間の体内時計と噛み合っていないから"
       fill_in "理由詳細", with: "青年期(15~30歳)の最適な起床時間は朝9時だから"
       fill_in "証拠詳細", with: "https://www.researchgate.net/profile/Paul-Kelley-4"
-      click_button "新規主張を作成する"
+      click_button "作成を完了する"
       expect(page).to have_content "証拠を入力してください"
     end
   end
