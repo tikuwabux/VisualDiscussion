@@ -74,13 +74,15 @@ jsPlumb.ready(function() {
           endpoint: "Dot",
           anchor: "RightMiddle",
           isTarget: true,
-          connectionType: "red-connection"
+          connectionType: "red-connection",
+          paintStyle: { fill: "#dbc1db", radius: 15 }
         })
         jsPlumb.addEndpoint(`${conclusion_id}`, {
           endpoint: "Dot",
           anchor: "LeftMiddle",
           isTarget: true,
-          connectionType: "red-connection"
+          connectionType: "red-connection",
+          paintStyle: { fill: "#dbc1db", radius: 15 }
         })
 
         const reasons_of_conclusion = document.querySelectorAll(`.reason_of_${conclusion_id}`);
@@ -104,7 +106,8 @@ jsPlumb.ready(function() {
             endpoint: "Dot",
             anchor: "Center",
             isTarget: true,
-            connectionType: "red-connection"
+            connectionType: "red-connection",
+            paintStyle: { fill: "#dbc1db", radius: 15 },
           })
 
           // endpoint → 理由 間に接続線を引く
@@ -124,13 +127,15 @@ jsPlumb.ready(function() {
             endpoint: "Dot",
             anchor: "RightMiddle",
             isTarget: true,
-            connectionType: "red-connection"
+            connectionType: "red-connection",
+            paintStyle: { fill: "#dbc1db", radius: 15 },
           })
           jsPlumb.addEndpoint(`${reason_id}`, {
             endpoint: "Dot",
             anchor: "LeftMiddle",
             isTarget: true,
-            connectionType: "red-connection"
+            connectionType: "red-connection",
+            paintStyle: { fill: "#dbc1db", radius: 15 },
           })
 
           const evidences_of_reason = document.querySelectorAll(`.evidence_of_${reason_id}`);
@@ -153,7 +158,8 @@ jsPlumb.ready(function() {
               endpoint: "Dot",
               anchor: "Center",
               isTarget: true,
-              connectionType: "red-connection"
+              connectionType: "red-connection",
+              paintStyle: { fill: "#dbc1db", radius: 15 }
             })
 
             // endpoint → 証拠 間に接続線を引く
@@ -173,13 +179,15 @@ jsPlumb.ready(function() {
               endpoint: "Dot",
               anchor: "RightMiddle",
               isTarget: true,
-              connectionType: "red-connection"
+              connectionType: "red-connection",
+              paintStyle: { fill: "#dbc1db", radius: 15 }
             })
             jsPlumb.addEndpoint(`${evidence_id}`, {
               endpoint: "Dot",
               anchor: "LeftMiddle",
               isTarget: true,
-              connectionType: "red-connection"
+              connectionType: "red-connection",
+              paintStyle: { fill: "#dbc1db", radius: 15 }
             })
           });
         });
@@ -277,13 +285,15 @@ jsPlumb.ready(function() {
           endpoint: "Dot",
           anchor: "RightMiddle",
           isTarget: true,
-          connectionType: "red-connection"
+          connectionType: "red-connection",
+          paintStyle: { fill: "#95c4d6", radius: 15 }
         })
         jsPlumb.addEndpoint(`${ref_conclusion_id}`, {
           endpoint: "Dot",
           anchor: "LeftMiddle",
           isTarget: true,
-          connectionType: "red-connection"
+          connectionType: "red-connection",
+          paintStyle: { fill: "#95c4d6", radius: 15 }
         })
 
         const ref_reasons_of_ref_conclusion = document.querySelectorAll(`.ref_reason_of_${ref_conclusion_id}`);
@@ -306,6 +316,7 @@ jsPlumb.ready(function() {
             anchor: "Center",
             isTarget: true,
             connectionType: "red-connection",
+            paintStyle: { fill: "#95c4d6", radius: 15 }
           })
 
           jsPlumb.connect({
@@ -323,13 +334,15 @@ jsPlumb.ready(function() {
             endpoint: "Dot",
             anchor: "RightMiddle",
             isTarget: true,
-            connectionType: "red-connection"
+            connectionType: "red-connection",
+            paintStyle: { fill: "#95c4d6", radius: 15 }
           })
           jsPlumb.addEndpoint(`${ref_reason_id}`, {
             endpoint: "Dot",
             anchor: "LeftMiddle",
             isTarget: true,
-            connectionType: "red-connection"
+            connectionType: "red-connection",
+            paintStyle: { fill: "#95c4d6", radius: 15 }
           })
 
           const ref_evidences_of_ref_reason = document.querySelectorAll(`.ref_evidence_of_${ref_reason_id}`);
@@ -352,7 +365,8 @@ jsPlumb.ready(function() {
               endpoint: "Dot",
               anchor: "Center",
               isTarget: true,
-              connectionType: "red-connection"
+              connectionType: "red-connection",
+              paintStyle: { fill: "#95c4d6", radius: 15 }
             })
 
             jsPlumb.connect({
@@ -370,13 +384,15 @@ jsPlumb.ready(function() {
               endpoint: "Dot",
               anchor: "RightMiddle",
               isTarget: true,
-              connectionType: "red-connection"
+              connectionType: "red-connection",
+              paintStyle: { fill: "#95c4d6", radius: 15 }
             })
             jsPlumb.addEndpoint(`${ref_evidence_id}`, {
               endpoint: "Dot",
               anchor: "LeftMiddle",
               isTarget: true,
-              connectionType: "red-connection"
+              connectionType: "red-connection",
+              paintStyle: { fill: "#95c4d6", radius: 15 }
             })
           });
         });
