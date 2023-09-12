@@ -112,7 +112,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       end
     end
 
-    describe "有効な｢結論｣,｢理由｣,｢証拠｣を入力して､｢新規反論を作成する｣ボタンを押すと" do
+    describe "有効な｢結論｣,｢理由｣,｢証拠｣を入力して､｢作成を完了する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "理由部分に誤りがある"
         fill_in "結論詳細", with: "特になし"
@@ -120,7 +120,7 @@ RSpec.describe "Refutations", type: :system, js: true do
         fill_in "理由詳細", with: "特になし"
         fill_in "証拠", with: "8155名のMSFsc調査結果"
         fill_in "証拠詳細", with: "特になし"
-        click_button "新規反論を作成する"
+        click_button "作成を完了する"
       end
 
       scenario "新たな反論が作成されること" do
@@ -139,7 +139,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       fill_in "理由詳細", with: "特になし"
       fill_in "証拠", with: "8155名のMSFsc調査結果"
       fill_in "証拠詳細", with: "特になし"
-      click_button "新規反論を作成する"
+      click_button "作成を完了する"
       expect(page).to have_content "結論を入力してください"
     end
 
@@ -150,7 +150,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       fill_in "理由詳細", with: "特になし"
       fill_in "証拠", with: "8155名のMSFsc調査結果"
       fill_in "証拠詳細", with: "特になし"
-      click_button "新規反論を作成する"
+      click_button "作成を完了する"
       expect(page).to have_content "理由を入力してください"
     end
 
@@ -161,7 +161,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       fill_in "理由詳細", with: "特になし"
       fill_in "証拠", with: nil
       fill_in "証拠詳細", with: "特になし"
-      click_button "新規反論を作成する"
+      click_button "作成を完了する"
       expect(page).to have_content "証拠を入力してください"
     end
   end
@@ -264,7 +264,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       end
     end
 
-    describe "有効な｢結論｣,｢理由｣,｢証拠｣を入力して､｢新規反論を作成する｣ボタンを押すと" do
+    describe "有効な｢結論｣,｢理由｣,｢証拠｣を入力して､｢作成を完了する｣ボタンを押すと" do
       before do
         fill_in "結論", with: "証拠と理由が繋がっていない"
         fill_in "結論詳細", with: "特になし"
@@ -273,7 +273,7 @@ RSpec.describe "Refutations", type: :system, js: true do
         fill_in "証拠", with: "提示された調査は､様々な年齢の人々(平均年齢は36.7歳)を対象にしたものなので､
         ｢体内時計は同年齢間においても個人差がある｣という理由の証拠として適当ではない"
         fill_in "証拠詳細", with: "特になし"
-        click_button "新規反論を作成する"
+        click_button "作成を完了する"
       end
 
       scenario "新たな反論が作成されること" do
@@ -293,7 +293,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       fill_in "証拠", with: "提示された調査は､様々な年齢の人々(平均年齢は36.7歳)を対象にしたものなので､
       ｢体内時計は同年齢間においても個人差がある｣という理由の証拠として適当ではない"
       fill_in "証拠詳細", with: "特になし"
-      click_button "新規反論を作成する"
+      click_button "作成を完了する"
       expect(page).to have_content "結論を入力してください"
     end
 
@@ -304,7 +304,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       fill_in "理由詳細", with: "特になし"
       fill_in "証拠", with: "8155名のMSFsc調査結果"
       fill_in "証拠詳細", with: "特になし"
-      click_button "新規反論を作成する"
+      click_button "作成を完了する"
       expect(page).to have_content "理由を入力してください"
     end
 
@@ -315,7 +315,7 @@ RSpec.describe "Refutations", type: :system, js: true do
       fill_in "理由詳細", with: "特になし"
       fill_in "証拠", with: nil
       fill_in "証拠詳細", with: "特になし"
-      click_button "新規反論を作成する"
+      click_button "作成を完了する"
       expect(page).to have_content "証拠を入力してください"
     end
   end
