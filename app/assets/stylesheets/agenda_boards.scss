@@ -12,6 +12,19 @@
   border-radius: 10px 10px 0 0;
 }
 
+.argument_title:hover {
+  filter: brightness(1.2);
+  cursor:-moz-grab;
+  cursor:-webkit-grab;
+  cursor: grab;
+}
+
+.argument_title:active {
+  cursor:-moz-grabbing;
+  cursor:-webkit-grabbing;
+  cursor: grabbing;
+}
+
 .refutation_title {
   background: #0094D6;
   color: #FFF;
@@ -19,6 +32,19 @@
   display:inline-block;
   padding: .3em .5em;
   border-radius: 10px 10px 0 0;
+}
+
+.refutation_title:hover {
+  filter: brightness(1.5);
+  cursor:-moz-grab;
+  cursor:-webkit-grab;
+  cursor: grab;
+}
+
+.refutation_title:active {
+  cursor:-moz-grabbing;
+  cursor:-webkit-grabbing;
+  cursor: grabbing;
 }
 
 .tree_structure {
