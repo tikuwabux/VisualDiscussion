@@ -94,11 +94,11 @@ RSpec.describe "Users", type: :system do
         click_on "ユーザー情報編集"
       end
 
-      describe "変更したい項目に有効な値を入力し､それに加えて現在のパスワードを入力して､｢編集する｣ボタンを押すと" do
+      describe "変更したい項目に有効な値を入力し､それに加えて現在のパスワードを入力して､｢編集を完了する｣ボタンを押すと" do
         before do
           fill_in "ニックネーム", with: "anniexxx"
           fill_in "現在のパスワード", with: annie.password
-          click_button "編集する"
+          click_button "編集を完了する"
         end
 
         scenario "通知メッセージが表示されること" do
@@ -117,19 +117,19 @@ RSpec.describe "Users", type: :system do
         end
       end
 
-      scenario "ニックネームを入力せず､｢編集する｣ボタンを押すと､警告メッセージが表示されること" do
+      scenario "ニックネームを入力せず､｢編集を完了する｣ボタンを押すと､警告メッセージが表示されること" do
         fill_in "ニックネーム", with: nil
         fill_in "メールアドレス", with: annie.email
         fill_in "現在のパスワード", with: annie.password
-        click_button "編集する"
+        click_button "編集を完了する"
         expect(page).to have_content "ニックネームを入力してください"
       end
 
-      scenario "重複するニックネームを入力して､｢編集する｣ボタンを押すと､警告メッセージが表示されること" do
+      scenario "重複するニックネームを入力して､｢編集を完了する｣ボタンを押すと､警告メッセージが表示されること" do
         brian
         fill_in "ニックネーム", with: "brian"
         fill_in "現在のパスワード", with: annie.password
-        click_button "編集する"
+        click_button "編集を完了する"
         expect(page).to have_content "ニックネームはすでに存在します"
       end
     end
