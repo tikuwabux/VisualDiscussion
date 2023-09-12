@@ -158,6 +158,11 @@
   right: 150px;
 }
 
+.create_new_argument_button:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+
 td {
   text-align: center;
 }
