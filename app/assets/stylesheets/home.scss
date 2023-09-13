@@ -116,6 +116,11 @@
   }
 }
 
+.top_page_button:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+
 footer {
   background-color: #ADD8E6;
   width: 100%;

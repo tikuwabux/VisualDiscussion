@@ -49,6 +49,10 @@ header {
         height: 60px;
         border-radius: 50px;
       }
+
+      img:hover {
+        filter: brightness(5.0);
+      }
     }
 
     nav {
@@ -56,6 +60,10 @@ header {
       display: flex;
       justify-content: space-between;
       gap: 20px;
+    }
+
+    .link_in_header:hover {
+      filter: brightness(3.0);
     }
   }
 }

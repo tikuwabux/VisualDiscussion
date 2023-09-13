@@ -54,9 +54,9 @@
   </div>
   <div class="information_wrapper">
     <% if current_user %>
-      <%= link_to '新たな議題ボードを作成する', new_agenda_board_path %>
+      <%= link_to '新たな議題ボードを作成する', new_agenda_board_path, class: 'top_page_button' %>
     <% else %>
-      <%= link_to '新規登録して議題ボードを作成する', sign_up_path %>
+      <%= link_to '新規登録して議題ボードを作成する', sign_up_path, class: 'top_page_button' %>
     <% end %>
     <% if current_user %>
       <div class="search_area">
@@ -65,19 +65,19 @@
           <%= search_form_for @search, url: category_search_agenda_boards_path do |form| %>
             <%= form.select :category_cont, options_for_select(["ビジネス", "哲学", "歴史", "社会科学", "自然科学", "技術・工学", "産業", "芸術・美術", "言語", "文学", "その他"], selected: @search.category_cont), {include_blank: '選択してください'}, { id: "agenda_board_search_category" } %>
             <br>
-            <%= form.submit 'カテゴリ名で検索'%>
+            <%= form.submit 'カテゴリ名で検索', class: 'top_page_button' %>
           <% end %>
           <%= search_form_for @search, url: agenda_search_agenda_boards_path do |form| %>
             <%= form.search_field :agenda_cont, placeholder: '議題名(複数単語可)' %>
             <br>
-            <%= form.submit '議題名で検索' %>
+            <%= form.submit '議題名で検索', class: 'top_page_button' %>
           <% end %>
         </div>
       </div>
     <% else %>
       <div class="login_area">
-        <%= link_to 'ログインする', sign_in_path %>
-        <%= link_to 'ゲストログインする', users_guest_sign_in_path, method: :post %>
+        <%= link_to 'ログインする', sign_in_path, class: 'top_page_button' %>
+        <%= link_to 'ゲストログインする', users_guest_sign_in_path, method: :post, class: 'top_page_button' %>
       </div>
     <% end %>
   </div>
