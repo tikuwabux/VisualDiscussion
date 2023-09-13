@@ -23,8 +23,8 @@
       <div class="three_visualized_information">
         <div class="visualized_information">
           <h3>① 意見の種類</h3>
-          <%= image_tag "visualized_info1_1.png", width: "100%" %>
-          <%= image_tag "visualized_info1_2.png", width: "100%" %>
+            <%= image_tag "visualized_info1_1.png", width: "100%" %>
+            <%= image_tag "visualized_info1_2.png", width: "100%" %>
           <p>意見を｢主張｣と｢反論｣の2種類に大別し､<br>
             両者を色で判別できるよう､<br>
             ｢主張｣を｢青｣､｢反論｣を｢ピンク｣で色分け</p>
@@ -41,11 +41,14 @@
             どの要素に対して､<br>
             批判を提示しているのか
           </h3>
-            <%= image_tag "visualized_info3.png", width: "100%" %>
+            <div class="red_connection_images">
+              <%= image_tag "visualized_info3_1.png", width: "50%" %>
+              <%= image_tag "visualized_info3_2.png", width: "50%" %>
+            </div>
           <p>反論左上の｢●｣から､<br>
             意見中の｢結論｣｢理由｣｢証拠｣要素の<br>
-            左右の｢●｣や､<br>
-            各要素間の｢●｣に向けて､<br>
+            左右の｢<span class="pink_endpoint">●</span>  or  <span class="blue_endpoint">●</span>｣や､<br>
+            各要素間の｢<span class="pink_endpoint">●</span>  or  <span class="blue_endpoint">●</span>｣に向けて､<br>
             赤色の接続線を引くことが可能
           </p>
         </div>

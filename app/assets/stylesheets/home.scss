@@ -61,14 +61,27 @@
 }
 
 .visualized_information {
-  width: 33%;
+  width: 30%;
   display: flex;
   flex-flow: column;
   justify-content: space-between;
   gap: 20px;
 
+  .red_connection_images {
+    display: flex;
+    gap: 40px;
+  }
+
   p {
     font-size: 15px;
+
+    .pink_endpoint {
+      color: #dbc1db;
+    }
+
+    .blue_endpoint {
+      color: #95c4d6;
+    }
   }
 }
 
