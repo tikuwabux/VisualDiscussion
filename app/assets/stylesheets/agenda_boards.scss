@@ -208,3 +208,17 @@ td {
     cursor: grabbing;
   }
 }
+
+// 議題ボード一覧ページ
+.agenda_board_index_title {
+  white-space: nowrap;
+}
+
+table {
+  white-space: nowrap;
+}
+
+table th:first-child, table td:first-child {
+  white-space: normal;
+  min-width: 200px;
+}
