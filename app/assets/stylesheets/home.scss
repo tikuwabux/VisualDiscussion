@@ -120,6 +120,14 @@
   font-weight: bold;
 }
 
+@media screen and (max-width: 767px) {
+  .login_area {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+}
+
 .login_area a {
   margin: 0 20px;
 }
@@ -128,6 +136,12 @@
   display: flex;
   justify-content: center;
   gap: 100px;
+
+  @media screen and (max-width: 767px) {
+    margin-top: 30px;
+    flex-direction: column;
+    gap: 10px;
+  }
 
   input, select{
     background-color: #ADD8E6;
