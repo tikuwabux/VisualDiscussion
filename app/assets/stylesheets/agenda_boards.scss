@@ -3,6 +3,13 @@
   text-align: left;
 }
 
+@media screen and (max-width: 1079px) {
+  .argument input ,.refutation input {
+    padding: 30px 10px;
+    font-size: large;
+  }
+}
+
 .argument_title {
   background: #CC99CC;
   color: #FFF;
