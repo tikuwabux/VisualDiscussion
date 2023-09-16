@@ -1,18 +1,18 @@
 <div class="container">
   <div class="top_wrapper">
-    <h1>さあ､｢視える｣ディスカッションをはじめよう!!</h1>
+    <h2>さあ､｢視える｣ディスカッションをはじめよう!!</h2>
     <%= image_tag "discussion_image.png", width: "100%" %>
   </div>
   <div class="main_wrapper">
     <div class="usage_explanation">
-      <h2>【 VisuDis使い方解説動画 】</h2>
+      <h2>【VisuDis使い方解説動画】</h2>
+      <p>※ 音声無し､字幕のみの解説動画です｡</p>
       <p>※ PCでアプリを使用しながら解説しています｡</p>
-      <p>※ 音声は無く､字幕のみの動画となっています｡</p>
       <p class="red_annotation">※ 本アプリはPCでの使用を強く推奨します｡</p>
       <%= video_tag "/videos/sample_movie.mp4", controls: true, muted: true, width: "100%", class: "sample_movie" %>
     </div>
     <div class="overview">
-      <h1>VisuDisuとは?</h1>
+      <h2>VisuDisuとは?</h2>
       <ul>
         <li><strong>文章のやりとりを通じてディスカッションを行いたい人</strong>  に向けた､</li>
         <li><strong>視覚的に分かりやすいディスカッションを行う</strong>  ための､</li>
@@ -20,7 +20,7 @@
       </ul>
     </div>
     <div class="sales_point">
-      <h1>｢視える｣ディスカッションを実現するために､3つの情報を視覚化</h1>
+      <h2>｢視える｣ディスカッションを実現するために､3つの情報を視覚化</h2>
       <div class="three_visualized_information">
         <div class="visualized_information">
           <h3>① 意見の種類</h3>
@@ -38,7 +38,7 @@
           </p>
         </div>
         <div class="visualized_information">
-          <h3>③  どの反論が､どの意見の､<br>
+          <h3>③ どの反論が､どの意見の<br>
             どの要素に対して､<br>
             批判を提示しているのか
           </h3>
@@ -60,7 +60,7 @@
     <% if current_user %>
       <%= link_to '新たな議題ボードを作成する', new_agenda_board_path, class: 'top_page_button' %>
     <% else %>
-      <%= link_to '新規登録して議題ボードを作成する', sign_up_path, class: 'top_page_button' %>
+      <%= link_to 'サインアップする', sign_up_path, class: 'top_page_button' %>
     <% end %>
     <% if current_user %>
       <div class="search_area">

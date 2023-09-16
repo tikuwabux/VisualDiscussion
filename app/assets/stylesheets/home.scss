@@ -1,5 +1,5 @@
 .top_wrapper {
-  h1 {
+  h2 {
     margin-bottom: 20px;
   }
 }
@@ -17,6 +17,10 @@
 .usage_explanation {
   text-align: left;
 
+  p {
+    font-size: 15px;
+  }
+
   .red_annotation {
     color: red;
     font-weight: bold;
@@ -24,7 +28,7 @@
 }
 
 .overview {
-  h1 {
+  h2 {
     width: fit-content;
     text-align: left;
     margin-bottom: 30px;
@@ -38,7 +42,7 @@
 
   li {
     margin-bottom: 20px;
-    font-size: 25px;
+    font-size: 20px;
   }
 }
 
@@ -47,7 +51,7 @@
   flex-flow: column;
   align-items: center;
 
-  h1 {
+  h2 {
     margin-bottom: 30px;
     border-bottom: 3px solid  #ADD8E6;
     width: fit-content;
@@ -120,16 +124,18 @@
   font-weight: bold;
 }
 
+.login_area a {
+  margin: 0 20px;
+  width: fit-content;
+}
+
 @media screen and (max-width: 767px) {
   .login_area {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 30px;
   }
-}
-
-.login_area a {
-  margin: 0 20px;
 }
 
 .search_forms {
