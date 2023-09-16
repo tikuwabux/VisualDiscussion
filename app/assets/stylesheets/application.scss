@@ -128,7 +128,7 @@ header {
 
 .hamburger span {
   width: 100%;
-  height: 1px;
+  height: 2px;
   background-color: #000;
   position: relative;
   transition: ease .4s;
@@ -148,7 +148,7 @@ header {
 }
 
 .hamburger.active span:nth-child(1) {
-  top: 5px;
+  top: 6px;
   transform: rotate(45deg);
   background-color: white;
 }
@@ -158,7 +158,7 @@ header {
 }
 
 .hamburger.active span:nth-child(3) {
-  top: -13px;
+  top: -14px;
   transform: rotate(-45deg);
   background-color: white;
 }
