@@ -20,7 +20,7 @@ RSpec.describe "Users", type: :system do
           fill_in "メールアドレス", with: "benny@example.com"
           fill_in "パスワード", with: 123456
           fill_in "確認用パスワード", with: 123456
-          click_button "登録を完了する"
+          click_button "サインアップを完了する"
         end
 
         scenario "通知メッセージが表示されること" do
@@ -39,7 +39,7 @@ RSpec.describe "Users", type: :system do
         fill_in "メールアドレス", with: "benny@example.com"
         fill_in "パスワード", with: 123456
         fill_in "確認用パスワード", with: 123456
-        click_button "登録を完了する"
+        click_button "サインアップを完了する"
         expect(page).to have_content "ニックネームを入力してください"
       end
 
@@ -49,7 +49,7 @@ RSpec.describe "Users", type: :system do
         fill_in "メールアドレス", with: "benny@example.com"
         fill_in "パスワード", with: 123456
         fill_in "確認用パスワード", with: 123456
-        click_button "登録を完了する"
+        click_button "サインアップを完了する"
         expect(page).to have_content "ニックネームはすでに存在します"
       end
     end
