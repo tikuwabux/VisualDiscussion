@@ -53,7 +53,7 @@ RSpec.describe "Home", type: :system do
         click_on "ログイン"
         fill_in "メールアドレス", with: annie.email
         fill_in "パスワード", with: annie.password
-        click_button "ログイン"
+        click_button "ログインを完了する"
       end
 
       scenario "ユーザー情報編集リンクを押すと､ユーザー情報編集ページに遷移すること" do

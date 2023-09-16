@@ -63,7 +63,7 @@ RSpec.describe "Users", type: :system do
         before do
           fill_in "メールアドレス", with: annie.email
           fill_in "パスワード", with: annie.password
-          click_button "ログイン"
+          click_button "ログインを完了する"
         end
 
         scenario "通知メッセージが表示されること" do
@@ -86,7 +86,7 @@ RSpec.describe "Users", type: :system do
       click_on "ログイン"
       fill_in "メールアドレス", with: annie.email
       fill_in "パスワード", with: annie.password
-      click_button "ログイン"
+      click_button "ログインを完了する"
     end
 
     describe "ユーザー情報編集リンク押下後" do

@@ -59,7 +59,7 @@ RSpec.describe "AgendaBoards", type: :system do
     click_on "ログイン"
     fill_in "メールアドレス", with: annie.email
     fill_in "パスワード", with: annie.password
-    click_button "ログイン"
+    click_button "ログインを完了する"
   end
 
   describe "新規議題ボード作成ページアクセス後" do

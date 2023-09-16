@@ -68,7 +68,7 @@ RSpec.describe "Refutations", type: :system, js: true do
     click_on "ログイン"
     fill_in "メールアドレス", with: annie.email
     fill_in "パスワード", with: annie.password
-    click_button "ログイン"
+    click_button "ログインを完了する"
     click_on "#{annie.name}さんが作成した議題ボード"
     click_on about_early_bird.agenda
 
