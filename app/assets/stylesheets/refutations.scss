@@ -29,6 +29,10 @@ textarea {
 .create_new_refutation, .edit_existing_refutation {
   display: flex;
   gap: 70px;
+
+  @media screen and (max-width: 1079px) {
+    flex-direction: column;
+  }
 }
 
 .rebuttal_target_argument, .rebuttal_target_refutation, .create_new_refutation_form, .edit_existing_refutation_form {
