@@ -21,14 +21,14 @@
           <% if current_user.id == agenda_board.user_id && agenda_board.conclusions == [] && agenda_board.ref_conclusions == [] %>
             <%= link_to "編集", edit_agenda_board_path(agenda_board.id) %>
           <% else %>
-            編集不可
+            不可
           <% end %>
         </td>
         <td>
           <% if current_user.id == agenda_board.user_id && agenda_board.conclusions == [] && agenda_board.ref_conclusions == [] %>
             <%= link_to "削除", agenda_board_path(agenda_board.id), method: :delete %>
           <% else %>
-            削除不可
+            不可
           <% end %>
         </td>
         <td>

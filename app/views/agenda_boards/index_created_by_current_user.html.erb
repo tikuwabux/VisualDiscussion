@@ -1,6 +1,6 @@
 <div class="container">
   <div class="index_created_by_current_user">
-    <h3 class="agenda_board_index_title"><%= current_user.name %>さんの作成した議題ボード一覧</h3>
+    <h3 class="agenda_board_index_title"><%= current_user.name %>さんが作成した議題ボード一覧</h3>
     <table>
       <thead>
         <tr>
@@ -22,14 +22,14 @@
             <% if user_created_agenda_board.conclusions == [] && user_created_agenda_board.ref_conclusions == [] %>
               <%= link_to "編集", edit_agenda_board_path(user_created_agenda_board.id) %>
             <% else %>
-              編集不可
+              不可
             <% end %>
           </td>
           <td>
             <% if user_created_agenda_board.conclusions == [] && user_created_agenda_board.ref_conclusions == [] %>
               <%= link_to "削除", agenda_board_path(user_created_agenda_board.id), method: :delete %>
             <% else %>
-              削除不可
+              不可
             <% end %>
           </td>
           <td>

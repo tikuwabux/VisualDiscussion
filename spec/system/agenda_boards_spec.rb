@@ -59,7 +59,7 @@ RSpec.describe "AgendaBoards", type: :system do
     click_on "ログイン"
     fill_in "メールアドレス", with: annie.email
     fill_in "パスワード", with: annie.password
-    click_button "ログイン"
+    click_button "ログインを完了する"
   end
 
   describe "新規議題ボード作成ページアクセス後" do
@@ -67,11 +67,11 @@ RSpec.describe "AgendaBoards", type: :system do
       click_on "新規議題ボード作成"
     end
 
-    describe "有効な議題を入力し､カテゴリを選択後､｢議題ボードを作成する｣ボタンを押すと" do
+    describe "有効な議題を入力し､カテゴリを選択後､｢作成を完了する｣ボタンを押すと" do
       before do
         fill_in "議題", with: "なぜ空は青いのか?"
         select "自然科学", from: "agenda_board_category"
-        click_button "議題ボードを作成する"
+        click_button "作成を完了する"
       end
 
       scenario "通知メッセージが表示されること" do
@@ -83,9 +83,9 @@ RSpec.describe "AgendaBoards", type: :system do
       end
     end
 
-    scenario "議題を入力せず､カテゴリを選択し､｢議題ボードを作成する｣ボタンを押すと､警告メッセージが表示されること" do
+    scenario "議題を入力せず､カテゴリを選択し､｢作成を完了する｣ボタンを押すと､警告メッセージが表示されること" do
       select "自然科学", from: "agenda_board_category"
-      click_button "議題ボードを作成する"
+      click_button "作成を完了する"
       expect(page).to have_content "議題を入力してください"
     end
 
@@ -93,7 +93,7 @@ RSpec.describe "AgendaBoards", type: :system do
       about_early_bird
       fill_in "議題", with: "早起きは健康によいのか?"
       select "自然科学", from: "agenda_board_category"
-      click_button "議題ボードを作成する"
+      click_button "作成を完了する"
       expect(page).to have_content "議題はすでに存在します"
     end
   end
@@ -439,11 +439,11 @@ RSpec.describe "AgendaBoards", type: :system do
       end
     end
 
-    describe "有効な議題を入力し､カテゴリを選択後､｢議題ボードを作成する｣ボタンを押すと" do
+    describe "有効な議題を入力し､カテゴリを選択後､｢作成を完了する｣ボタンを押すと" do
       before do
         fill_in "議題", with: "8時出社の会社員の場合､理想的な起床時間は何時か?"
         select "ビジネス", from: "agenda_board_category"
-        click_button "編集する"
+        click_button "編集を完了する"
       end
 
       scenario "通知メッセージが表示されること" do
@@ -455,18 +455,18 @@ RSpec.describe "AgendaBoards", type: :system do
       end
     end
 
-    scenario "議題を入力せず､カテゴリを選択し､｢編集する｣ボタンを押すと､警告メッセージが表示されること" do
+    scenario "議題を入力せず､カテゴリを選択し､｢編集を完了する｣ボタンを押すと､警告メッセージが表示されること" do
       fill_in "議題", with: nil
       select "自然科学", from: "agenda_board_category"
-      click_button "編集する"
+      click_button "編集を完了する"
       expect(page).to have_content "議題を入力してください"
     end
 
-    scenario "重複する議題を入力し､カテゴリを選択後､｢編集する｣ボタンを押すと､警告メッセージが表示されること" do
+    scenario "重複する議題を入力し､カテゴリを選択後､｢編集を完了する｣ボタンを押すと､警告メッセージが表示されること" do
       about_early_bird
       fill_in "議題", with: "早起きは健康によいのか?"
       select "自然科学", from: "agenda_board_category"
-      click_button "編集する"
+      click_button "編集を完了する"
       expect(page).to have_content "議題はすでに存在します"
     end
   end

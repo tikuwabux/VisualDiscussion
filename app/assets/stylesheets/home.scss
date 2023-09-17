@@ -1,21 +1,38 @@
 .top_wrapper {
-  h1 {
+  h2 {
     margin-bottom: 20px;
   }
 }
 
-.sales_point {
+.main_wrapper {
   margin-top: 20px;
   margin-bottom: 100px;
   display: flex;
+  flex-flow: column;
   justify-content: center;
-  gap: 100px;
   align-items: center;
+  gap: 100px;
+}
 
+.usage_explanation {
+  text-align: left;
+
+  p {
+    font-size: 15px;
+  }
+
+  .red_annotation {
+    color: red;
+    font-weight: bold;
+  }
+}
+
+.overview {
   h2 {
     width: fit-content;
     text-align: left;
     margin-bottom: 30px;
+    border-bottom: 3px solid  #ADD8E6;
   }
 
   ul {
@@ -26,6 +43,67 @@
   li {
     margin-bottom: 20px;
     font-size: 20px;
+  }
+}
+
+.sales_point {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+
+  h2 {
+    margin-bottom: 30px;
+    border-bottom: 3px solid  #ADD8E6;
+    width: fit-content;
+  }
+}
+
+.three_visualized_information {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+
+  @media screen and (max-width: 1079px) {
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+}
+
+.visualized_information {
+  width: 30%;
+  display: flex;
+  flex-flow: column;
+  justify-content: space-between;
+  gap: 20px;
+
+  @media screen and (max-width: 1079px) {
+    width: 70%;
+
+    img {
+      max-height: 400px;
+    }
+
+    .vertical_alignment_image {
+      max-height: 200px;
+    }
+  }
+
+  .red_connection_images {
+    display: flex;
+    gap: 40px;
+  }
+
+  p {
+    font-size: 15px;
+
+    .pink_endpoint {
+      color: #dbc1db;
+    }
+
+    .blue_endpoint {
+      color: #95c4d6;
+    }
   }
 }
 
@@ -48,12 +126,28 @@
 
 .login_area a {
   margin: 0 20px;
+  width: fit-content;
+}
+
+@media screen and (max-width: 767px) {
+  .login_area {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
 }
 
 .search_forms {
   display: flex;
   justify-content: center;
   gap: 100px;
+
+  @media screen and (max-width: 767px) {
+    margin-top: 30px;
+    flex-direction: column;
+    gap: 10px;
+  }
 
   input, select{
     background-color: #ADD8E6;
@@ -70,5 +164,20 @@
     border: 1px solid black;
     border-radius: 0px;
     font-size: 20px;
+  }
+}
+
+.top_page_button:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+
+footer {
+  background-color: #ADD8E6;
+  width: 100%;
+  padding: 10px 0;
+
+  p {
+    text-align: center;
   }
 }

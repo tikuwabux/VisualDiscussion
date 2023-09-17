@@ -3,6 +3,13 @@
   text-align: left;
 }
 
+@media screen and (max-width: 1079px) {
+  .argument input ,.refutation input {
+    padding: 30px 10px;
+    font-size: large;
+  }
+}
+
 .argument_title {
   background: #CC99CC;
   color: #FFF;
@@ -62,11 +69,11 @@
 }
 
 .box .inner {
-  padding: .5em;
+  padding: .5em 1.2em;
 }
 
 .ref_box .inner {
-  padding: .5em;
+  padding: .5em 1.2em;
 }
 
 .box {
@@ -132,6 +139,11 @@
   right: 150px;
 }
 
+.create_new_argument_button:hover {
+  filter: brightness(1.2);
+  cursor: pointer;
+}
+
 td {
   text-align: center;
 }
@@ -167,4 +179,47 @@ td {
 
 .agenda_board_show h1 {
   text-align: center;
+  min-width: 1080px;
+}
+
+#exchange_of_opinions {
+  .argument_title:hover {
+    filter: brightness(1.2);
+    cursor:-moz-grab;
+    cursor:-webkit-grab;
+    cursor: grab;
+  }
+
+  .argument_title:active {
+    cursor:-moz-grabbing;
+    cursor:-webkit-grabbing;
+    cursor: grabbing;
+  }
+
+  .refutation_title:hover {
+    filter: brightness(1.5);
+    cursor:-moz-grab;
+    cursor:-webkit-grab;
+    cursor: grab;
+  }
+
+  .refutation_title:active {
+    cursor:-moz-grabbing;
+    cursor:-webkit-grabbing;
+    cursor: grabbing;
+  }
+}
+
+// 議題ボード一覧ページ
+.agenda_board_index_title {
+  white-space: nowrap;
+}
+
+table {
+  white-space: nowrap;
+}
+
+table th:first-child, table td:first-child {
+  white-space: normal;
+  min-width: 200px;
 }

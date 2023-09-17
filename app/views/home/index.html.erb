@@ -1,26 +1,66 @@
 <div class="container">
   <div class="top_wrapper">
-    <h1>さあ､｢視える｣議論をはじめよう!!</h1>
-    <%= image_tag "discussion_image.png" %>
+    <h2>さあ､｢視える｣ディスカッションをはじめよう!!</h2>
+    <%= image_tag "discussion_image.png", width: "100%" %>
   </div>
   <div class="main_wrapper">
+    <div class="usage_explanation">
+      <h2>【VisuDis使い方解説動画】</h2>
+      <p>※ 音声無し､字幕のみの解説動画です｡</p>
+      <p>※ PCでアプリを使用しながら解説しています｡</p>
+      <p class="red_annotation">※ 本アプリはPCでの使用を強く推奨します｡</p>
+      <%= video_tag "/videos/sample_movie.mp4", controls: true, muted: true, width: "100%", class: "sample_movie" %>
+    </div>
+    <div class="overview">
+      <h2>VisuDisuとは?</h2>
+      <ul>
+        <li><strong>文章のやりとりを通じてディスカッションを行いたい人</strong>  に向けた､</li>
+        <li><strong>視覚的に分かりやすいディスカッションを行う</strong>  ための､</li>
+        <li><strong>ディスカッション情報を視覚化することに特化したコミュニュケーションアプリ</strong></li>
+      </ul>
+    </div>
     <div class="sales_point">
-      <div class="three_points">
-        <h2>以下の3点が一目で分かる!</h2>
-        <ul>
-          <li>① <strong>何</strong>(主張? 反論?) が､</li>
-          <li>② <strong>どこ</strong>(上? 下? 右? 左?)にあって､</li>
-          <li>③ <strong>どの部分</strong>(結論と理由の間?)に繋がっているのか</li>
-        </ul>
+      <h2>｢視える｣ディスカッション実現のために､3つの情報を視覚化</h2>
+      <div class="three_visualized_information">
+        <div class="visualized_information">
+          <h3>① 意見の種類</h3>
+            <%= image_tag "visualized_info1_1.png", width: "100%", class: "vertical_alignment_image" %>
+            <%= image_tag "visualized_info1_2.png", width: "100%", class: "vertical_alignment_image" %>
+          <p>意見を｢主張｣と｢反論｣の2種類に大別し､<br>
+            両者を色で判別できるよう､<br>
+            ｢主張｣を｢青｣､｢反論｣を｢ピンク｣で色分け</p>
+        </div>
+        <div class="visualized_information">
+          <h3>② 意見の構成</h3>
+          <%= image_tag "visualized_info2.png", width: "100%" %>
+          <p>意見の構成要素である｢結論｣｢理由｣｢証拠｣を<br>
+            ツリー型に配置
+          </p>
+        </div>
+        <div class="visualized_information">
+          <h3>③ どの反論が､どの意見の<br>
+            どの要素に対して､<br>
+            批判を提示しているのか
+          </h3>
+            <div class="red_connection_images">
+              <%= image_tag "visualized_info3_1.png", width: "50%" %>
+              <%= image_tag "visualized_info3_2.png", width: "50%" %>
+            </div>
+          <p>反論左上の｢●｣から､<br>
+            意見中の｢結論｣｢理由｣｢証拠｣要素の<br>
+            左右の｢<span class="pink_endpoint">●</span>  or  <span class="blue_endpoint">●</span>｣や､<br>
+            各要素間の｢<span class="pink_endpoint">●</span>  or  <span class="blue_endpoint">●</span>｣に向けて､<br>
+            赤色の接続線を引くことが可能
+          </p>
+        </div>
       </div>
-      <%= video_tag "/videos/sample_movie.mp4", controls: true, muted: true, width: "600", class: "sample_movie" %>
     </div>
   </div>
   <div class="information_wrapper">
     <% if current_user %>
-      <%= link_to '新たな議題ボードを作成する', new_agenda_board_path %>
+      <%= link_to '新たな議題ボードを作成する', new_agenda_board_path, class: 'top_page_button' %>
     <% else %>
-      <%= link_to '新規登録して議題ボードを作成する', sign_up_path %>
+      <%= link_to 'サインアップする', sign_up_path, class: 'top_page_button' %>
     <% end %>
     <% if current_user %>
       <div class="search_area">
@@ -29,20 +69,23 @@
           <%= search_form_for @search, url: category_search_agenda_boards_path do |form| %>
             <%= form.select :category_cont, options_for_select(["ビジネス", "哲学", "歴史", "社会科学", "自然科学", "技術・工学", "産業", "芸術・美術", "言語", "文学", "その他"], selected: @search.category_cont), {include_blank: '選択してください'}, { id: "agenda_board_search_category" } %>
             <br>
-            <%= form.submit 'カテゴリ名で検索'%>
+            <%= form.submit 'カテゴリ名で検索', class: 'top_page_button' %>
           <% end %>
           <%= search_form_for @search, url: agenda_search_agenda_boards_path do |form| %>
             <%= form.search_field :agenda_cont, placeholder: '議題名(複数単語可)' %>
             <br>
-            <%= form.submit '議題名で検索' %>
+            <%= form.submit '議題名で検索', class: 'top_page_button' %>
           <% end %>
         </div>
       </div>
     <% else %>
       <div class="login_area">
-        <%= link_to 'ログインする', sign_in_path %>
-        <%= link_to 'ゲストログインする', users_guest_sign_in_path, method: :post %>
+        <%= link_to 'ログインする', sign_in_path, class: 'top_page_button' %>
+        <%= link_to 'ゲストログインする', users_guest_sign_in_path, method: :post, class: 'top_page_button' %>
       </div>
     <% end %>
   </div>
 </div>
+<footer>
+  <p>&copy;  2023  齋藤真一</p>
+</footer>

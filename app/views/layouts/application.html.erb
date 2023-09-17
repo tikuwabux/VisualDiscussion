@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>VisualDiscussion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -14,32 +15,67 @@
           <%= link_to root_path do %>
             <%= image_tag "logo_image.png" %>
           <% end %>
-          <% if current_user %>
-            <%= search_form_for @search, url: category_search_agenda_boards_path do |form| %>
-              <%= form.select :category_cont, options_for_select(["ビジネス", "哲学", "歴史", "社会科学", "自然科学", "技術・工学", "産業", "芸術・美術", "言語", "文学", "その他"], selected: @search.category_cont), {include_blank: '選択してください'}, { id: "agenda_board_search_category" } %>
-              <br>
-              <%= form.submit 'カテゴリ名で検索'%>
-            <% end %>
-            <%= search_form_for @search, url: agenda_search_agenda_boards_path do |form| %>
-              <%= form.search_field :agenda_cont, placeholder: '議題名(複数単語可)' %>
-              <br>
-              <%= form.submit '議題名で検索' %>
-            <% end %>
-          <% end %>
         </div>
-        <nav>
-          <% if user_signed_in? %>
-            <%= link_to 'ユーザー情報編集', edit_user_registration_path %>
-            <%= link_to 'ログアウト', sign_out_path %>
-            <%= link_to '新規議題ボード作成', new_agenda_board_path %>
-            <%= link_to "#{current_user.name}さんが作成した議題ボード", current_user_created_agenda_boards_path %>
-            <%= link_to "#{current_user.name}さんが発言した議題ボード", current_user_posted_opinion_agenda_boards_path %>
-          <% else %>
-            <%= link_to 'サインアップ', sign_up_path %>
-            <%= link_to 'ログイン', sign_in_path %>
-            <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post %>
-          <% end %>
+        <nav class="header_nav" id="js-nav">
+          <ul class="nav_items">
+            <% if user_signed_in? %>
+              <li>
+                <%= search_form_for @search, url: category_search_agenda_boards_path do |form| %>
+                  <%= form.select :category_cont, options_for_select(["ビジネス", "哲学", "歴史", "社会科学", "自然科学", "技術・工学", "産業", "芸術・美術", "言語", "文学", "その他"], selected: @search.category_cont), {include_blank: '選択してください'}, { id: "agenda_board_search_category" } %>
+                  <br>
+                  <%= form.submit 'カテゴリ名で検索'%>
+                <% end %>
+              </li>
+              <li>
+                <%= search_form_for @search, url: agenda_search_agenda_boards_path do |form| %>
+                  <%= form.search_field :agenda_cont, placeholder: '議題名(複数単語可)' %>
+                  <br>
+                  <%= form.submit '議題名で検索' %>
+                <% end %>
+              </li>
+              <li>
+                <%= link_to edit_user_registration_path, class: 'link_in_header' do %>
+                  ユーザー<br>情報編集
+                <% end %>
+              </li>
+              <li>
+                <%= link_to sign_out_path, class: 'link_in_header' do %>
+                  ログ<br>アウト
+                <% end %>
+              </li>
+              <li>
+                <%= link_to new_agenda_board_path, class: 'link_in_header' do %>
+                  新規議題<br>ボード作成
+                <% end %>
+              </li>
+              <li>
+                <%= link_to current_user_created_agenda_boards_path, class: 'link_in_header' do %>
+                  <%= current_user.name %>さんが<br>作成した議題ボード
+                <% end %>
+              </li>
+              <li>
+                <%= link_to current_user_posted_opinion_agenda_boards_path, class: 'link_in_header' do %>
+                  <%= current_user.name%>さんが<br>発言した議題ボード
+                <% end %>
+              </li>
+            <% else %>
+              <li>
+                <%= link_to 'サインアップ', sign_up_path, class: 'link_in_header' %>
+              </li>
+              <li>
+                <%= link_to 'ログイン', sign_in_path, class: 'link_in_header' %>
+              </li>
+              <li>
+                <%= link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'link_in_header' %>
+              </li>
+            <% end %>
+          </ul>
         </nav>
+        <button class="header_hamburger hamburger" id="js-hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </div>
     </header>
     <div class="flash_message_block">
@@ -55,8 +91,5 @@
     <main>
       <%= yield %>
     <main>
-    <footer>
-      <h4>@2023/7/15 Visual Discussion</h4>
-    </footer>
   </body>
 </html>

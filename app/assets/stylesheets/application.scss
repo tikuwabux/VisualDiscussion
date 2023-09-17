@@ -41,22 +41,126 @@ header {
     padding: 0 40px;
 
     .header_left {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-
       img {
         height: 60px;
         border-radius: 50px;
       }
+
+      img:hover {
+        filter: brightness(5.0);
+      }
     }
 
-    nav {
+    .nav_items {
+      text-align: center;
       display: flex;
       justify-content: space-between;
       gap: 20px;
+
+      @media screen and (max-width: 1079px) {
+        padding-top: 100px;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      input {
+        width: 140px;
+      }
+    }
+
+    .link_in_header:hover {
+      filter: brightness(3.0);
     }
   }
+}
+
+/* 1079px以下のときは､ header_navを右の画面外に飛ばし､active時に画面内に戻す */
+@media screen and (max-width: 1079px) {
+  .header_nav {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: fit-content;
+    height: 100vh;
+    transform: translateX(100%);
+    background-color: #050a30;
+    transition: ease .4s;
+
+    .link_in_header {
+      display: block;
+      border-radius: 30px;
+      width: 150px;
+      padding: 5px 0px;
+      background-color: #050a30;
+      color: white;
+      border-bottom: white 2px solid;
+      font-weight: bold;
+      font-size: 14px;
+    }
+  }
+
+  .header_nav.active {
+    transform: translateX(0);
+  }
+}
+
+/* 1079px以下のときのみ､ハンバーガーメニューを表示 */
+.header_hamburger {
+  display: none;
+
+  @media screen and (max-width: 1079px) {
+    display: block;
+    width: 48px;
+    height: 100%;
+  }
+}
+
+/*ハンバーガーメニューのレイアウト*/
+.hamburger {
+  background-color: transparent;
+  border-color: transparent;
+  z-index: 9999;
+}
+
+.hamburger:hover {
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 2px;
+  background-color: #000;
+  position: relative;
+  transition: ease .4s;
+  display: block;
+}
+
+.hamburger span:nth-child(1) {
+  top: 0;
+}
+
+.hamburger span:nth-child(2) {
+  margin: 8px 0;
+}
+
+.hamburger span:nth-child(3) {
+  top: 0;
+}
+
+.hamburger.active span:nth-child(1) {
+  top: 6px;
+  transform: rotate(45deg);
+  background-color: white;
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  top: -14px;
+  transform: rotate(-45deg);
+  background-color: white;
 }
 
 .flash_message_block {
@@ -77,8 +181,9 @@ header {
 }
 
 main {
+
   .container {
-    width: 80%;
+    width: 90%;
     margin: 0 auto;
     margin-top: 150px;
     margin-bottom: 150px;
@@ -101,18 +206,5 @@ main {
         height: 100%;
       }
     }
-  }
-}
-
-footer {
-  background-color: #ADD8E6;
-  width: 100%;
-  padding: 10px 0;
-  position: fixed;
-  bottom: 0;
-  z-index: -1;
-
-  h4 {
-    text-align: center;
   }
 }

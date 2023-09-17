@@ -1,10 +1,8 @@
 <div class="container">
   <div class="edit_existing_agenda_board">
+    <h3>議題ボード編集ページ</h3>
     <%= form_with model: @agenda_board, local: true do |form| %>
       <table>
-        <tr>
-          <th>議題ボード編集フォーム</th>
-        </tr>
         <tr>
           <td><%= form.hidden_field :user_id, value: current_user.id %></td>
         </tr>
@@ -17,7 +15,7 @@
           <td><%= form.select :category, [ ["ビジネス", "ビジネス"], ["哲学", "哲学"], ["歴史", "歴史"], ["社会科学", "社会科学"], ["自然科学", "自然科学"], ["技術・工学", "技術・工学"], ["産業", "産業"], ["芸術・美術", "芸術・美術"], ["言語", "言語"], ["文学", "文学"], ["その他", "その他"]] %></td>
         </tr>
         <tr>
-          <th><%= form.submit "編集する"%></th>
+          <th><%= form.submit "編集を完了する" %></th>
         </tr>
       </table>
     <% end %>

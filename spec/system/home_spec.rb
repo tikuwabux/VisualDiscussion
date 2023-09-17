@@ -31,8 +31,8 @@ RSpec.describe "Home", type: :system do
         expect(page).to have_current_path root_path
       end
 
-      scenario "｢新規登録して議題ボードを作成する｣リンクを押すと､サインアップページに遷移すること" do
-        click_on '新規登録して議題ボードを作成する'
+      scenario "｢サインアップする｣リンクを押すと､サインアップページに遷移すること" do
+        click_on 'サインアップする'
         expect(page).to have_current_path sign_up_path
       end
 
@@ -53,7 +53,7 @@ RSpec.describe "Home", type: :system do
         click_on "ログイン"
         fill_in "メールアドレス", with: annie.email
         fill_in "パスワード", with: annie.password
-        click_button "ログイン"
+        click_button "ログインを完了する"
       end
 
       scenario "ユーザー情報編集リンクを押すと､ユーザー情報編集ページに遷移すること" do

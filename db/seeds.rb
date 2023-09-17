@@ -116,8 +116,8 @@ RefConclusion.create!(
   agenda_board_id: 1,
   user_id: 2,
   conclusion_id: 1,
-  ref_conclusion_summary: '提示された､｢体内時計的に最適な起床時間｣は誤りである｡',
-  ref_conclusion_detail: '体内時計は同年齢間においても個人差があり､一律ではないから'
+  ref_conclusion_summary: '理由詳細の部分に誤りがある｡',
+  ref_conclusion_detail: '提示された､｢体内時計的に最適な起床時間｣は誤りである｡'
 )
 
 RefReason.create!(

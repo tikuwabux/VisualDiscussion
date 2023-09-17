@@ -6,8 +6,10 @@ jsPlumb.ready(function() {
   all_arguments.forEach( function( argument ) {
     const argument_id = argument.getAttribute("id");
 
-    // 主張をドラッグ可能にし､ドラッグ終了後の主張の位置をopinion_positionsテーブルに保存する
+    // 主張をドラッグ可能(ドラッグハンドルは｢〇〇さんの主張｣部分を指定)にし､ドラッグ終了後の主張の位置をopinion_positionsテーブルに保存する
     jsPlumb.draggable(`${argument_id}`, {
+      handle: '.argument_title',
+
       stop: function(event) {
         savePosition(argument_id, $(`#${argument_id}`).position());
       }
@@ -72,13 +74,15 @@ jsPlumb.ready(function() {
           endpoint: "Dot",
           anchor: "RightMiddle",
           isTarget: true,
-          connectionType: "red-connection"
+          connectionType: "red-connection",
+          paintStyle: { fill: "#dbc1db", radius: 15 }
         })
         jsPlumb.addEndpoint(`${conclusion_id}`, {
           endpoint: "Dot",
           anchor: "LeftMiddle",
           isTarget: true,
-          connectionType: "red-connection"
+          connectionType: "red-connection",
+          paintStyle: { fill: "#dbc1db", radius: 15 }
         })
 
         const reasons_of_conclusion = document.querySelectorAll(`.reason_of_${conclusion_id}`);
@@ -102,7 +106,8 @@ jsPlumb.ready(function() {
             endpoint: "Dot",
             anchor: "Center",
             isTarget: true,
-            connectionType: "red-connection"
+            connectionType: "red-connection",
+            paintStyle: { fill: "#dbc1db", radius: 15 },
           })
 
           // endpoint → 理由 間に接続線を引く
@@ -122,13 +127,15 @@ jsPlumb.ready(function() {
             endpoint: "Dot",
             anchor: "RightMiddle",
             isTarget: true,
-            connectionType: "red-connection"
+            connectionType: "red-connection",
+            paintStyle: { fill: "#dbc1db", radius: 15 },
           })
           jsPlumb.addEndpoint(`${reason_id}`, {
             endpoint: "Dot",
             anchor: "LeftMiddle",
             isTarget: true,
-            connectionType: "red-connection"
+            connectionType: "red-connection",
+            paintStyle: { fill: "#dbc1db", radius: 15 },
           })
 
           const evidences_of_reason = document.querySelectorAll(`.evidence_of_${reason_id}`);
@@ -151,7 +158,8 @@ jsPlumb.ready(function() {
               endpoint: "Dot",
               anchor: "Center",
               isTarget: true,
-              connectionType: "red-connection"
+              connectionType: "red-connection",
+              paintStyle: { fill: "#dbc1db", radius: 15 }
             })
 
             // endpoint → 証拠 間に接続線を引く
@@ -171,13 +179,15 @@ jsPlumb.ready(function() {
               endpoint: "Dot",
               anchor: "RightMiddle",
               isTarget: true,
-              connectionType: "red-connection"
+              connectionType: "red-connection",
+              paintStyle: { fill: "#dbc1db", radius: 15 }
             })
             jsPlumb.addEndpoint(`${evidence_id}`, {
               endpoint: "Dot",
               anchor: "LeftMiddle",
               isTarget: true,
-              connectionType: "red-connection"
+              connectionType: "red-connection",
+              paintStyle: { fill: "#dbc1db", radius: 15 }
             })
           });
         });
@@ -197,8 +207,10 @@ jsPlumb.ready(function() {
   all_refutations.forEach( function( refutation ) {
     const refutation_id = refutation.getAttribute("id");
 
-    // 反論をドラッグ可能にし､ドラッグ終了後の反論の位置をopinion_positionsテーブルに保存する
+    // 反論をドラッグ可能(ドラッグハンドルは｢〇〇さんの反論｣部分を指定｣)にし､ドラッグ終了後の反論の位置をopinion_positionsテーブルに保存する
     jsPlumb.draggable(`${refutation_id}`, {
+      handle: '.refutation_title',
+
       stop: function(event) {
         savePosition(refutation_id, $(`#${refutation_id}`).position());
       }
@@ -233,7 +245,9 @@ jsPlumb.ready(function() {
         endpoint: "Dot",
         anchor: "TopLeft",
         isSource: true,
-        connectionType: "red-connection"
+        connectionType: "red-connection",
+        paintStyle: { fill: "#456", radius: 10 },
+        endpointHoverStyle: { fill: "red", radius: 15 }
       });
     }
 
@@ -271,13 +285,15 @@ jsPlumb.ready(function() {
           endpoint: "Dot",
           anchor: "RightMiddle",
           isTarget: true,
-          connectionType: "red-connection"
+          connectionType: "red-connection",
+          paintStyle: { fill: "#95c4d6", radius: 15 }
         })
         jsPlumb.addEndpoint(`${ref_conclusion_id}`, {
           endpoint: "Dot",
           anchor: "LeftMiddle",
           isTarget: true,
-          connectionType: "red-connection"
+          connectionType: "red-connection",
+          paintStyle: { fill: "#95c4d6", radius: 15 }
         })
 
         const ref_reasons_of_ref_conclusion = document.querySelectorAll(`.ref_reason_of_${ref_conclusion_id}`);
@@ -300,6 +316,7 @@ jsPlumb.ready(function() {
             anchor: "Center",
             isTarget: true,
             connectionType: "red-connection",
+            paintStyle: { fill: "#95c4d6", radius: 15 }
           })
 
           jsPlumb.connect({
@@ -317,13 +334,15 @@ jsPlumb.ready(function() {
             endpoint: "Dot",
             anchor: "RightMiddle",
             isTarget: true,
-            connectionType: "red-connection"
+            connectionType: "red-connection",
+            paintStyle: { fill: "#95c4d6", radius: 15 }
           })
           jsPlumb.addEndpoint(`${ref_reason_id}`, {
             endpoint: "Dot",
             anchor: "LeftMiddle",
             isTarget: true,
-            connectionType: "red-connection"
+            connectionType: "red-connection",
+            paintStyle: { fill: "#95c4d6", radius: 15 }
           })
 
           const ref_evidences_of_ref_reason = document.querySelectorAll(`.ref_evidence_of_${ref_reason_id}`);
@@ -346,7 +365,8 @@ jsPlumb.ready(function() {
               endpoint: "Dot",
               anchor: "Center",
               isTarget: true,
-              connectionType: "red-connection"
+              connectionType: "red-connection",
+              paintStyle: { fill: "#95c4d6", radius: 15 }
             })
 
             jsPlumb.connect({
@@ -364,13 +384,15 @@ jsPlumb.ready(function() {
               endpoint: "Dot",
               anchor: "RightMiddle",
               isTarget: true,
-              connectionType: "red-connection"
+              connectionType: "red-connection",
+              paintStyle: { fill: "#95c4d6", radius: 15 }
             })
             jsPlumb.addEndpoint(`${ref_evidence_id}`, {
               endpoint: "Dot",
               anchor: "LeftMiddle",
               isTarget: true,
-              connectionType: "red-connection"
+              connectionType: "red-connection",
+              paintStyle: { fill: "#95c4d6", radius: 15 }
             })
           });
         });
@@ -383,7 +405,7 @@ jsPlumb.ready(function() {
     if (component.hasClass("jtk-connector") && component.sourceId.match(/refutation/)) {
       event.preventDefault();
       window.selectedConnection = component;
-      $("<div class='custom-menu'><button class='delete-connection'>Delete connection</button></div>")
+      $("<div class='custom-menu'><button class='delete-connection'>接続線を削除する</button></div>")
         .appendTo("body")
         .css({top: event.pageY + "px", left: event.pageX + "px"});
     }
@@ -403,6 +425,17 @@ jsPlumb.ready(function() {
     if (info.connection.sourceId.match(/refutation/)) {
       saveOpinionConnections(info.connection);
     }
+  });
+
+  // 新たな意見間の接続線が追加された時､リロードを実行する
+  jsPlumb.bind("beforeDrop", function(info) {
+      location.reload();
+      return true;
+  });
+
+  // 意見間の接続線の接続先が変更された時､リロードを実行する
+  jsPlumb.bind("connectionMoved", function(info){
+    location.reload();
   });
 
   // 意見間の接続線が削除されたとき､その接続線の接続情報をopinion_connectionテーブルから削除する

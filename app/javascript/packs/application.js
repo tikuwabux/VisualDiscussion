@@ -17,3 +17,12 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 require("jquery")
 require("@nathanvda/cocoon")
+
+document.addEventListener('turbolinks:load', function () {
+  const ham = $('#js-hamburger');
+  const nav = $('#js-nav');
+  ham.on('click', function () {
+    ham.toggleClass('active');
+    nav.toggleClass('active');
+  });
+});

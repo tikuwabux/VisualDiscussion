@@ -5,7 +5,7 @@
       <div class="rebuttal_target_argument" id="argument<%= @rebuttal_target_conclusion.id %>">
         <h3 class="argument_title">反論対象の主張</h3>
         <div class="tree_structure">
-          <div class="conclusion box" id="conclusion<%= @rebuttal_target_conclusion.id %>">
+          <div class="conclusion box rebuttal_target_argument_conclusion" id="conclusion<%= @rebuttal_target_conclusion.id %>">
             <h3>結論</h3>
             <div class="inner">
               <%= @rebuttal_target_conclusion.conclusion_summary %>
@@ -51,7 +51,7 @@
       <div class="rebuttal_target_refutation" id="refutation<%= @rebuttal_target_ref_conclusion.id %>">
         <h3 class="refutation_title">反論対象の反論</h3>
         <div class="ref_tree_structure">
-          <div class="ref_conclusion ref_box" id="ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>">
+          <div class="ref_conclusion ref_box rebuttal_target_refutation_conclusion" id="ref_conclusion<%= @rebuttal_target_ref_conclusion.id %>">
             <h3>結論</h3>
             <div class="inner">
               <%= @rebuttal_target_ref_conclusion.ref_conclusion_summary %>
@@ -129,7 +129,7 @@
           </div>
 
           <div>
-            <%= ref_conclusion_form.button "反論を編集する", type: 'button', onclick: 'submit();' %>
+            <%= ref_conclusion_form.button "編集を完了する", type: 'button', onclick: 'submit();' %>
           </div>
         </div>
       <% end %>
