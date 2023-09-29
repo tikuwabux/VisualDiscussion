@@ -241,3 +241,8 @@ https://github.com/tikuwabux/VisualDiscussion/assets/111355072/3b8c96bd-d162-48a
 ## 本アプリの仕様決定において参考にしたサイト
 https://www.ritsumei.ac.jp/ir/ir-navi/technic/technic06.html/
 
+## 本アプリについてのアンケートご協力のお願い
+ぜひ、みなさまの率直なご意見・ご感想をお聞かせください
+https://docs.google.com/forms/d/e/1FAIpQLSfPxwXMTkELpC-8rxKPFIP0PjNZtbZKfb4pXC2SMVrtSMo_Kw/viewform
+
+
