@@ -1,7 +1,9 @@
 # アプリ詳細
 
 ## アプリurl
-https://visual-discussion.herokuapp.com
+~~https://visual-discussion.herokuapp.com~~
+→
+現在サービス停止中です｡
 
 ## アプリ名
 Visual Discussion (略称: Visu Disu)
